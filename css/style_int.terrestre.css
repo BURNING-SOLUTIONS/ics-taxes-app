@@ -1,0 +1,280 @@
+
+@media screen{
+   #int_terrestre {
+     
+      padding: 1rem;
+      margin: 1rem -15px 0;
+      border: solid  #f7f7f9;
+      border-width: .2rem;
+    }
+
+#int_terrestre .div_1{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#int_terrestre .div_1 .div_tarifa{
+    background-color: lightgray !important;
+  
+}
+
+
+
+#int_terrestre .div_1 .div_tarifa p{
+    margin: auto;
+    font-weight: bold;
+    padding: 10px;   
+    text-align: left;     
+}
+
+#int_terrestre .div_1 .div_name_cliente p{
+    text-align: left;
+    margin-left: 15%;
+    padding: 10px;     
+    margin-top: 5px; 
+    margin-bottom: 5px;   
+}
+
+
+
+#int_terrestre .div_2{
+    margin-top: 5px;
+    margin-bottom: 5px;  
+}
+
+#int_terrestre .div_2 .div_int{      
+    background-color:  dimgray !important; 
+    margin-top: 5px; 
+   margin-bottom: 5px;  
+}
+
+#int_terrestre .div_2 .div_parrafo p{ 
+   text-align: left;
+   margin-top: 5px; 
+   margin-bottom: 5px; 
+   padding: 1px;  
+   font-weight: bold;    
+}
+
+#int_terrestre .div_2 .div_int p{
+    
+    padding: 10px;
+    color: white !important;
+    font-weight: bold;
+    margin-top: 5px; 
+    margin-bottom: 5px; 
+}
+
+
+#table_int_terrestre{   
+    color: black;
+     margin-top: 5px; 
+    margin-bottom: 5px;
+    padding: 5 px;
+    font-weight: normal;   
+}
+
+#table_int_terrestre td{
+    border: solid 1px black;
+    text-align: center;
+}
+
+#table_int_terrestre th{
+    text-align: right;
+    font-weight: normal;     
+}
+
+#table_int_terrestre .td_zona_0{
+    border: none;
+}
+
+#table_int_terrestre .td_zona{
+    background-color: dimgray !important;
+    font-weight: bold;
+    color: white !important;
+}
+
+#table_int_terrestre .td_first{
+    font-weight: bold;   
+}
+
+#int_terrestre .div_contact{
+    background-color: lightgray !important;
+    font-weight: bold;
+    margin-top: 45px;  
+    
+}
+#int_terrestre .div_message{
+    font-weight: normal;
+    margin-top: 1px; 
+    
+}
+
+#int_terrestre .div_message p,
+#int_terrestre .div_contact p{
+    text-align: center;
+       font-weight: bold;
+}
+
+
+#int_terrestre .div_contact p{
+    padding: 2px;
+    color: black !important;
+ 
+    margin-top: 2px; 
+    margin-bottom: 5px; 
+}
+
+ .div_btn_function{
+       text-align: left;
+       margin-left: 88%;
+       padding: 1px;
+       margin-bottom: 2px;
+       margin-bottom: 2px;
+     
+     }
+
+}
+
+@media print {
+      #int_terrestre {
+     
+      padding: 1rem;
+      margin: 1rem -15px 0;
+      border: solid  #f7f7f9;
+      border-width: .2rem;
+    }
+
+#int_terrestre .div_1{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#int_terrestre .div_1 .div_tarifa{
+    background-color: lightgray !important;
+    -webkit-print-color-adjust: exact;
+     color-adjust: exact;
+         
+}
+
+
+#int_terrestre .div_1 .div_tarifa p{
+    margin: auto;
+    font-weight: bold;
+    padding: 10px;   
+    text-align: left;     
+}
+
+#int_terrestre .div_1 .div_name_cliente p{
+    text-align: left;
+    margin-left: 15%;
+    padding: 10px;     
+    margin-top: 5px; 
+    margin-bottom: 5px;   
+}
+
+
+
+#int_terrestre .div_2{
+    margin-top: 5px;
+    margin-bottom: 5px;  
+}
+
+#int_terrestre .div_2 .div_int{      
+    background-color:  dimgray !important; 
+    -webkit-print-color-adjust: exact; 
+     color-adjust: exact;
+    margin-top: 5px; 
+   margin-bottom: 5px;  
+}
+
+#int_terrestre .div_2 .div_parrafo p{ 
+   text-align: left;
+   margin-top: 5px; 
+   margin-bottom: 5px; 
+   padding: 1px;  
+   font-weight: bold;    
+}
+
+#int_terrestre .div_2 .div_int p{
+    
+    padding: 10px;
+    color: white !important;
+    -webkit-print-color-adjust: exact; 
+     color-adjust: exact;
+    font-weight: bold;
+    margin-top: 5px; 
+    margin-bottom: 5px; 
+}
+
+
+#table_int_terrestre{   
+    color: black;
+     margin-top: 5px; 
+    margin-bottom: 5px;
+    padding: 5 px;
+    font-weight: normal;   
+}
+
+#table_int_terrestre td{
+    border: solid 1px black;
+    text-align: center;
+}
+
+#table_int_terrestre th{
+    text-align: right;
+    font-weight: normal;     
+}
+
+#table_int_terrestre .td_zona_0{
+    border: none;
+}
+
+#table_int_terrestre .td_zona{
+    background-color: dimgray !important;
+    -webkit-print-color-adjust: exact; 
+     color-adjust: exact;
+    font-weight: bold;
+    color: white !important;
+}
+
+#table_int_terrestre .td_first{
+    font-weight: bold;   
+}
+
+#int_terrestre .div_contact{
+    background-color: lightgray !important;
+    -webkit-print-color-adjust: exact; 
+     color-adjust: exact;
+    font-weight: bold;
+    margin-top: 45px;  
+    
+}
+#int_terrestre .div_message{
+    font-weight: normal;
+    margin-top: 1px; 
+    
+}
+
+#int_terrestre .div_message p,
+#int_terrestre .div_contact p{
+    text-align: center;
+       font-weight: bold;
+}
+
+
+#int_terrestre .div_contact p{
+    padding: 2px;
+    color: black !important;
+ 
+    margin-top: 2px; 
+    margin-bottom: 5px; 
+}
+
+}
+
+
+
+
+
+

@@ -1,0 +1,173 @@
+@media screen{
+
+     #servicio_aéreo_2 {
+      position: relative;
+      padding: 1rem;
+      margin: 1rem -15px 0;
+      border: solid  #f7f7f9;
+      border-width: .2rem;
+    }
+
+#servicio_aéreo_2 .div_1{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#servicio_aéreo_2 .div_1 .div_tarifa{
+    background-color: lightgray !important;
+        
+}
+#servicio_aéreo_2 .div_1 .div_tarifa p{
+    margin: auto;
+    font-weight: bold;
+    padding: 10px;   
+    text-align: left;     
+}
+
+#servicio_aéreo_2 .div_1 .div_name_cliente p{
+    text-align: left;
+    margin-left: 15%;
+    padding: 10px;     
+    margin-top: 5px; 
+    margin-bottom: 5px;   
+    font-weight: normal;
+}
+
+#servicio_aéreo_2 p{
+    clear:left;
+    text-align: left;
+    font-weight: bold;  
+}
+
+#table_serv_aereos_2{   
+    color: black;
+    margin: 2px;
+    padding: 2 px;
+    font-weight: normal;   
+}
+
+#table_serv_aereos_2 td{
+    border: solid 1px black;
+    text-align: center;
+}
+
+#table_serv_aereos_2 th{
+    text-align: right;
+    font-weight: normal;     
+}
+
+#table_serv_aereos_2 .tr_1{
+    background-color: dimgray !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+#table_serv_aereos_2 .tr_2{  
+    font-weight: bold;
+    text-align: justify;
+}
+
+#table_serv_aereos_2 .tr_blanco td {  
+      padding: 15px;
+      border: none;   
+}
+#table_serv_aereos_2 .tr_final .td_1,
+#table_serv_aereos_2 .tr_antepenultimo .td_1 {        
+      font-weight: bold;   
+}
+
+ .div_btn_function{
+       text-align: left;
+       margin-left: 88%;
+       padding: 1px;
+       margin-bottom: 2px;
+       margin-bottom: 2px;
+     
+     }
+
+}
+
+@media print{
+  #servicio_aéreo_2 {
+      position: relative;
+      padding: 1rem;
+      margin: 1rem -15px 0;
+      border: solid  #f7f7f9;
+      border-width: .2rem;
+    }
+
+#servicio_aéreo_2 .div_1{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#servicio_aéreo_2 .div_1 .div_tarifa{
+    background-color: lightgray !important;
+     -webkit-print-color-adjust: exact; 
+     color-adjust: exact;
+        
+}
+#servicio_aéreo_2 .div_1 .div_tarifa p{
+    margin: auto;
+    font-weight: bold;
+    padding: 10px;   
+    text-align: left;     
+}
+
+#servicio_aéreo_2 .div_1 .div_name_cliente p{
+    text-align: left;
+    margin-left: 15%;
+    padding: 10px;     
+    margin-top: 5px; 
+    margin-bottom: 5px;   
+}
+
+#servicio_aéreo_2 p{
+    clear:left;
+    text-align: left;
+    font-weight: bold;  
+}
+
+#table_serv_aereos_2{   
+    color: black;
+    margin: 2px;
+    padding: 2 px;
+    font-weight: normal;   
+}
+
+#table_serv_aereos_2 td{
+    border: solid 1px black;
+    text-align: center;
+}
+
+#table_serv_aereos_2 th{
+    text-align: right;
+    font-weight: normal;     
+}
+
+#table_serv_aereos_2 .tr_1{
+    background-color: dimgray !important;
+     -webkit-print-color-adjust: exact; 
+     color-adjust: exact;
+    color: white !important;
+    font-weight: bold;
+}
+
+#table_serv_aereos_2 .tr_2{  
+    font-weight: bold;
+    text-align: justify;
+}
+
+#table_serv_aereos_2 .tr_blanco td {  
+      padding: 15px;
+      border: none;   
+}
+#table_serv_aereos_2 .tr_final .td_1,
+#table_serv_aereos_2 .tr_antepenultimo .td_1 {        
+      font-weight: bold;   
+}
+
+}
+
+
+

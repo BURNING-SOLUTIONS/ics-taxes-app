@@ -1,0 +1,15 @@
+#tabla1{
+    background-color:  red ;
+     -webkit-print-color-adjust: exact; 
+     border: 1px solid black;
+     border-collapse: collapse;
+}
+
+h1 {
+  color: mediumvioletred;
+  background-color: cornflowerblue ;
+   -webkit-print-color-adjust: exact; 
+  border: solid 5px black;
+
+}
+

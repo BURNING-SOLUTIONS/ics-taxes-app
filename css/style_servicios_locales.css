@@ -1,0 +1,253 @@
+
+@media screen{
+
+        ul#reportListAvailable li.selected{
+          background: #3949ab;
+          color: white;
+        }
+
+        title{
+          display:none;
+        }
+
+        .bd-example {
+            padding: 1.5rem;
+            margin-right: 0;
+            margin-left: 0;
+            border-width: .2rem;
+        }
+        
+        td input{
+          border:1px solid white !important;
+        }
+
+        .bd-example {
+            position: relative;
+            padding: 1rem;
+            margin: 1rem -15px 0;
+            border: solid #f7f7f9;
+            border-width: .2rem .2rem .2rem;
+        }
+
+        .bd-example.console .h6,.h5,.h4,.h3,.h2,.h1 {
+            color: #E1E5EC;
+            font-weight: 500;
+            font-size: 13px
+        }
+
+        .table.services-table td, .table th {
+            padding: 8px;           
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        table tbody tr td{
+          align-items: right;
+          text-align: right;
+        }
+
+        table.services-table thead tr th.service-header{
+            width:15%; 
+            height: 3px; 
+            background-color: #4fc3f7; 
+            color: white;
+            font-weight: 500;
+            padding-left: 38px;
+        }
+
+        .bd-example.console .h6 span {
+            color: white;
+            font-weight: 400;
+            font-size: 13px;
+        }
+
+        h4, h5, h6.description-column-element{
+            background-color: #9E9E9E; 
+            color: white; 
+            padding: 4px;
+            padding-left: 29%;
+            font-size: 17px;
+        }   
+        .td_title_descripcion{
+        position: relative; 
+        background-color: gray;
+
+        color: white;    
+        font-weight: bold; 
+        text-align: center;
+        }
+
+        /* da estilo a la descripcion del servicio*/
+      .td_content_descripcion{
+        color: black; 
+        font-weight: normal;     
+        margin: 1px;
+        padding: 1px;
+     } 
+
+
+      #servicios_locales_moto .th_2{
+          background-color: #9E9E9E;
+           width:60%;
+      }
+     
+     #servicios_locales_moto_1 .th_2{
+       background-color: #9E9E9E;
+     }  
+     
+      #servicios_locales_moto_1 .td_r_f{
+        /*align-items:left;
+        text-align:left;*/
+        background-color: #4fc3f7 ;       
+        font-weight: bold;
+        color: white ;         
+     } 
+
+     .div_btn_function{
+       text-align: right;
+       /*padding: 1px;*/
+       margin-bottom: 2px;
+       margin-bottom: 2px;
+     
+     }
+     .div_title{
+       margin-top: 2px;
+       margin-bottom: 2px ;    
+     }
+}
+
+@media print{    
+
+        .bd-example {
+            padding: 1.5rem;
+            margin-right: 0;
+            margin-left: 0;
+            border-width: .2rem;
+        }
+        
+        td input{
+          border:1px solid white !important;
+        }
+
+        p.centered{
+          margin-left: 45%;         
+        }
+
+        .bd-example {
+            position: relative;
+            padding: 1rem;
+            margin: 1rem -15px 0;
+            border: solid #f7f7f9;
+            border-width: .2rem .2rem .2rem;
+        }
+
+        .bd-example.console .h6,.h5,.h4,.h3,.h2,.h1 {
+            color: #E1E5EC;
+            font-weight: 500;
+            font-size: 13px
+        }
+
+        .table.services-table td, .table th {
+            padding: 8px;
+           
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        table tbody tr td{
+          align-items: right;
+          text-align: right;
+        }
+
+        table.services-table thead tr th.service-header{
+            width:15%; 
+            height: 3px; 
+            color: white !important;
+            background-color: #4fc3f7 !important; 
+            -webkit-print-color-adjust: exact; 
+            color-adjust: exact;            
+            font-weight: 500;
+            padding-left: 38px;
+        }
+
+        .bd-example.console .h6 span {
+            color: white !important;
+            font-weight: 400;
+            font-size: 13px;
+        }
+
+        h4, h5, h6.description-column-element{
+            background-color: #4fc3f7 !important; 
+            -webkit-print-color-adjust: exact; 
+           color-adjust: exact;
+            color: white !important; 
+            padding: 4px;
+            padding-left: 29%;
+            font-size: 17px;
+        } 
+
+         #servicios_locales_moto .th_2{
+          background-color: #4fc3f7 !important;
+          -webkit-print-color-adjust: exact; 
+           color-adjust: exact;
+           width:60%;
+      }
+
+        #servicios_locales_moto_1 .th_2{
+       background-color: #4fc3f7 !important;
+       -webkit-print-color-adjust: exact; 
+       color-adjust: exact;
+     } 
+
+      #servicios_locales_moto_1 .td_r_f{
+        /*align-items:left;
+        text-align:left;*/
+        background-color: #4fc3f7 !important;
+        -webkit-print-color-adjust: exact; 
+        color-adjust: exact;
+        font-weight: bold;
+        color: white !important;   
+       
+     } 
+
+        .td_title_descripcion{
+        position: relative; 
+        background-color: gray !important;
+        -webkit-print-color-adjust: exact; 
+        color-adjust: exact;
+        color: white !important;    
+        font-weight: bold; 
+        text-align: center;
+        }
+
+        /* da estilo a la descripcion del servicio*/
+      .td_content_descripcion{
+        color: black; 
+        font-weight: normal;     
+        margin: 1px;
+        padding: 1px;
+     } 
+
+     h3#codeClientLocal{
+        margin-left: 35%
+     }
+
+      .card-body{
+       position: relative; top: 0px;
+     }
+     .card-body-1{
+       position: relative; top: 150px
+     }  
+     .card-body-2{
+       position: relative; top: 390px
+     }
+}
+
+
+ 
+
+
+
+
+ 
+   
+
+

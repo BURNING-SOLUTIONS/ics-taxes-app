@@ -1,0 +1,229 @@
+@media screen{
+ #servicio_nacional {
+     
+      padding: 1rem;
+      margin: 1rem -15px 0;
+      border: solid  #f7f7f9;
+      border-width: .2rem;
+}
+
+#servicio_nacional .div_1{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#servicio_nacional .div_1 .div_tarifa{
+    background-color: #4fc3f7  !important;
+        
+}
+#servicio_nacional .div_1 .div_tarifa p{
+    margin: auto;
+    font-weight: bold;
+    padding: 10px;   
+    text-align: left; 
+ 
+}
+
+#servicio_nacional .div_1 .div_name_cliente p{
+    text-align: left;
+    margin-left: 15px;
+    padding: 10px;     
+    margin-top: 3px;
+    margin-bottom: 3px; 
+   text-decoration: underline; 
+   font-weight: bold;   
+}
+
+.table_servicios_nacionales{
+    color: black;
+     margin-top: 35px;
+    margin-bottom: 5px;
+    padding: 50 px;
+    font-weight: normal; 
+    text-align: center;
+}
+
+.table_servicios_nacionales .tr_1 .td_blue{
+    text-align: center;
+    padding: 5px;
+    border-bottom:solid 2px #4fc3f7 ;
+    border-top:solid 2px #4fc3f7 ;   
+}
+
+.table_servicios_nacionales .tr_1 .td_gray{
+    background-color: #4fc3f7 ;
+    color: white;
+    font-weight: bold;
+    border-left:solid 2px black ;
+    
+}
+
+.table_servicios_nacionales .tr_1 .td_7{
+    border-left:solid 2px #4fc3f7 ;
+}
+.table_servicios_nacionales .tr_1 .td_2{
+    border-right:solid 2px #4fc3f7 ;    
+}
+
+.table_servicios_nacionales .tr_2 .td_1{
+    background-color: #4fc3f7;
+    text-align: left;
+    padding: 1px;
+    margin-right: 55px;
+}
+
+.table_servicios_nacionales td{
+    text-align: center;    
+
+}
+
+.table_servicios_nacionales .td_1{
+    font-weight: bold;
+    background-color: lightgray;
+    color: black;
+    padding: 1px;
+}
+.table_servicios_nacionales  .td_content{
+    border-bottom:solid 2px black ;
+    border-top:solid 2px black;    
+}
+
+.table_servicios_nacionales .td_content_1{
+   border-left:solid 2px black ;
+}
+
+.table_servicios_nacionales .td_content_4{
+    border-right:solid 2px black ;    
+}
+
+.table_servicios_nacionales{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#servicio_nacional .div_contact p{
+    padding: 1px;
+    margin-top: 2px;
+    margin-bottom: 2px; 
+    font-weight: bold;
+    background-color: #4fc3f7;
+}
+
+#servicio_nacional .div_message{
+    font-weight: bold;
+    margin-top: 20px; 
+    text-align: center;
+}
+
+}
+
+
+@media print{
+ #servicio_nacional {
+     
+      padding: 1rem;
+      margin: 1rem -15px 0;
+      border: solid  #f7f7f9 !important;
+      border-width: .2rem;
+}
+
+#servicio_nacional .div_1{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#servicio_nacional .div_1 .div_tarifa{
+    background-color: #4fc3f7  !important;
+    -webkit-print-color-adjust: exact; 
+     color-adjust: exact;        
+}
+#servicio_nacional .div_1 .div_tarifa p{
+    margin: auto;
+    font-weight: bold;
+    padding: 10px;   
+    text-align: left; 
+ 
+}
+
+#servicio_nacional .div_1 .div_name_cliente p{
+    text-align:right;
+    margin-left: 15%;
+    padding: 10px;     
+    margin-top: 5px; 
+    margin-bottom: 5px;  
+   text-decoration: underline; 
+   font-weight: bold;   
+}
+
+.table_servicios_nacionales{
+    color: black !important;
+     margin-top: 5px; 
+    margin-bottom: 5px;
+    padding: 5 px;
+    font-weight: normal; 
+    text-align: center;
+}
+
+.table_servicios_nacionales .tr_1 .td_blue{
+    text-align: center;
+    padding: 5px;
+    border-bottom:solid 2px #4fc3f7 !important;
+    border-top:solid 2px #4fc3f7 !important;   
+}
+
+.table_servicios_nacionales .tr_1 .td_gray{
+    background-color: #4fc3f7 !important ;
+    color: white !important;
+    -webkit-print-color-adjust: exact; 
+     color-adjust: exact;
+    font-weight: bold;
+     border-left:solid 2px black ; 
+}
+
+.table_servicios_nacionales .tr_1 .td_7{
+    border-left:solid 2px #4fc3f7 ;
+}
+.table_servicios_nacionales .tr_1 .td_2{
+    border-right:solid 2px #4fc3f7 !important ;    
+}
+
+.table_servicios_nacionales .tr_2 .td_1{
+    background-color: #4fc3f7 !important;
+    -webkit-print-color-adjust: exact; 
+     color-adjust: exact;
+    text-align: left;
+    padding: 1px;
+    margin-right: 55px;
+}
+
+.table_servicios_nacionales td{
+    text-align: center;    
+}
+
+.table_servicios_nacionales .td_1{
+    font-weight: bold;
+    background-color: lightgray !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact; 
+     color-adjust: exact;
+    padding: 5px;
+}
+.table_servicios_nacionales  .td_content{
+    border-bottom:solid 2px black ;
+    border-top:solid 2px black;    
+}
+
+.table_servicios_nacionales .td_content_1{
+   border-left:solid 2px black ;
+}
+
+.table_servicios_nacionales .td_content_4{
+    border-right:solid 2px black ;    
+}
+
+.table_servicios_nacionales{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+}

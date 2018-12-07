@@ -1,0 +1,1 @@
+var html = " <h1>Tarifa de Carga</h1> ";

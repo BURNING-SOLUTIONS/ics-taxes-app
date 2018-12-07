@@ -1,0 +1,335 @@
+@media screen{
+ #servicio_insular {
+     
+      padding: 1rem;
+      margin: 1rem -15px 0;
+      border: solid  #f7f7f9;
+      border-width: .2rem;
+}
+
+#servicio_insular .div_1{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#servicio_insular .div_1 .div_tarifa{
+    background-color: #4fc3f7  !important;    
+    width: 15.8%;
+        
+}
+#servicio_insular .div_1 .div_tarifa p{
+    margin: auto;
+    font-weight: bold;
+    padding: 5px;   
+    text-align: center;
+ 
+}
+
+#servicio_insular .div_1 .div_name_cliente{
+    width: 84.2%;
+}
+
+#servicio_insular .div_1 .div_name_cliente p{
+    text-align: center;    
+    padding: 5px;     
+    margin-top: 3px;
+    margin-bottom: 3px; 
+   text-decoration: underline; 
+   font-weight: bold;   
+}
+
+table{
+    margin-bottom: 80px;
+}
+
+.table_servicios_insulares{
+    color: black;
+     margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 50 px;
+    font-weight: normal; 
+    text-align: center;
+    
+}
+
+
+.table_servicios_insulares .tr_1 .td_blue{
+    text-align: center;
+    padding: 5px;
+    border:solid 2px #4fc3f7 ;
+    font-weight: bold;     
+}
+
+.table_servicios_insulares .tr_2 .td_blue_1{
+    text-align: center;
+    padding: 5px;
+    border-bottom:solid 2px #4fc3f7 ;
+    border-left:solid 2px #4fc3f7 ;
+    border-top:solid 2px #4fc3f7 ; 
+    font-weight: bold;  
+}
+
+.table_servicios_insulares .tr_2 .td_blue_2{
+    text-align:center;
+    padding: 5px;
+    border-bottom:solid 2px #4fc3f7 ;
+     border-right:solid 2px #4fc3f7 ;
+    border-top:solid 2px #4fc3f7 ;  
+    font-weight: bold; 
+}
+
+
+.table_servicios_insulares .tr_2 .td_gray{
+    background-color: #4fc3f7 !important;
+    color: white;
+    font-weight: bold;
+    border-left:solid 2px black ;    
+}
+
+.table_servicios_insulares .tr_3 .td_1{
+    background-color: #4fc3f7 !important;
+    color: white !important;
+    text-align: center;
+    padding: 1px;
+}
+
+.table_servicios_insulares .tr_3 .td_2{
+    background-color: #4fc3f7 !important;   
+}
+
+.table_servicios_insulares td{
+    text-align: center;
+    }
+
+.table_servicios_insulares .td_1{
+    font-weight: bold;
+    background-color: lightgray !important;
+    color: black;
+    padding: 1px;
+}
+.table_servicios_insulares  .td_content{
+    border-bottom:solid 2px black ;
+    border-top:solid 2px black;    
+}
+
+.table_servicios_insulares .td_content_1{
+   border-left:solid 2px black ;
+}
+
+.table_servicios_insulares .td_content_5{
+    border-right:solid 2px black ;    
+}
+
+.table_servicios_insulares  .td_blue_3{
+     background-color: #4fc3f7  !important;  
+}
+
+.table_servicios_insulares{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#servicio_insular .div_contact_1 p{
+    padding: 1px;
+    margin-top: 2px;
+    margin-bottom: 2px; 
+    font-weight: bold;
+    background-color: #4fc3f7 !important;
+}
+
+#servicio_insular .div_contact_2 a{
+    padding-right: 55px;
+    padding-left: 55px;
+    margin-top: 2px;
+    margin-bottom: 2px; 
+    font-weight: normal;
+    color: blue !important;
+    background-color: #4fc3f7 !important;
+    text-decoration: underline;    
+}
+
+#servicio_insular .div_message{
+    font-weight: bold;
+    margin-top: 2px; 
+    text-align: center;
+}
+
+}
+
+
+@media print{
+ #servicio_insular {
+     
+      padding: 1rem;
+      margin: 1rem -15px 0;
+      border: solid  #f7f7f9;
+      border-width: .2rem;
+}
+
+#servicio_insular .div_1{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#servicio_insular .div_1 .div_tarifa{
+    background-color: #4fc3f7  !important; 
+     -webkit-print-color-adjust: exact; 
+     color-adjust: exact;       
+    width: 15.8%;
+        
+}
+#servicio_insular .div_1 .div_tarifa p{
+    margin: auto;
+    font-weight: bold;
+    padding: 5px;   
+    text-align: center;
+ 
+}
+
+#servicio_insular .div_1 .div_name_cliente{
+    width: 84.2%;
+}
+
+#servicio_insular .div_1 .div_name_cliente p{
+    text-align: center;    
+    padding: 5px;     
+    margin-top: 3px;
+    margin-bottom: 3px; 
+   text-decoration: underline; 
+   font-weight: bold;   
+}
+
+table{
+    margin-bottom: 80px;
+}
+
+.table_servicios_insulares{
+    color: black;
+     margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 50 px;
+    font-weight: normal; 
+    text-align: center;
+    
+}
+
+
+.table_servicios_insulares .tr_1 .td_blue{
+    text-align: center;
+    padding: 5px;
+    border:solid 2px #4fc3f7 ;
+    font-weight: bold;     
+}
+
+.table_servicios_insulares .tr_2 .td_blue_1{
+    text-align: center;
+    padding: 5px;
+    border-bottom:solid 2px #4fc3f7 ;
+    border-left:solid 2px #4fc3f7 ;
+    border-top:solid 2px #4fc3f7 ; 
+    font-weight: bold;  
+}
+
+.table_servicios_insulares .tr_2 .td_blue_2{
+    text-align:center;
+    padding: 5px;
+    border-bottom:solid 2px #4fc3f7 ;
+     border-right:solid 2px #4fc3f7 ;
+    border-top:solid 2px #4fc3f7 ;  
+    font-weight: bold; 
+}
+
+
+.table_servicios_insulares .tr_2 .td_gray{
+    background-color: #4fc3f7 !important;
+     -webkit-print-color-adjust: exact; 
+     color-adjust: exact;    
+    color: white;
+    font-weight: bold;
+    border-left:solid 2px black ;    
+}
+
+.table_servicios_insulares .tr_3 .td_1{
+    background-color: #4fc3f7 !important;
+     -webkit-print-color-adjust: exact; 
+     color-adjust: exact;    
+    color: white;
+    text-align: center;
+    padding: 1px;
+}
+
+.table_servicios_insulares .tr_3 .td_2{
+    background-color: #4fc3f7 !important;   
+     -webkit-print-color-adjust: exact; 
+     color-adjust: exact;    
+}
+
+.table_servicios_insulares td{
+    text-align: center;
+    }
+
+.table_servicios_insulares .td_1{
+    font-weight: bold;
+    background-color: lightgray !important;
+     -webkit-print-color-adjust: exact; 
+     color-adjust: exact;    
+    color: black;
+    padding: 1px;
+}
+.table_servicios_insulares  .td_content{
+    border-bottom:solid 2px black ;
+    border-top:solid 2px black;    
+}
+
+.table_servicios_insulares .td_content_1{
+   border-left:solid 2px black ;
+}
+
+.table_servicios_insulares .td_content_5{
+    border-right:solid 2px black ;    
+}
+
+.table_servicios_insulares  .td_blue_3{
+     background-color: #4fc3f7  !important; 
+      -webkit-print-color-adjust: exact; 
+     color-adjust: exact;     
+}
+
+.table_servicios_insulares{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#servicio_insular .div_contact_1 p{
+    padding: 1px;
+    margin-top: 2px;
+    margin-bottom: 2px; 
+    font-weight: bold;
+    background-color: #4fc3f7 !important;
+     -webkit-print-color-adjust: exact; 
+     color-adjust: exact;    
+}
+
+#servicio_insular .div_contact_2 a{
+    padding-right: 55px;
+    padding-left: 55px;
+    margin-top: 2px;
+    margin-bottom: 2px; 
+    font-weight: normal;
+    color: blue !important;
+    background-color: #4fc3f7 !important;
+     -webkit-print-color-adjust: exact; 
+     color-adjust: exact;    
+    text-decoration: underline;    
+}
+
+#servicio_insular .div_message{
+    font-weight: bold;
+    margin-top: 2px; 
+    text-align: center;
+}
+
+
+}
+
+

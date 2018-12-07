@@ -1,0 +1,52 @@
+.img_title_description{
+    height: 60px;
+}
+
+ td input {
+      border: 1px solid white !important;
+    }
+
+  /*le da forma al div que contiene la tabla dle reporte*/  
+ .bd-example {
+      position: relative;
+      padding: 1rem;
+      /*margin: 1rem -15px 0;*/
+      border: solid  #f7f7f9;
+      border-width: .2rem;
+    }
+    
+    
+    .table.services-table td,
+    .table th {
+      padding: 8px;
+      border-bottom:  1px solid #dee2e6;
+    }
+    
+    /*aline a isquierda todos los tecto d ela celda*/
+    table tbody tr td {
+      align-items: left;
+      text-align: left;
+    }
+         
+    .bd-example.console .h6 span {
+      color: white;
+      font-weight: 400;
+      font-size: 13px;
+    }
+   
+/*da estilo a al titulo d ela descripcion del servicio*/
+ .td_title_descripcion{
+     position: relative; 
+     color: white;    
+     font-weight: bold; 
+      text-align: center
+ }
+
+/* da estilo a la descripcion del servicio*/
+.td_content_descripcion{
+     color: red; 
+     font-weight: normal;     
+     margin: 1px;
+     padding: 1px;
+
+}
