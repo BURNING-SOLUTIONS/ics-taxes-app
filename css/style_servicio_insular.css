@@ -129,23 +129,29 @@ table{
     margin-top: 10px;
 }
 
-#servicio_insular .div_contact_1 p{
+#servicio_insular .div_contact_1 {
     padding: 1px;
     margin-top: 2px;
     margin-bottom: 2px; 
     font-weight: bold;
+    text-align: center;
     background-color: #4fc3f7 !important;
 }
 
-#servicio_insular .div_contact_2 a{
+#servicio_insular .div_contact_2 {
     padding-right: 55px;
     padding-left: 55px;
     margin-top: 2px;
-    margin-bottom: 2px; 
+    margin-bottom: 2px;
+    text-align: center; 
     font-weight: normal;
     color: blue !important;
-    background-color: #4fc3f7 !important;
-    text-decoration: underline;    
+      
+}
+
+#servicio_insular .div_contact_2 a{
+     background-color: #4fc3f7 !important;    
+     text-decoration: underline;    
 }
 
 #servicio_insular .div_message{
@@ -300,27 +306,32 @@ table{
     margin-top: 10px;
 }
 
-#servicio_insular .div_contact_1 p{
+#servicio_insular .div_contact_1 {
     padding: 1px;
     margin-top: 2px;
     margin-bottom: 2px; 
     font-weight: bold;
+    text-align: center;
     background-color: #4fc3f7 !important;
      -webkit-print-color-adjust: exact; 
      color-adjust: exact;    
 }
 
-#servicio_insular .div_contact_2 a{
+#servicio_insular .div_contact_2 {
     padding-right: 55px;
     padding-left: 55px;
     margin-top: 2px;
     margin-bottom: 2px; 
     font-weight: normal;
-    color: blue !important;
-    background-color: #4fc3f7 !important;
+    text-align: center;
+    color: blue !important;    
+}
+
+#servicio_insular .div_contact_2 a{
+     background-color: #4fc3f7 !important;
      -webkit-print-color-adjust: exact; 
-     color-adjust: exact;    
-    text-decoration: underline;    
+     color-adjust: exact;
+     text-decoration: underline;    
 }
 
 #servicio_insular .div_message{

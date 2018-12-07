@@ -110,14 +110,12 @@ $(document).ready(function () {
             }
         })
 
-    $("#div_left_side .closebtn").click(function () {
+     $("#div_left_side .closebtn").click(function () {
         $("#div_pagination").hide();
         $("#reportListAvailable").hide();
-
-        $("#div_left_side").css({ "background-color": "#white", "width": "2%" });
-        $("#div_show_report").attr("class", "col-md-12");
-
-        $("#div_show_report").css({ "margin-left": "5%" });
+        $("#div_left_side").css({ "background-color": "#white", "width": "2%" });       
+       $("#div_show_report").attr("class", "col-md-11");
+        $("#div_show_report").css({ "margin-left": "6.5%" });
         $("#div_left_side .openbtn").show();
     });
 
@@ -125,8 +123,9 @@ $(document).ready(function () {
         $("#div_pagination").show();
         $("#reportListAvailable").show();
         $("#div_left_side").css({ "background-color": "#white", "width": "25%" });
+        $("#div_left_side").attr("class", "col-md-3");
         $("#div_show_report").attr("class", "col-md-9");
-        $("#div_show_report").css({ "margin-left": "25%" });
+        $("#div_show_report").css({ "margin-left": "27%" });
         $("#div_left_side .openbtn").hide();
     });
 
@@ -143,10 +142,10 @@ function Add_Reporte_Paginado(nombre_reporte) {
 
     if (array_nombres_reportes.length == 0) {
 
-        var a = $("<a></a>").text("Previous");
+        var a = $("<a></a>").text("Anterior");
         a.attr({ "class": "page-link", "href": "#" });
         var li = $("<li></li>").append(a);
-        li.attr({ "class": "page-item", "id": "previous" });
+        li.attr({ "class": "page-item", "id": "Siguiente" });
 
         var a1 = $("<a></a>").text("Next");
         a1.attr({ "class": "page-link", "href": "#" });
@@ -163,7 +162,7 @@ function Add_Reporte_Paginado(nombre_reporte) {
     var pos = array_nombres_reportes.length - 1;
     console.log(array_nombres_reportes[pos]);
     /*creo el indice para anadirlo al paginado*/
-    var a = $("<a></a>",{"data-toggle":"tooltip", "data-placement":"top", "title":nombre_reporte, "data-trigger":"hover"}).text(pos + 1);
+    var a = $("<a></a>", { "data-toggle": "tooltip", "data-placement": "top", "title": nombre_reporte, "data-trigger": "hover" }).text(pos + 1);
     a.attr({ "class": "page-link", "href": "#" });
     var li = $("<li></li>").append(a);
     li.attr({ "class": "page-item ", "id": pos });
@@ -185,7 +184,7 @@ function Add_Reporte_Paginado(nombre_reporte) {
         $("#ul_pagination  [id = '" + (pos) + "']").attr("class", "page-item" + "  " + "active");
         Show_Reporte(nombre_reporte);
     }
-    
+
 }
 
 /*Funcion para eliminar al paginado un reporte */
@@ -239,39 +238,64 @@ function Remove_Reporte_Paginado(index) {
     }
 }
 
+/*Funcion para saber si un div esta vacio o no*/
+function Div_Is_Empty($target) {
+    $target = ($target instanceof jQuery) ? $target : $($target);
+    return ($target.length > 0) && !$.trim($target.html());
+};
+
 /*Funcion para anadir dinamicamente e reporte segun lo selecione*/
 function Show_Reporte(nombre_reporte) {
 
-  switch (nombre_reporte) {
+    switch (nombre_reporte) {
+
         case "plantilla":
-            $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/plantilla.html");
+            if (Div_Is_Empty($("#div_show_report [id ='" + nombre_reporte + "']"))) {
+                $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/plantilla.html");
+            }
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
-           // setTimeout(function(){ alert("Se disparo el timer");  $(" #servicios_locales_moto input").val(7); $("#servicios_locales_moto td" ).text("Nueva Dircion"); }, 3000);
             break;
+
         case "servicios_locales":
-            $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/servicios_locales.html");
+            if (Div_Is_Empty($("#div_show_report [id ='" + nombre_reporte + "']"))) {
+                $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/servicios_locales.html");
+            }
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
             break;
+
         case "int_terrestre":
-            $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/Int.Terrestre.html");
+            if (Div_Is_Empty($("#div_show_report [id ='" + nombre_reporte + "']"))) {
+                $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/Int.Terrestre.html");
+            }
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
 
             if (servicio_aereo == "servicio_aéreo_1") {
-                $("#div_show_report [id ='" + servicio_aereo + "']").load("templates/servicio_aéreo_1.html");
+                if (Div_Is_Empty($("#div_show_report #servicio_aéreo_1"))) {
+                    $("#div_show_report [id ='" + servicio_aereo + "']").load("templates/servicio_aéreo_1.html");
+                }
                 $("#servicio_aéreo_1").show();
             } else if (servicio_aereo == "servicio_aéreo_2") {
-                $("#div_show_report [id ='" + servicio_aereo + "']").load("templates/servicio_aéreo_2.html");
+                if (Div_Is_Empty($("#div_show_report #servicio_aéreo_2"))) {
+                    $("#div_show_report [id ='" + servicio_aereo + "']").load("templates/servicio_aéreo_2.html");
+                }
                 $("#servicio_aéreo_2").show();
             }
             break;
+
         case "servicio_nacional":
-            $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/servicio_nacional.html");
+            if (Div_Is_Empty($("#div_show_report [id ='" + nombre_reporte + "']"))) {
+                $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/servicio_nacional.html");
+            }
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
             break;
+
         case "servicio_insular":
-            $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/servicio_insular.html");
+            if (Div_Is_Empty($("#div_show_report [id ='" + nombre_reporte + "']"))) {
+                $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/servicio_insular.html");
+            }
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
             break;
+
         case "tarifa_carga":
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
             break;
@@ -304,8 +328,8 @@ function Hide_Reporte(nombre_reporte) {
     }
 }
 
-function Hide_All_Reporte() {  
-  
+function Hide_All_Reporte() {
+
     $("#div_left_side .openbtn").hide();
     $("#div_action_report").hide();
     $("#div_pagination").show();
