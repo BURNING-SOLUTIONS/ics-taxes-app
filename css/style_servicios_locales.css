@@ -129,7 +129,8 @@
         }
 
         p.centered{
-          margin-left: 45%;         
+          margin-left: 45%;
+                 
         }
 
         .bd-example {
@@ -227,6 +228,7 @@
      } 
 
      h3#codeClientLocal{
+
         margin-left: 35%
      }
 

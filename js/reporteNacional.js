@@ -67,7 +67,6 @@ class IcsReporteNacional {
 
 			drawAditionalFills(adicionales){
 
-				console.warn(adicionales);
 				Object.keys(adicionales).forEach((key)=>{					
 					let asc= adicionales[key].arraySelf.sort(function (a, b) {
 						if (a.desde > b.desde) {
@@ -79,7 +78,8 @@ class IcsReporteNacional {
 							// a must be equal to b
 						return 0;
   					}); 
-					if(asc[asc.length-1]['hasta'] == 999 ){
+
+					if((asc[asc.length-1]['hasta'] == 999) || (asc[asc.length-1]['hasta'] == 9999) ){
 						$(`input#${key}[refid="kg"]`).val(`${(asc[asc.length-1]['precio']).toFixed(2)} € `);
 					}else {
 						$(`input#${key}[refid="kg"]`).val(`${(asc[asc.length-1]['precio']-asc[asc.length-2]['precio'] ).toFixed(2)} € `);

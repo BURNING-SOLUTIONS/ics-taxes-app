@@ -9,7 +9,8 @@ $beautyTarifasBase = array();
 function formattedTarifasSqlResponseBeatuyArray($sqlresponse){
 	$arrayBeauty = array();
 	while($row = sqlsrv_fetch_array( $sqlresponse, SQLSRV_FETCH_ASSOC ) ){		
-		array_push($arrayBeauty, array( 'elemento'=>$row['Ele_Tar'], 
+		array_push($arrayBeauty, array( 'nombre'=>$row['Nom_Cli'],
+										'elemento'=>$row['Ele_Tar'], 
 							  			'precio'=>$row['Precli_Tar'], 
 							  			'desde'=> $row['Desde_Tar'], 
 							  			'hasta'=> $row['Hasta_Tar'],
@@ -36,8 +37,7 @@ if( isset($_POST['id_cliente']) ) {
    
     //consulta numero 1..
 	$getPreciosPorTarifas = $sqlConection->createQuery($conn, "SELECT Nom_Cli,Cod_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar,Hasta_Tar from dbo.clientes inner join dbo.tarifas on  Emp_Cli=Emp_Tar and TarLoc_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']}
-		union Select Nom_Cli, Cod_Cli,TarNac_Cli,Ele_Tar,Precli_Tar ,  Desde_Tar, Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarNac_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} 
-		
+		union Select Nom_Cli, Cod_Cli,TarNac_Cli,Ele_Tar,Precli_Tar ,  Desde_Tar, Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarNac_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} 		
 		union Select Nom_Cli,Cod_Cli, TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar, Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarPrv_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} order by Ele_Tar asc");
 	//consulta numero 2..
 	$getPreciosEspeciales = sqlsrv_query($conn,"SELECT Nom_Cli,Cod_Cli,Ele_Pre, Precli_Pre,Desde_Pre, Hasta_Pre FROM dbo.precios inner join dbo.clientes on Cod_Pre=Cod_Cli 
@@ -85,6 +85,7 @@ if( isset($_POST['id_cliente']) ) {
 		}
 	}//FIN PRIMER BUCLE, EL MASTER
 
+//echo (print_r($beautyTarifasBase));exit();
 	$jsondata['results'] = $beautyTarifasBase;
 
  }
@@ -92,6 +93,7 @@ if( isset($_POST['id_cliente']) ) {
 if(count($jsondata['results']) == 0){
 	$jsondata['status'] = array('ok'=> false, 'message'=> 'Verifique que el cliente insertado es correcto o que pertenezca a la empresa indicada, pues no se han arrojado resultados.');
 }
+
 
 echo json_encode($jsondata, JSON_FORCE_OBJECT);
 exit();

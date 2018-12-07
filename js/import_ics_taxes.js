@@ -188,7 +188,7 @@ $(function () {
 		setReportHeaderNameClient(element){
 			if(element){
 				$('h3#codeClientLocal').empty().html(`Servicios locales: ${this._inputSearchClient.val()} - ${element['nombre']}`);
-				$('h3#codeClientNacional').empty().text(`Servicios Nacionales: ${this._inputSearchClient.val()} - ${element['nombre']}`);
+				$('h3#codeClientNacional').empty().html(`Servicios Nacionales: ${this._inputSearchClient.val()} - ${element['nombre']}`);
 				$('h3#codeClientIntTerrestre').html(`${this._inputSearchClient.val()} - ${element['nombre']}`);
 				$('h3#codeClientIntTerrestre2').html(`${this._inputSearchClient.val()} - ${element['nombre']}`);
 				$('h3#codeClientIntTerrestre3').html(`${this._inputSearchClient.val()} - ${element['nombre']}`);
@@ -221,10 +221,10 @@ $(function () {
 							alert(reportData['status'].message)
 						}else {
 							this.setReportHeaderNameClient(results["0"]);	
+							console.warn(results[0]);
 							let adicionales = {
 								"522":{"id": "522", "arraySelf": []},
 								"501":{"id": "501", "arraySelf": []},
-
 								"840":{"id": "840", "arraySelf": []},
 								"329":{"id": "329", "arraySelf": []},
 								"523":{"id": "523", "arraySelf": []},
