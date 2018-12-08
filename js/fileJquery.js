@@ -113,9 +113,10 @@ $(document).ready(function () {
      $("#div_left_side .closebtn").click(function () {
         $("#div_pagination").hide();
         $("#reportListAvailable").hide();
-        $("#div_left_side").css({ "background-color": "#white", "width": "2%" });       
-       $("#div_show_report").attr("class", "col-md-11");
+        $("#div_left_side").css({ "background-color": "#white", "width": "2%" });      
+       
         $("#div_show_report").css({ "margin-left": "6.5%" });
+        $("#div_show_report").attr("class", "col-md-11");
         $("#div_left_side .openbtn").show();
     });
 

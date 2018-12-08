@@ -1,14 +1,5 @@
 
-@media screen{
-
-        ul#reportListAvailable li.selected{
-          background: #3949ab;
-          color: white;
-        }
-
-        title{
-          display:none;
-        }
+@media screen{        
 
         .bd-example {
             padding: 1.5rem;
@@ -48,7 +39,7 @@
         table.services-table thead tr th.service-header{
             width:15%; 
             height: 3px; 
-            background-color: #4fc3f7; 
+            background-color: #4fc3f7 !important; 
             color: white;
             font-weight: 500;
             padding-left: 38px;
@@ -61,16 +52,16 @@
         }
 
         h4, h5, h6.description-column-element{
-            background-color: #9E9E9E; 
+            background-color: #4fc3f7 !important; 
             color: white; 
             padding: 4px;
             padding-left: 29%;
             font-size: 17px;
-        }   
+        } 
+
         .td_title_descripcion{
         position: relative; 
         background-color: gray;
-
         color: white;    
         font-weight: bold; 
         text-align: center;
@@ -86,33 +77,36 @@
 
 
       #servicios_locales_moto .th_2{
-          background-color: #9E9E9E;
+          background-color:  #4fc3f7 !important; 
            width:60%;
       }
      
      #servicios_locales_moto_1 .th_2{
-       background-color: #9E9E9E;
+       background-color:  #4fc3f7 !important; ;
      }  
      
-      #servicios_locales_moto_1 .td_r_f{
-        /*align-items:left;
-        text-align:left;*/
+      #servicios_locales_moto_1 .td_r_f{       
         background-color: #4fc3f7 ;       
         font-weight: bold;
         color: white ;         
      } 
 
      .div_btn_function{
-       text-align: right;
-       /*padding: 1px;*/
+       text-align: right;      
        margin-bottom: 2px;
-       margin-bottom: 2px;
+       margin-bottom: 2px;     
+     }
      
-     }
-     .div_title{
-       margin-top: 2px;
-       margin-bottom: 2px ;    
-     }
+#servicios_locales .div_contact {
+    padding: 1px;  
+    margin-top: 2px;
+    margin-bottom: 2px; 
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+}
+
+   
 }
 
 @media print{    
@@ -226,11 +220,17 @@
         margin: 1px;
         padding: 1px;
      } 
+  
+   #servicios_locales .div_contact {
+    padding: 1px;  
+    margin-top: 2px;
+    margin-bottom: 2px; 
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;      
+}     
 
-     h3#codeClientLocal{
-
-        margin-left: 35%
-     }
+     
 
       .card-body{
        position: relative; top: 0px;

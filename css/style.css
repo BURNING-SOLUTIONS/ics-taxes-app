@@ -122,3 +122,12 @@ span.fixed-color1{
 #plantilla{
    height: 550px;
 }
+
+ul#reportListAvailable li.selected{
+          background: #3949ab;
+          color: white;
+        }
+
+        title{
+          display:none;
+        }

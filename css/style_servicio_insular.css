@@ -82,8 +82,11 @@ table{
 .table_servicios_insulares .tr_2 .td_gray{
     background-color: #4fc3f7 !important;
     color: white;
-    font-weight: bold;
-    border-left:solid 2px black ;    
+    font-weight: bold;      
+}
+
+.table_servicios_insulares .tr_2 .td_8{
+    border-right: solid 2px black;     
 }
 
 .table_servicios_insulares .tr_3 .td_1{
@@ -251,8 +254,11 @@ table{
      -webkit-print-color-adjust: exact; 
      color-adjust: exact;    
     color: white;
-    font-weight: bold;
-    border-left:solid 2px black ;    
+    font-weight: bold;      
+}
+
+.table_servicios_insulares .tr_2 .td_8{
+    border-right: solid 2px black;     
 }
 
 .table_servicios_insulares .tr_3 .td_1{
