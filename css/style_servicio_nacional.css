@@ -85,6 +85,19 @@
  
 }
 
+#servicio_nacional .div_1 .div_tarifa{
+    background-color: #4fc3f7  !important;    
+    width: 15.8%;
+        
+}
+#servicio_nacional .div_1 .div_tarifa p{
+    margin: auto;
+    font-weight: bold;
+    padding: 5px;   
+    text-align: center;
+ 
+}
+
 #servicio_nacional .div_message{
     font-weight: bold;    
     margin-top: 20px;
@@ -203,4 +216,18 @@ body { margin: 2cm; }
     text-align: center;
 }
 
+}
+#servicio_nacional .div_1 .div_tarifa{
+    background-color: #4fc3f7  !important; 
+     -webkit-print-color-adjust: exact; 
+     color-adjust: exact;       
+    width: 15.8%;
+        
+}
+#servicio_nacional .div_1 .div_tarifa p{
+    margin: auto;
+    font-weight: bold;
+    padding: 5px;   
+    text-align: center;
+ 
 }

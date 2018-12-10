@@ -189,6 +189,7 @@ $(function () {
 			if(element){
 				$('h3#codeClientLocal').empty().html(`Servicios locales: ${this._inputSearchClient.val()} - ${element['nombre']}`);
 				$('h3#codeClientNacional').empty().html(`Servicios Nacionales: ${this._inputSearchClient.val()} - ${element['nombre']}`);
+				$('h3#codeClientInsular').empty().html(`Servicios Insular: ${this._inputSearchClient.val()} - ${element['nombre']}`);
 				$('h3#codeClientIntTerrestre').html(`${this._inputSearchClient.val()} - ${element['nombre']}`);
 				$('h3#codeClientIntTerrestre2').html(`${this._inputSearchClient.val()} - ${element['nombre']}`);
 				$('h3#codeClientIntTerrestre3').html(`${this._inputSearchClient.val()} - ${element['nombre']}`);
@@ -221,7 +222,7 @@ $(function () {
 							alert(reportData['status'].message)
 						}else {
 							this.setReportHeaderNameClient(results["0"]);	
-							console.warn(results[0]);
+						
 							let adicionales = {
 								"522":{"id": "522", "arraySelf": []},
 								"501":{"id": "501", "arraySelf": []},
@@ -237,9 +238,23 @@ $(function () {
 								"331":{"id": "331", "arraySelf": []},
 								"525":{"id": "525", "arraySelf": []},
 								"505":{"id": "505", "arraySelf": []},
-								
+								"318":{"id": "318", "arraySelf": []},
+								"322":{"id": "322", "arraySelf": []},
+								"310":{"id": "310", "arraySelf": []},
+								"314":{"id": "314", "arraySelf": []},
+								"319":{"id": "319", "arraySelf": []},
+								"323":{"id": "323", "arraySelf": []},
+								"311":{"id": "311", "arraySelf": []},
+								"315":{"id": "315", "arraySelf": []},
+								"320":{"id": "320", "arraySelf": []},
+								"324":{"id": "324", "arraySelf": []},
+								"312":{"id": "312", "arraySelf": []},
+								"316":{"id": "316", "arraySelf": []},
 
-							}							
+						
+
+							}	
+
 
 							$('span.fixed-color1').css('color', 'transparent');
 							$('span.fixed-color').css('color', 'black');
@@ -262,7 +277,7 @@ $(function () {
 
 							else {	
 
-								//console.warn(results);
+								
 							console.warn("se jodio !!!!");
 
 								$('span.fixed-color1').css('color', 'black');

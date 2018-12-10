@@ -91,7 +91,7 @@ if( isset($_POST['id_cliente']) ) {
  }
 
 if(count($jsondata['results']) == 0){
-	$jsondata['status'] = array('ok'=> false, 'message'=> 'Verifique que el cliente insertado es correcto o que pertenezca a la empresa indicada, pues no se han arrojado resultados.');
+	$jsondata['status'] = array('ok'=> false, 'message'=> 'Verifique que el cliente insertado es correcto o que pertenezca a la empresa indicada, No se han arrojado resultados!!!!.');
 }
 
 

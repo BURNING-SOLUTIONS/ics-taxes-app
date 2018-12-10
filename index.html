@@ -1,8 +1,17 @@
+
+<?php
+session_start();
+?>
+<?php require_once("login/session.php");
+ ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
+   <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8" >
+ 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -30,11 +39,11 @@
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
         <a class="nav-link" href="#">
-          <input id="searchClientEmpresa" class="form-control  form-control-dark" type="text" placeholder="# Empresa" aria-label="Search">
+          <input id="searchClientEmpresa" class="form-control  form-control-dark" type="number" placeholder="# Empresa" aria-label="Search">
         </a>
       </li>
     </ul>
-    <input id="searchClientData" class="form-control  form-control-dark" type="text" placeholder="Introduza el número de cliente"
+    <input id="searchClientData" class="form-control  form-control-dark" type="number" placeholder="Introduza el número de cliente"
       aria-label="Search">
   </nav>
   <br>
@@ -113,7 +122,7 @@
         <div id="plantilla" style="padding: 0 !important;">          
         </div>
 
-        <div class="row" id="servicios_locales" style="padding: 0 !important;">          
+        <div class="row" id="servicios_locales" style="padding: 0 !important;margin-top: -5px;">          
         </div>
 
         <div class="row" id="int_terrestre" style="padding: 0 !important;">
