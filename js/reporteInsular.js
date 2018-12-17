@@ -70,7 +70,7 @@ class IcsReporteInsular {
 		}
 
 		drawAditionalFills(elementos_insulares){
-      		console.warn(elementos_insulares);
+      		//console.warn(elementos_insulares);
 			Object.keys(elementos_insulares).forEach((key)=>{					
 				let asc = elementos_insulares[key].arraySelf.sort(function (a, b) {
 					if (a.hasta > b.hasta) {

@@ -13,6 +13,7 @@
      	# redirigirlos para la pagina de los reportes 
      	session_start();  
 		$_SESSION["autenticado"] = $_POST['user']; # se guarda en autenticado el usuario conectado
+		
 		header("location: inicio.html");
 		exit;	
 	}

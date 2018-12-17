@@ -4,7 +4,7 @@ class IcsSecurity{
 	// Declaración de una propiedad
 	static $icsTaxesPermisos = array(
 			array("route"=>'index', "users"=>array("authenticated")),
-			array("route"=>'clients-range-reports', "users"=>array("gema"))
+			array("route"=>'clients-range-reports', "users"=>array("gema","fernando"))
 		);
 
 	function __construct() {
@@ -18,8 +18,20 @@ class IcsSecurity{
 		return self::$icsTaxesPermisos;
 	}
 
-	public function userHavePermisoForRoute($path, $user){
-		$permissions =  $this->getIcsPermisos();
+	static function getPermissionByUser($user){
+		$permissions =  self::$icsTaxesPermisos;
+		$permissions_list = array();
+		foreach ($permissions as $key => $permission) {
+			# iterate over ics permissions constant...
+			if(in_array("authenticated", $permission["users"]) || in_array($user, $permission["users"])) {
+				$permissions_list[] = $permission["route"];
+			}
+		}
+		return $permissions_list;
+	}
+
+	static function userHavePermisoForRoute($path, $user){
+		$permissions =  self::$icsTaxesPermisos;
 		$have_permission = false;
 		foreach ($permissions as $key => $permission) {
 			# iterate over ics permissions constant...
