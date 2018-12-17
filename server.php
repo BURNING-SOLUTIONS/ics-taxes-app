@@ -2,6 +2,10 @@
 <?php
 include('conexion.php');
 include('reportes/serviciosLocales.php');
+include('security/security.php');
+
+//$ics_security = new IcsSecurity();
+//echo(var_dump(IcsSecurity::getIcsPermisos())); exit();
 
 /*function formattedTarifasSqlResponseBeatuyArray($sqlresponse){
 	$arrayBeauty = array();
@@ -24,6 +28,11 @@ include('reportes/serviciosLocales.php');
 	return $arrayBeauty;
 }*/
 //$beautyTarifasBase = array();
+$actual_link = (isset($_SERVER['HTTPS']) 
+	&& $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+
+//echo($actual_link);exit;
 
 $today = new DateTime();
 $jsondata = array('status'=>array('ok'=> true, 'message'=> 'Resultados esperados.'), 'results'=>array());
