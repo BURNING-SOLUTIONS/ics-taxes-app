@@ -4,7 +4,7 @@ class IcsSecurity{
 	// Declaración de una propiedad
 	static $icsTaxesPermisos = array(
 			array("route"=>'index', "users"=>array("authenticated")),
-			array("route"=>'clients-range-reports', "users"=>array("gema","fernando"))
+			array("route"=>'clients-range-reports', "users"=>array("gema"))
 		);
 
 	function __construct() {
