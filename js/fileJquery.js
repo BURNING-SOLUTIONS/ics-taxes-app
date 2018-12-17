@@ -143,12 +143,12 @@ function Add_Reporte_Paginado(nombre_reporte) {
 
     if (array_nombres_reportes.length == 0) {
 
-        var a = $("<a></a>").text("Anterior");
+        var a = $("<a></a>").text("<");
         a.attr({ "class": "page-link", "href": "#" });
         var li = $("<li></li>").append(a);
         li.attr({ "class": "page-item", "id": "Siguiente" });
 
-        var a1 = $("<a></a>").text("Next");
+        var a1 = $("<a></a>").text(">");
         a1.attr({ "class": "page-link", "href": "#" });
         var li1 = $("<li></li>").append(a1);
         li1.attr({ "class": "page-item", "id": "next" });

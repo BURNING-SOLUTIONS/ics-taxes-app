@@ -1,4 +1,3 @@
-
 <?php
 
 class sqlServerConecction{
@@ -17,11 +16,13 @@ class sqlServerConecction{
 
 	// Declaración de un método
 	public function conectToSqlServerDatabase() {
-		$conn = sqlsrv_connect( $this->serverName, array( "Database"=>$this->databaseName, "UID"=>$this->username, "PWD"=>$this->password));
-		if( $conn ) {
-			//echo "Conexión establecida.<br />";
-		}else{
-			//echo "Conexión no se pudo establecer.<br />";
+		$conn = sqlsrv_connect( $this->serverName, 
+			array( 
+				"Database"=>$this->databaseName, 
+				"UID"=>$this->username, 
+				"PWD"=>$this->password));
+		if(!$conn) {
+			throw new Exception("Ha ocurrido un error conectandose a la base de datos");	
 		}
 		return $conn;
 	}

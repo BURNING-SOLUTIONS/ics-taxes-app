@@ -1,4 +1,4 @@
-class IcsReporteNacional {
+class IcsReporteInsular {
 	constructor(arr) {
 		this._elemento = arr;
 		this._container = $('table.table_servicios_nacionales > tbody');
@@ -43,23 +43,16 @@ class IcsReporteNacional {
 					result = false; 			
 			}
 			return result && limit_rate.includes(substring);
-		}	
+		}
 
+		//DRAW FIELDS IN THIS REPORT, THAT CONTAINS "ELEMENT" AND "HASTA" TRAMO..
 		drawRangeFills() {
-			//console.info(this.getContainer());
-			//REPORTE LOCAL OPERACTIONS.. TODO CLIENTE TIENE REPORTE LOCAL
-			if(this._elemento['precio']){
-				$(`div#serviciosLocalesReport table > tbody input#${this._elemento['elemento']}`).val(`${this._elemento['precio'].toFixed(2)} €`)
-			}	
-			else 
-				$(`div#serviciosLocalesReport table > tbody input#${this._elemento['elemento']}`).val(`0.00 €`);
+			//OPERACIONES PARA PINTAR LOS ELEMENTOS BASICOS DE EL REPORTE INSULAR
+			let idinsular = `${this._elemento['elemento']}${this._elemento['hasta']}`;
+			idinsular = idinsular.replace(/\s/g, '');			
 
-			//OPERACIONES PARA PINTAR LOS ELEMENTOS BASICOS DE EL REPORTE NACIONAL
-			let idnacional = `${this._elemento['elemento']}${this._elemento['hasta']}`;
-			idnacional = idnacional.replace(/\s/g, '');			
-
-			if( $(`table.table_servicios_nacionales > tbody input#${idnacional}`) ){
-					$(`table.table_servicios_nacionales > tbody input#${idnacional}`)
+			if( $(`table.table_servicios_insulares > tbody input#${idinsular}`) ){
+					$(`table.table_servicios_insulares > tbody input#${idinsular}`)
 						.val(`${this._elemento['precio'].toFixed(2)} €`);
 			}				
 		}
@@ -76,10 +69,10 @@ class IcsReporteNacional {
 			return result;	
 		}
 
-		drawAditionalFills(adicionales){
-      		//console.warn(adicionales);
-			Object.keys(adicionales).forEach((key)=>{					
-				let asc = adicionales[key].arraySelf.sort(function (a, b) {
+		drawAditionalFills(elementos_insulares){
+      		console.warn(elementos_insulares);
+			Object.keys(elementos_insulares).forEach((key)=>{					
+				let asc = elementos_insulares[key].arraySelf.sort(function (a, b) {
 					if (a.hasta > b.hasta) {
 						return 1;
 					}
@@ -89,15 +82,17 @@ class IcsReporteNacional {
 					// a must be equal to b
 					return 0;
 				}); 
-				let last_pos = asc.length-1;
-				let prev_last_pos = asc.length-2;					
-				$(`table.table_servicios_nacionales > tbody input#${key}[refid="kg"]`)
+				/*if(key){
+					console.info(asc);
+				}*/
+				let last_pos = asc.length - 1;
+				let prev_last_pos = asc.length - 2;					
+				$(`table.table_servicios_insulares > tbody input#${key}[refid="kg"]`)
 					.val(`${this.getKgAdicional(asc)} €`)				
 			})
 
-			this.drawTomisslFills(adicionales);
-
-		}	
+			this.drawTomisslFills(elementos_insulares);
+		}
 
 		getLastRangeValid(asc, tramoToCompare){
 			let result = asc[0];
@@ -126,20 +121,20 @@ class IcsReporteNacional {
 			});			
 			return result;
 		}
-		//ESTE METODO CALCULA LOS VALORES PARA TODO LOS TRAMOS QUE NO TIENEN VALOR EN EL REPORTE
-		calculateRangeInexistent(element, adicionales){				
+
+		calculateRangeInexistent(element, elementos_insulares){				
 			if(element.attr('element')){				
 				let this_tramo = parseInt(element.attr('tramo'));				
-				Object.keys(adicionales).forEach((key)=>{	
+				Object.keys(elementos_insulares).forEach((key)=>{	
 					if(key.toString() ===  (element.attr('element')).toString()){
 						/*if(element.attr('element') === "329" && this_tramo == 3){
-							console.info(adicionales[key].arraySelf);
+							console.info(elementos_insulares[key].arraySelf);
 						}*/
-						let calculatePriceInRange = this.calculatePriceExistenInRateRange(adicionales[key].arraySelf, this_tramo);
+						let calculatePriceInRange = this.calculatePriceExistenInRateRange(elementos_insulares[key].arraySelf, this_tramo);
 						if(calculatePriceInRange.boolean_exist){
 							element.val(`${calculatePriceInRange.price.toFixed(2)} €`);
 						}else{
-							let asc = adicionales[key].arraySelf.sort(function (a, b) {
+							let asc = elementos_insulares[key].arraySelf.sort(function (a, b) {
 								if (a.hasta > b.hasta) {
 									return 1;
 								}
@@ -166,17 +161,19 @@ class IcsReporteNacional {
 			}
 		}
 
-		drawTomisslFills(adicionales){
-				let nacionales_input = $('table.table_servicios_nacionales > tbody > tr').find('td > input');
-					$.each(nacionales_input,(key, elm)=>{
+		drawTomisslFills(elementos_insulares){
+				let insulares_input = $('table.table_servicios_insulares > tbody > tr').find('td > input');
+					$.each(insulares_input,(key, elm)=>{
 						//console.info(elm)
 						if($(elm).val() === "0.00 €"){
-							this.calculateRangeInexistent($(elm), adicionales);//3291	
+							this.calculateRangeInexistent($(elm), elementos_insulares);//3291	
 						}
 						
 				})			
 			
-		}
+		}	
+
+		
 
 }
 

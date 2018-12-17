@@ -1,179 +1,40 @@
-
-<?php
-session_start();
-?>
-<?php require_once("login/session.php");
- ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-   <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8" >
- 
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/style_servicios_locales.css">
-  <link rel="stylesheet" href="css/style_int.terrestre.css">
-  <link rel="stylesheet" href="css/style_servicios_aereos_1.css">
-  <link rel="stylesheet" href="css/style_servicios_aereos_2.css">
-  <link rel="stylesheet" href="css/style_servicio_nacional.css">
-   <link rel="stylesheet" href="css/style_servicio_insular.css">
-
+  <!-- <script scr="js/popper.min.js"></script>
+    <script scr="js/tooltip.min.js"></script> -->
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="styleinicio.css">
   
-
-  <!-- Estilos CSS -->
-
-  <title>REPORTES ICS</title>
-</head>
-<body>
-  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-    <a style="margin-left: 5px" class="mr-0 mr-md-0" href="/" aria-label="Bootstrap">
-      <img src="ics_logo.png" height="32"></img>
-    </a>
-    <a class="navbar-brand col-sm-2 col-md-2 mr-0" href="#"></a>
-    <ul class="navbar-nav px-3">
-      <li class="nav-item text-nowrap">
-        <a class="nav-link" href="#">
-          <input id="searchClientEmpresa" class="form-control  form-control-dark" type="number" placeholder="# Empresa" aria-label="Search">
-        </a>
-      </li>
-    </ul>
-    <input id="searchClientData" class="form-control  form-control-dark" type="number" placeholder="Introduza el número de cliente"
-      aria-label="Search">
-  </nav>
-  <br>
-
-  <div class="container-fluid" id="div_clientes">
-    <div id="ajaxLoadRequest" class="lds-ring" hidden>Cargando espere..
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="row col-sm-12">
-      <div class="col-md-3" id="div_left_side">
-        <a href="javascript:void(0)" class="closebtn" ">&times;</a>
-        <a href="javascript:void(0)" class="openbtn">&#187;</a>    
-        <div id="div_pagination">
-          <ul class=" pagination pagination-lg justify-content-center" id="ul_pagination">
-          </ul>
-        </div>
-        <!--<h4 class="d-flex justify-content-between align-items-center mb-3" style="background-color:transparent">
-          <span class="text-muted">Reportes Disponibles</span>
-          <span class="badge badge-secondary badge-pill">1</span>
-        </h4>-->
-        <ul class="list-group mb-3" id="reportListAvailable">
-          <li class="list-group-item d-flex justify-content-between lh-condensed available" style="cursor: pointer; " id="li_servicios_locales"
-            value="servicios_locales">
-            <div>
-              <h6 class="my-0">Servicios Locales</h6>
-              <small class="">Elementos locales</small>
-            </div>
-            <span class="text-muted"><img src="locales_report.jpg" height="100" width="80"></img></span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-condensed available" id="li_servicio_nacional" value="servicio_nacional">
-            <div>
-              <h6 class="my-0" style="">Servicio Nacional</h6>
-              <small class="text-muted">Disponible</small>
-            </div>
-            <span class="text-muted"> </span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-condensed available" id="li_servicio_insular" value="servicio_insular">
-            <div>
-              <h6 class="my-0" style="">Servicio Insular</h6>
-              <small class="text-muted">Disponible</small>
-            </div>
-            <span class="text-muted"> </span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-condensed available" id=" li_int_terrestre" value="int_terrestre">
-            <div>
-              <h6 class="my-0" style="">Int. terrestre</h6>
-              <small class="text-muted">Disponible</small>
-            </div>
-          </li>
-          <div class="div_panel" style="display:none">
-            <p> Selecciones un Servicio Aéreo</p>
-            <label class=" radio container">
-                  <input id="rbt_1" type="radio"   name="radio" value="servicio_aéreo_1" checked="false"> Servicio Aéreo 1                  
-                </label>
-            <label class=" radio container">
-                     <input id="rbt_2" type="radio" name="radio" value="servicio_aéreo_2" checked="false">  Servicio Aéreo 2                   
-                </label>
-          </div>
-          
-          <!--<li class="list-group-item d-flex justify-content-between lh-condensed available" id="li_tarifa_carga" value="tarifa_carga">
-            <div>
-              <h6 class="my-0" style="">Tarifa Carga</h6>
-              <small class="text-muted">No disponible</small>
-            </div>
-            <span class="text-muted"> </span>
-          </li>-->
-        </ul>
-      </div>
-
-
-      <div class="col-md-9" id="div_show_report" style="padding: 0 !important; margin-top: -10px;">
-        
-        <div id="plantilla" style="padding: 0 !important;">          
-        </div>
-
-        <div class="row" id="servicios_locales" style="padding: 0 !important;margin-top: -5px;">          
-        </div>
-
-        <div class="row" id="int_terrestre" style="padding: 0 !important;">
-        </div>
-
-        <div id="servicio_aéreo_2" style="padding: 0 !important;">          
-        </div>
-
-        <div class="row" id="servicio_aéreo_1" style="padding: 0 !important;">          
-        </div>
-
-        <div id="servicio_nacional" style="padding: 0 !important;margin-top: -5px;">          
-        </div>
-
-         <div id="servicio_insular">          
-        </div>
-
-
-        <div id="tarifa_carga">
-          <h3>Tarifa de Carga</h3>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <footer class=" pt-4 my-md-5 pt-md-5 border-top">
-    <div class="row">
-      <div class="col-md-3" style="margin-left: 45%">
-        <img class="mb-2" src="ics_logo.png" height="60">
-        <small class="d-block mb-3 text-muted">© 2018 Derechos reservados </small>
-      </div>
-    </div>
-  </footer> 
-
-
-
-<script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jQuery.print.js"></script>
-  <script src="js/jQuery.print.min.js"></script>
-  <script src="jQuery.print.js"></script>
-  <script src="jQuery.print.min.js"></script>
-  <script src="js/jspdf.min.js"></script>
-  <script src="js/fileJquery.js"></script>
-  <script src="js/import_ics_taxes.js"></script>
-  <script src="js/reporteNacional.js"></script>
  
 
+  <title>LOGIN ICS</title>
+</head>
+<body>
+
+	<div class="login-wrap">
+  <h2><img src="imagen/logo-instapack.png" height="50" align="center"></img></h2>
+  
+  
+  <form class="form" method = "post" action="login.php">
+    <input type="text"   placeholder="usuario" name="user" required="required"  class="user" "/>
+
+    <input type="password" placeholder="contraseña" name="pass" required="required" maxlength="50" />
+    <button type="submit" value='Submit'>Acceder</button> 
+    
+  </form>
+</div>
 </body>
 
+
+
+
+
 </html>
+
+ <!--<input type='submit' name='Submit' value='Submit' />-->
+

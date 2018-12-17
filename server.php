@@ -3,10 +3,7 @@
 include('conexion.php');
 include('reportes/serviciosLocales.php');
 
-$jsondata = array('status'=>array('ok'=> true, 'message'=> 'Resultados esperados.'), 'results'=>array());
-$beautyTarifasBase = array();
-
-function formattedTarifasSqlResponseBeatuyArray($sqlresponse){
+/*function formattedTarifasSqlResponseBeatuyArray($sqlresponse){
 	$arrayBeauty = array();
 	while($row = sqlsrv_fetch_array( $sqlresponse, SQLSRV_FETCH_ASSOC ) ){		
 		array_push($arrayBeauty, array( 'nombre'=>$row['Nom_Cli'],
@@ -18,8 +15,7 @@ function formattedTarifasSqlResponseBeatuyArray($sqlresponse){
 									));	
 	};
 	return $arrayBeauty;
-}
-
+}*/
 /*function formattedEspecialesSqlResponseBeatuyArray($sqlresponse){
 	$arrayBeauty = array();
 	while($row = sqlsrv_fetch_array( $sqlresponse, SQLSRV_FETCH_ASSOC ) ){		
@@ -27,28 +23,83 @@ function formattedTarifasSqlResponseBeatuyArray($sqlresponse){
 	}
 	return $arrayBeauty;
 }*/
+//$beautyTarifasBase = array();
 
-if( isset($_POST['id_cliente']) ) {
-	$jsondata['success'] = true;	
-    //establenciendo nueva instancia de la clase coneccion to sql server..
-	$sqlConection = new sqlServerConecction("hddevp.no-ip.org", "dl2018", "SA", "HDM*2018");
-	// establenciendo la conexion realmente..
-	$conn =  $sqlConection->conectToSqlServerDatabase();
+$today = new DateTime();
+$jsondata = array('status'=>array('ok'=> true, 'message'=> 'Resultados esperados.'), 'results'=>array());
+
+if($_POST['id_cliente']) {
+	$jsondata['success'] = true;   
+	try {
+		//establenciendo nueva instancia de la clase coneccion to sql server..
+		$sqlConection = new sqlServerConecction("hddevp.no-ip.org", "dl".$today->format('Y'), "SA", "HDM*2018");
+		// establenciendo la conexion realmente..
+		$conn =  $sqlConection->conectToSqlServerDatabase();
+
+	} catch (Exception $e) {
+		$jsondata['status'] = array('ok'=>false, 'message'=>$e->getMessage());
+		echo json_encode($jsondata);
+		exit(); 
+	}
    
     //consulta numero 1..
 	$getPreciosPorTarifas = $sqlConection->createQuery($conn, "SELECT Nom_Cli,Cod_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar,Hasta_Tar from dbo.clientes inner join dbo.tarifas on  Emp_Cli=Emp_Tar and TarLoc_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']}
 		union Select Nom_Cli, Cod_Cli,TarNac_Cli,Ele_Tar,Precli_Tar ,  Desde_Tar, Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarNac_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} 		
 		union Select Nom_Cli,Cod_Cli, TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar, Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarPrv_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} order by Ele_Tar asc");
 	//consulta numero 2..
-	$getPreciosEspeciales = sqlsrv_query($conn,"SELECT Nom_Cli,Cod_Cli,Ele_Pre, Precli_Pre,Desde_Pre, Hasta_Pre FROM dbo.precios inner join dbo.clientes on Cod_Pre=Cod_Cli 
+	$getPreciosEspeciales = sqlsrv_query($conn,"SELECT Nom_Cli,Cod_Cli,Ele_Pre,TarNac_Cli,Precli_Pre,Desde_Pre, Hasta_Pre FROM dbo.precios inner join dbo.clientes on Cod_Pre=Cod_Cli 
 		where  Emp_Pre={$_POST['id_empresa']} and Cod_Pre={$_POST['id_cliente']} and Dep_Pre=' '  and Dep_Cli=' ' and Precli_Pre>0 and Emp_Cli={$_POST['id_empresa']} order by Ele_Pre asc");
 	
-	//PRIMERAMENTE PARTIMOS DE LA PREMISA QUE LA RESPUESTA SON TODA LAS TARIFAS BASE...
-	$beautyTarifasBase = formattedTarifasSqlResponseBeatuyArray($getPreciosPorTarifas);
-	$totalBase = count($beautyTarifasBase);
-	//echo (print_r($beautyTarifasBase));exit();
+	//PRIMERAMENTE PARTIMOS DE LA PREMISA QUE LA RESPUESTA SON TODA LAS TARIFAS ESPECIALES..	
+	$elementos_id_aux = array();
+	
+	while($especial = sqlsrv_fetch_array($getPreciosEspeciales, SQLSRV_FETCH_ASSOC ) ){
+		$especial_data = array(
+							'nombre'=>$especial['Nom_Cli'], 
+							'elemento'=>$especial['Ele_Pre'],
+							'tarifa'=>$especial['TarNac_Cli'], 
+							'precio'=>$especial['Precli_Pre'], 
+							'desde'=> $especial['Desde_Pre'], 
+							'hasta'=> $especial['Hasta_Pre']);
+
+		array_push($jsondata['results'], $especial_data);
+
+		if(!in_array($especial['Ele_Pre'], $elementos_id_aux)){
+			array_push($elementos_id_aux, $especial['Ele_Pre']);//TODO LOS ELEMENTOS QUE AL MENOS TIENEN UN PRECIO ESPECIAL
+		}
+	}
+	//ENTONCES RECORREMOS LA TARIFA BASE SI NO SE ENCUENTRA UN ELEMENTO EN LAS ESPECIALES ENTONCES LAS COGEMOS
+	while($tarifaBase = sqlsrv_fetch_array($getPreciosPorTarifas, SQLSRV_FETCH_ASSOC ) ){
+		$precioBase_data = array(
+							'nombre'=>$tarifaBase['Nom_Cli'], 
+							'elemento'=>$tarifaBase['Ele_Tar'],
+							'tarifa'=>$tarifaBase['TarNac_Cli'], 
+							'precio'=>$tarifaBase['Precli_Tar'], 
+							'desde'=> $tarifaBase['Desde_Tar'], 
+							'hasta'=> $tarifaBase['Hasta_Tar']);
+
+		if(!in_array($tarifaBase['Ele_Tar'], $elementos_id_aux)){			
+			array_push($jsondata['results'], $precioBase_data);
+		}
+	}//FIN DEL BUCLE MASTER
+	if(count($jsondata['results']) == 0){
+		$jsondata['status'] = array(
+			'ok'=> false, 
+			'message'=> 'Verifique que el cliente insertado es correcto o que pertenezca a la empresa indicada, No se han arrojado resultados!.');
+	}
+}else{
+	$jsondata['status'] = array('ok'=> false, 'message'=> 'No se ha recibido ningun numero de cliente');
+}
+echo json_encode($jsondata, JSON_FORCE_OBJECT);
+exit();
+
+/*if(count($jsondata['results']) == 0){
+	$jsondata['status'] = array('ok'=> false, 'message'=> 'Verifique que el cliente insertado es correcto o que pertenezca a la empresa indicada, No se han arrojado resultados!!!!.');
+}*/
+
+
 	//RECORREMOS ANIDADAMENTE LOS CICLOS DE TARIFA BASE Y TARIFAS ESPECIALES..
-	while($especial = sqlsrv_fetch_array($getPreciosEspeciales, SQLSRV_FETCH_ASSOC ) ){	
+	/*while($especial = sqlsrv_fetch_array($getPreciosEspeciales, SQLSRV_FETCH_ASSOC ) ){	
 		$find  = false;		
 		for ($i=0; $i < $totalBase; $i++) { 
 			//SI EXISTE UNA TARIFA BASE DONDE COINCIDE EL ELEMENTO Y EL RANGO CON UNA TAROFA ESPECILA EL RESULTADO QUE 
@@ -83,22 +134,8 @@ if( isset($_POST['id_cliente']) ) {
 										'desde'=> $especial['Desde_Pre'], 
 										'hasta'=> $especial['Hasta_Pre']));
 		}
-	}//FIN PRIMER BUCLE, EL MASTER
+	}//FIN PRIMER BUCLE, EL MASTER*/
 
 //echo (print_r($beautyTarifasBase));exit();
-	$jsondata['results'] = $beautyTarifasBase;
-
- }
-
-if(count($jsondata['results']) == 0){
-	$jsondata['status'] = array('ok'=> false, 'message'=> 'Verifique que el cliente insertado es correcto o que pertenezca a la empresa indicada, No se han arrojado resultados!!!!.');
-}
-
-
-echo json_encode($jsondata, JSON_FORCE_OBJECT);
-exit();
-
-
-
-
+	//$jsondata['results'] = $beautyTarifasBase;
 ?>

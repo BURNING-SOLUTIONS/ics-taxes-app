@@ -35,7 +35,8 @@ span.fixed-color1{
     .lds-ring div {
       box-sizing: border-box;
       display: block;
-      top: 200px;
+      top: 100px;
+      left: 700px;
       position: absolute;
       width: 51px;
       height: 51px;
@@ -86,7 +87,7 @@ span.fixed-color1{
 /*modifico para que salga y s eesconda el side left*/
 #div_left_side{
     height: 100%;
-    width: 25%; /* 0 width - change this with JavaScript */
+    /*width: 25%;*/ /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 50px; /* Stay at the top */
@@ -94,18 +95,18 @@ span.fixed-color1{
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-    border: solid 2px #4fc3f7;
+    border: solid 1px #4fc3f7;
 }
 
 #div_show_report{
-  margin-left: 27%;
+  /*margin-left: 19%;*/
 }
 
 #div_left_side .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
-    font-size: 36px;
+    font-size: 32px;
     margin-left: 50px;
 }
 
