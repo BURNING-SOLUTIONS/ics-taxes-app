@@ -126,14 +126,16 @@
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
        <!-- <img src="imagen\ics_logo.png" height="32"></img> -->
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="inicio.html#" aria-label="Bootstrap">      
-        <input id="searchClientEmpresa" class="form-control form-control-dark" type="number" placeholder="# Empresa" aria-label="Search">
+        <input permission-route="index-navvar-search" style="display: none;"
+         id="searchClientEmpresa" class="form-control form-control-dark" type="number" placeholder="# Empresa" aria-label="Search">
       </a>
       <div class="custom-control custom-radio col-sm-2" style="display: none;margin-left: 10px" permission-route="clients-range-reports">
-        <input id="range" id="clientsRange" name="clientsRange" type="radio" class="custom-control-input" required="">
+        <input  id="range" id="clientsRange" name="clientsRange" type="radio" class="custom-control-input" required="">
         <label class="custom-control-label" for="range" style="color: white;cursor: pointer">Rango de clientes</label>
       </div>  
-      <input id="searchClientData" type="number" placeholder="Introduza el número de cliente" class="form-control form-control-dark w-100" aria-label="Search">
-     
+
+      <input permission-route="index-navvar-search" style="display: none;" 
+      id="searchClientData" type="number" placeholder="Introduza el número de cliente" class="form-control form-control-dark w-100" aria-label="Search">     
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="salir.php" style="color: white;font-size: 13px">
@@ -208,7 +210,7 @@
           </div>
         </nav>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" permission-route="index-reports-content" hidden>
          <!--  <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
           <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div> -->
 

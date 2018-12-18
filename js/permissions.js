@@ -7,6 +7,7 @@
 			//console.info(permission_list);
 			permission_list.forEach((val, key)=>{
 				$(`[permission-route=${val}]`).css('display', 'inline-block');
+				$(`[permission-route=${val}]`).removeAttr('hidden');
 			})
 		}
 
