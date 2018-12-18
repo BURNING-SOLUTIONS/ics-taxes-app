@@ -45,15 +45,7 @@ class IcsReporteNacional {
 			return result && limit_rate.includes(substring);
 		}	
 
-		drawRangeFills() {
-			//console.info(this.getContainer());
-			//REPORTE LOCAL OPERACTIONS.. TODO CLIENTE TIENE REPORTE LOCAL
-			if(this._elemento['precio']){
-				$(`div#serviciosLocalesReport table > tbody input#${this._elemento['elemento']}`).val(`${this._elemento['precio'].toFixed(2)} €`)
-			}	
-			else 
-				$(`div#serviciosLocalesReport table > tbody input#${this._elemento['elemento']}`).val(`0.00 €`);
-
+		drawRangeFills() {		
 			//OPERACIONES PARA PINTAR LOS ELEMENTOS BASICOS DE EL REPORTE NACIONAL
 			let idnacional = `${this._elemento['elemento']}${this._elemento['hasta']}`;
 			idnacional = idnacional.replace(/\s/g, '');			
