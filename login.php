@@ -17,7 +17,7 @@
 		header("location: inicio.html");
 		exit;	
 	}
-	else { 
+	else {
 		header("location: index.html");
 		exit;
 	}
