@@ -23,18 +23,7 @@
 	      		showOptionsByMenu(data.permissions);
 	      	}
 
-      	});
-
-  	/*let auth_email_token = "ba845c00-839a-43ab-8c71-af07ee4f2276";
-	    Email.send({
-	    SecureToken : auth_email_token,
-	    To : 'juanramon89@gmail.com',
-	    From : "ramonlahabana1989@gmail.com",
-	    Subject : "test email from js",
-	    Body : "todo ok"
-	}).then(
-	  message => alert(message)
-	  );*/
+      	});  	
 	});
 
 })();
