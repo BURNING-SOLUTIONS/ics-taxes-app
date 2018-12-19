@@ -219,6 +219,7 @@ $(function () {
 						$('span.fixed-color').css('color', 'black');
 						var reportData = JSON.parse(result);
 						var results = reportData['results'];
+						var reporteLocal = {};
 						var reportNac = {};
 						var reporteInsular = {};
 						//console.warn(reportData["0"]);										
@@ -279,6 +280,8 @@ $(function () {
 							}		
 
 							Object.keys(results).forEach( (key) => {
+								reporteLocal = new IcsReporteLocal(results[key]);
+								reporteLocal.drawRangeFills();
 								let is_national_tarife = (results[0]['tarifa'].indexOf("NR") >= 0 || results[0]['tarifa'].indexOf("N2") >= 0);
 								if(!(results[0]['tarifa'] && is_national_tarife)){
 									$('span.fixed-color1').css('color', 'black');
@@ -295,7 +298,7 @@ $(function () {
 									reporteInsular.drawRangeFills();								
 								}
 
-							});
+							});								
 							reportNac.drawAditionalFills(elementos_nacionales);
 							reporteInsular.drawAditionalFills(elementos_insulares);
 
