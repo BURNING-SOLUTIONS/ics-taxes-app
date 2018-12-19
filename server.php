@@ -15,7 +15,7 @@ if($_POST['id_cliente']) {
     # consulta numero 1..
     $clientExist = $sqlConection->isValidCLient($request_empresa, $request_client);   
 
-    if(count(sqlsrv_fetch_array($clientExist, SQLSRV_FETCH_ASSOC ))<2){
+    if(count(sqlsrv_fetch_array($clientExist, SQLSRV_FETCH_ASSOC )) < 2){
         $jsondata['status'] = array('ok'=> false,'message'=> 'EL cliente introducido no existe , por favor Verifique!!!.');
         echo json_encode($jsondata);
         exit();
