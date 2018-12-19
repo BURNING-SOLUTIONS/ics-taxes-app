@@ -85,7 +85,7 @@ class IcsReporteNacional {
 				let prev_last_pos = asc.length-2;					
 				$(`table.table_servicios_nacionales > tbody input#${key}[refid="kg"]`)
 					.val(`${this.getKgAdicional(asc)} €`)				
-			})
+			});
 
 			this.drawTomisslFills(adicionales);
 
@@ -98,7 +98,7 @@ class IcsReporteNacional {
 					if((tramoToCompare - parseInt(val.hasta)) < (tramoToCompare - parseInt(result['hasta'])))
 						result = val;			
 					}
-			})
+			});
 			return result;
 		}
 

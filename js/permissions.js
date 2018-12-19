@@ -9,7 +9,7 @@
 				$(`[permission-route=${val}]`).css('display', 'inline-block');
 				$(`[permission-route=${val}]`).removeAttr('hidden');
 			})
-		}
+		};
 
 	 	$.ajax({
 	      	url: "./security/check_auth.php",      
