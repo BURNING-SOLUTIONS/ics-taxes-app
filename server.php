@@ -20,9 +20,11 @@ if($_POST['id_cliente']) {
         echo json_encode($jsondata);
         exit();
 	} else {
-		$getPreciosPorTarifas = $sqlConection->getTaifasBases($request_empresa, $request_client);	# consulta numero 2..
-		$getPreciosEspeciales = $sqlConection->getTarifasEspeciales($request_empresa, $request_client);	# consulta numero 2);
-		
+		# consulta numero 2 obteniendo las tarifas bases..
+		$getPreciosPorTarifas = $sqlConection->getTaifasBases($request_empresa, $request_client);
+		# consulta numero 3 obteniendo las tarifas especiales..
+		$getPreciosEspeciales = $sqlConection->getTarifasEspeciales($request_empresa, $request_client);
+				
 		# PRIMERAMENTE PARTIMOS DE LA PREMISA QUE LA RESPUESTA SON TODA LAS TARIFAS ESPECIALES..	
 		$elementos_id_aux = array();
 	
