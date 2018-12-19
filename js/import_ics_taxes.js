@@ -231,8 +231,9 @@ $(function () {
 						 let msg1 = results[0]['BloqueoTrafico'] == 1 ? "Bloqueado en Tráfico" : "";
 						 let msg2 = results[0]['BloqueoNacional'] == 1 ? "Bloqueado Nacional " : "";
 						 if(msg || msg1 || msg2)
-						 	$('#msgAlertReportNacional').removeAttr('hidden').html(`Cliente ${msg} ${msg1} ${msg2}`);						 
-                         							
+						 	$('#msgAlertReportTodos').removeAttr('hidden').html(`Cliente ${msg} ${msg1} ${msg2}`);						 
+                         	//$('#msgAlertReportInsular').removeAttr('hidden').html(`Cliente ${msg} ${msg1} ${msg2}`);
+                         	//$('#msgAlertReportLocal').removeAttr('hidden').html(`Cliente ${msg} ${msg1} ${msg2}`);						 						 						
 						this.setReportHeaderNameClient(results["0"]);	
 						this.setYearNameAllReports();
 
