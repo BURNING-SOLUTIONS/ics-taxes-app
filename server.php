@@ -52,13 +52,27 @@ if($_POST['id_cliente']) {
 	}
    
     //consulta numero 1..
-	$getPreciosPorTarifas = $sqlConection->createQuery($conn, "SELECT Nom_Cli,Cod_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar,Hasta_Tar from dbo.clientes inner join dbo.tarifas on  Emp_Cli=Emp_Tar and TarLoc_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']}
-		union Select Nom_Cli, Cod_Cli,TarNac_Cli,Ele_Tar,Precli_Tar ,  Desde_Tar, Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarNac_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} 		
-		union Select Nom_Cli,Cod_Cli, TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar, Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarPrv_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} order by Ele_Tar asc");
+	$getPreciosPorTarifas = $sqlConection->createQuery($conn, "SELECT Nom_Cli,Cod_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar,Hasta_Tar from dbo.clientes inner join dbo.tarifas on  Emp_Cli=Emp_Tar and TarLoc_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']}
+		union Select Nom_Cli,Cod_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar,Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarNac_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} 		
+		union Select Nom_Cli,Cod_Cli, Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar, Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarPrv_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} order by Ele_Tar asc");
 	//consulta numero 2..
-	$getPreciosEspeciales = sqlsrv_query($conn,"SELECT Nom_Cli,Cod_Cli,Ele_Pre,TarNac_Cli,Precli_Pre,Desde_Pre, Hasta_Pre FROM dbo.precios inner join dbo.clientes on Cod_Pre=Cod_Cli 
+	$getPreciosEspeciales = sqlsrv_query($conn,"SELECT Nom_Cli,Cod_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli, Ele_Pre,TarNac_Cli,Precli_Pre,Desde_Pre, Hasta_Pre FROM dbo.precios inner join dbo.clientes on Cod_Pre=Cod_Cli 
 		where  Emp_Pre={$_POST['id_empresa']} and Cod_Pre={$_POST['id_cliente']} and Dep_Pre=' '  and Dep_Cli=' ' and Precli_Pre>0 and Emp_Cli={$_POST['id_empresa']} order by Ele_Pre asc");
+	$existecliente=$sqlConection->createQuery($conn,"SELECT Nom_Cli,Emp_Cli FROM dbo.clientes where Cod_Cli={$_POST['id_cliente']} and Emp_Cli={$_POST['id_empresa']}");
 	
+	
+		if(count(sqlsrv_fetch_array($existecliente, SQLSRV_FETCH_ASSOC ))<2){
+				$jsondata['status'] = array(
+				'ok'=> false, 
+				'message'=> 'EL cliente introducido no existe , por favor Verifique!!!.');
+				echo json_encode($jsondata);
+				exit();
+	}
+	else {
+
+
+	
+		
 	//PRIMERAMENTE PARTIMOS DE LA PREMISA QUE LA RESPUESTA SON TODA LAS TARIFAS ESPECIALES..	
 	$elementos_id_aux = array();
 	
@@ -66,6 +80,9 @@ if($_POST['id_cliente']) {
 		$especial_data = array(
 							'nombre'=>$especial['Nom_Cli'], 
 							'elemento'=>$especial['Ele_Pre'],
+							'baja'=>$especial['Baja_Cli'],
+							'BloqueoTrafico'=>$especial['Bloqueo_Cli'],
+							'BloqueoNacional'=>$especial['BloqueoNac_Cli'],
 							'tarifa'=>$especial['TarNac_Cli'], 
 							'precio'=>$especial['Precli_Pre'], 
 							'desde'=> $especial['Desde_Pre'], 
@@ -82,6 +99,9 @@ if($_POST['id_cliente']) {
 		$precioBase_data = array(
 							'nombre'=>$tarifaBase['Nom_Cli'], 
 							'elemento'=>$tarifaBase['Ele_Tar'],
+							'baja'=>$especial['Baja_Cli'],
+							'BloqueoTrafico'=>$especial['Bloqueo_Cli'],
+							'BloqueoNacional'=>$especial['BloqueoNac_Cli'],
 							'tarifa'=>$tarifaBase['TarNac_Cli'], 
 							'precio'=>$tarifaBase['Precli_Tar'], 
 							'desde'=> $tarifaBase['Desde_Tar'], 
@@ -94,11 +114,13 @@ if($_POST['id_cliente']) {
 	if(count($jsondata['results']) == 0){
 		$jsondata['status'] = array(
 			'ok'=> false, 
-			'message'=> 'Verifique que el cliente insertado es correcto o que pertenezca a la empresa indicada, No se han arrojado resultados!.');
+			'message'=> 'El cliente insertado no tiene  precios definidos en sus tarifas, Verifiquelo !!!.');
+	}
 	}
 }else{
 	$jsondata['status'] = array('ok'=> false, 'message'=> 'No se ha recibido ningun numero de cliente');
 }
+
 echo json_encode($jsondata, JSON_FORCE_OBJECT);
 exit();
 

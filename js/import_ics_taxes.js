@@ -221,12 +221,21 @@ $(function () {
 						var results = reportData['results'];
 						var reportNac = {};
 						var reporteInsular = {};
-						//console.warn(reportData["0"]);						
+						//console.warn(reportData["0"]);										
 						if (reportData['status'].ok == false) {
 							alert(reportData['status'].message)
 						}else {
+						 let msg  =  results[0]['baja'] == 1 ? "Inactivo " : "";
+						 let msg1 = results[0]['BloqueoTrafico'] == 1 ? "Bloqueado en Tráfico" : "";
+						 let msg2 = results[0]['BloqueoNacional'] == 1 ? "Bloqueado Nacional " : "";
+						 if(msg!="" || msg1!="" || msg2!=""){
+						 	
+						 	$('#msgAlertReportNacional').removeAttr('hidden').html('Cliente '+ msg +" "+msg1+" "+msg2);
+						 }
+                         							
 							this.setReportHeaderNameClient(results["0"]);	
 							this.setYearNameAllReports();
+
 							let elementos_nacionales = {
 								"522":{"id": "522", "arraySelf": []},
 								"501":{"id": "501", "arraySelf": []},
