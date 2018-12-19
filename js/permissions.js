@@ -12,9 +12,10 @@
 		}
 
 	 	$.ajax({
-	      	url: "session.php",      
+	      	url: "./security/check_auth.php",      
 	      })
 	 	.done(function(response) {      
+	 		// console.info(response);
 	 		let data = JSON.parse(response);
 	      	if(data.status === 401){
 	      		window.location.href = "index.html";	      		

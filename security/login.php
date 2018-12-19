@@ -1,6 +1,6 @@
 <?php	
 	ob_start(); 	
- 	include('conexion.php');
+ 	include('../conexion.php');
 	try{
 		$sqlConection = new sqlServerConecction("hddevp.no-ip.org", "dl2018", "SA", "HDM*2018");
 		# establenciendo la conexion realmente..
@@ -18,11 +18,11 @@
      	session_start();  
 		$_SESSION["autenticado"] = strtolower($_POST['user']); # se guarda en autenticado el usuario conectado
 		
-		header("location: inicio.html");
+		header("location: ../inicio.html");
 		exit;	
 	}
 	else {
-		header("location: index.html");
+		header("location: ../index.html");
 		exit;
 	}
 	

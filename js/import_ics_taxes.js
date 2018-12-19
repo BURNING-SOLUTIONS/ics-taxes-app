@@ -208,12 +208,13 @@ $(function () {
 			}else{
 				this.showHideLoadSpinner(false);	
 				$('#msgAlertReportNacional').attr('hidden', true);		
-				console.warn('Init request');				
+				console.info('Init request');				
 				$.ajax({
 					type: "POST",
 					data: { "id_cliente": this._inputSearchClient.val(), "id_empresa": this._inputSearchEmpresa.val() },
 					url: "server.php",
 					success: (result) => {
+						//console.info(result);
 						$('input').val('0.00 €');
 						$('span.fixed-color1').css('color', 'transparent');
 						$('span.fixed-color').css('color', 'black');
@@ -222,91 +223,87 @@ $(function () {
 						var reporteLocal = {};
 						var reportNac = {};
 						var reporteInsular = {};
-						//console.warn(reportData["0"]);										
+																
 						if (reportData['status'].ok == false) {
 							alert(reportData['status'].message)
 						}else {
 						 let msg  =  results[0]['baja'] == 1 ? "Inactivo " : "";
 						 let msg1 = results[0]['BloqueoTrafico'] == 1 ? "Bloqueado en Tráfico" : "";
 						 let msg2 = results[0]['BloqueoNacional'] == 1 ? "Bloqueado Nacional " : "";
-						 if(msg!="" || msg1!="" || msg2!=""){
-						 	
-						 	$('#msgAlertReportNacional').removeAttr('hidden').html('Cliente '+ msg +" "+msg1+" "+msg2);
-						 }
+						 if(msg || msg1 || msg2)
+						 	$('#msgAlertReportNacional').removeAttr('hidden').html(`Cliente ${msg} ${msg1} ${msg2}`);						 
                          							
-							this.setReportHeaderNameClient(results["0"]);	
-							this.setYearNameAllReports();
+						this.setReportHeaderNameClient(results["0"]);	
+						this.setYearNameAllReports();
 
-							let elementos_nacionales = {
-								"522":{"id": "522", "arraySelf": []},
-								"501":{"id": "501", "arraySelf": []},
-								"840":{"id": "840", "arraySelf": []},
-								"329":{"id": "329", "arraySelf": []},
-								"523":{"id": "523", "arraySelf": []},
-								"503":{"id": "503", "arraySelf": []},
-								"841":{"id": "841", "arraySelf": []},
-								"330":{"id": "330", "arraySelf": []},
-								"549":{"id": "549", "arraySelf": []},
-								"504":{"id": "504", "arraySelf": []},
-								"842":{"id": "842", "arraySelf": []},
-								"331":{"id": "331", "arraySelf": []},
-								"525":{"id": "525", "arraySelf": []},
-								"505":{"id": "505", "arraySelf": []},
-								"318":{"id": "318", "arraySelf": []},
-								"322":{"id": "322", "arraySelf": []},
-								"310":{"id": "310", "arraySelf": []},
-								"314":{"id": "314", "arraySelf": []},
-								"319":{"id": "319", "arraySelf": []},
-								"323":{"id": "323", "arraySelf": []},
-								"315":{"id": "315", "arraySelf": []},
-								"320":{"id": "320", "arraySelf": []},
-								"324":{"id": "324", "arraySelf": []},
-								"312":{"id": "312", "arraySelf": []},
-								"316":{"id": "316", "arraySelf": []},
+						let elementos_nacionales = {
+							"522":{"id": "522", "arraySelf": []},
+							"501":{"id": "501", "arraySelf": []},
+							"840":{"id": "840", "arraySelf": []},
+							"329":{"id": "329", "arraySelf": []},
+							"523":{"id": "523", "arraySelf": []},
+							"503":{"id": "503", "arraySelf": []},
+							"841":{"id": "841", "arraySelf": []},
+							"330":{"id": "330", "arraySelf": []},
+							"549":{"id": "549", "arraySelf": []},
+							"504":{"id": "504", "arraySelf": []},
+							"842":{"id": "842", "arraySelf": []},
+							"331":{"id": "331", "arraySelf": []},
+							"525":{"id": "525", "arraySelf": []},
+							"505":{"id": "505", "arraySelf": []},
+							"318":{"id": "318", "arraySelf": []},
+							"322":{"id": "322", "arraySelf": []},
+							"310":{"id": "310", "arraySelf": []},
+							"314":{"id": "314", "arraySelf": []},
+							"319":{"id": "319", "arraySelf": []},
+							"323":{"id": "323", "arraySelf": []},
+							"315":{"id": "315", "arraySelf": []},
+							"320":{"id": "320", "arraySelf": []},
+							"324":{"id": "324", "arraySelf": []},
+							"312":{"id": "312", "arraySelf": []},
+							"316":{"id": "316", "arraySelf": []},
+						}
+						let elementos_insulares = {
+							"318":{"id": "318", "arraySelf": []},
+							"322":{"id": "322", "arraySelf": []},
+							"310":{"id": "310", "arraySelf": []},
+							"314":{"id": "314", "arraySelf": []},
+							"319":{"id": "319", "arraySelf": []},
+							"323":{"id": "323", "arraySelf": []},
+							"311":{"id": "311", "arraySelf": []},
+							"315":{"id": "315", "arraySelf": []},
+							"320":{"id": "320", "arraySelf": []},
+							"324":{"id": "324", "arraySelf": []},
+							"312":{"id": "312", "arraySelf": []},
+							"316":{"id": "316", "arraySelf": []},								
+						}		
+
+						Object.keys(results).forEach( (key) => {
+							let elemento_tarifario = results[key]['elemento'];
+							reporteLocal = new IcsReporteLocal(results[key]);
+							reporteLocal.drawRangeFills();
+							let is_national_tarife = (results[0]['tarifa'].indexOf("NR") >= 0 || results[0]['tarifa'].indexOf("N2") >= 0);
+							if(!(results[0]['tarifa'] && is_national_tarife)){
+								$('span.fixed-color1').css('color', 'black');
+								$('span.fixed-color').css('color', 'transparent');
 							}
-							let elementos_insulares = {
-								"318":{"id": "318", "arraySelf": []},
-								"322":{"id": "322", "arraySelf": []},
-								"310":{"id": "310", "arraySelf": []},
-								"314":{"id": "314", "arraySelf": []},
-								"319":{"id": "319", "arraySelf": []},
-								"323":{"id": "323", "arraySelf": []},
-								"311":{"id": "311", "arraySelf": []},
-								"315":{"id": "315", "arraySelf": []},
-								"320":{"id": "320", "arraySelf": []},
-								"324":{"id": "324", "arraySelf": []},
-								"312":{"id": "312", "arraySelf": []},
-								"316":{"id": "316", "arraySelf": []},								
-							}		
+							if(elementos_nacionales[elemento_tarifario]){
+								elementos_nacionales[elemento_tarifario].arraySelf.push(results[key]);
+								reportNac = new IcsReporteNacional(results[key]);									
+								reportNac.drawRangeFills();									
+							}
+							if(elementos_insulares[elemento_tarifario]){
+								elementos_insulares[elemento_tarifario].arraySelf.push(results[key]);
+								reporteInsular = new IcsReporteInsular(results[key]);
+								reporteInsular.drawRangeFills();								
+							}
 
-							Object.keys(results).forEach( (key) => {
-								reporteLocal = new IcsReporteLocal(results[key]);
-								reporteLocal.drawRangeFills();
-								let is_national_tarife = (results[0]['tarifa'].indexOf("NR") >= 0 || results[0]['tarifa'].indexOf("N2") >= 0);
-								if(!(results[0]['tarifa'] && is_national_tarife)){
-									$('span.fixed-color1').css('color', 'black');
-									$('span.fixed-color').css('color', 'transparent');
-								}
-								if(elementos_nacionales[results[key]['elemento']]){
-									elementos_nacionales[results[key]['elemento']].arraySelf.push(results[key]);
-									reportNac = new IcsReporteNacional(results[key]);									
-									reportNac.drawRangeFills();									
-								}
-								if(elementos_insulares[results[key]['elemento']]){
-									elementos_insulares[results[key]['elemento']].arraySelf.push(results[key]);
-									reporteInsular = new IcsReporteInsular(results[key]);
-									reporteInsular.drawRangeFills();								
-								}
-
-							});								
+						});								
 							reportNac.drawAditionalFills(elementos_nacionales);
 							reporteInsular.drawAditionalFills(elementos_insulares);
-
-						}									
-
+						}							
 						this.showHideLoadSpinner(true);
-						console.warn('Complete request');
-
+						console.info('Complete request');
 					},
 					error: function (error) {
 						console.warn(error);

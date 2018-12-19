@@ -51,12 +51,12 @@ if($_POST['id_cliente']) {
 		exit(); 
 	}
    
-    //consulta numero 1..
-	$getPreciosPorTarifas = $sqlConection->createQuery($conn, "SELECT Nom_Cli,Cod_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar,Hasta_Tar from dbo.clientes inner join dbo.tarifas on  Emp_Cli=Emp_Tar and TarLoc_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']}
-		union Select Nom_Cli,Cod_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar,Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarNac_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} 		
-		union Select Nom_Cli,Cod_Cli, Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar, Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarPrv_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} order by Ele_Tar asc");
-	//consulta numero 2..
-	$getPreciosEspeciales = sqlsrv_query($conn,"SELECT Nom_Cli,Cod_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli, Ele_Pre,TarNac_Cli,Precli_Pre,Desde_Pre, Hasta_Pre FROM dbo.precios inner join dbo.clientes on Cod_Pre=Cod_Cli 
+    # consulta numero 1..
+	$getPreciosPorTarifas = $sqlConection->createQuery($conn, "SELECT Nom_Cli,Cod_Cli,EMail_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar,Hasta_Tar from dbo.clientes inner join dbo.tarifas on  Emp_Cli=Emp_Tar and TarLoc_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']}
+		union Select Nom_Cli,Cod_Cli,EMail_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar,Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarNac_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} 		
+		union Select Nom_Cli,Cod_Cli,EMail_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar, Hasta_Tar from dbo.clientes inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarPrv_Cli=Cod_Tar where Cod_Cli={$_POST['id_cliente']} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$_POST['id_empresa']} order by Ele_Tar asc");
+	# consulta numero 2..
+	$getPreciosEspeciales = sqlsrv_query($conn,"SELECT Nom_Cli,Cod_Cli,Baja_Cli,EMail_Cli,Bloqueo_Cli, BloqueoNac_Cli, Ele_Pre,TarNac_Cli,Precli_Pre,Desde_Pre, Hasta_Pre FROM dbo.precios inner join dbo.clientes on Cod_Pre=Cod_Cli 
 		where  Emp_Pre={$_POST['id_empresa']} and Cod_Pre={$_POST['id_cliente']} and Dep_Pre=' '  and Dep_Cli=' ' and Precli_Pre>0 and Emp_Cli={$_POST['id_empresa']} order by Ele_Pre asc");
 	$existecliente=$sqlConection->createQuery($conn,"SELECT Nom_Cli,Emp_Cli FROM dbo.clientes where Cod_Cli={$_POST['id_cliente']} and Emp_Cli={$_POST['id_empresa']}");
 	
@@ -69,17 +69,15 @@ if($_POST['id_cliente']) {
 				exit();
 	}
 	else {
-
-
-	
 		
-	//PRIMERAMENTE PARTIMOS DE LA PREMISA QUE LA RESPUESTA SON TODA LAS TARIFAS ESPECIALES..	
+	# PRIMERAMENTE PARTIMOS DE LA PREMISA QUE LA RESPUESTA SON TODA LAS TARIFAS ESPECIALES..	
 	$elementos_id_aux = array();
 	
 	while($especial = sqlsrv_fetch_array($getPreciosEspeciales, SQLSRV_FETCH_ASSOC ) ){
 		$especial_data = array(
 							'nombre'=>$especial['Nom_Cli'], 
 							'elemento'=>$especial['Ele_Pre'],
+							'email'=>$especial['EMail_Cli'],
 							'baja'=>$especial['Baja_Cli'],
 							'BloqueoTrafico'=>$especial['Bloqueo_Cli'],
 							'BloqueoNacional'=>$especial['BloqueoNac_Cli'],
@@ -99,9 +97,10 @@ if($_POST['id_cliente']) {
 		$precioBase_data = array(
 							'nombre'=>$tarifaBase['Nom_Cli'], 
 							'elemento'=>$tarifaBase['Ele_Tar'],
-							'baja'=>$especial['Baja_Cli'],
-							'BloqueoTrafico'=>$especial['Bloqueo_Cli'],
-							'BloqueoNacional'=>$especial['BloqueoNac_Cli'],
+							'email'=>$tarifaBase['EMail_Cli'],
+							'baja'=>$tarifaBase['Baja_Cli'],
+							'BloqueoTrafico'=>$tarifaBase['Bloqueo_Cli'],
+							'BloqueoNacional'=>$tarifaBase['BloqueoNac_Cli'],
 							'tarifa'=>$tarifaBase['TarNac_Cli'], 
 							'precio'=>$tarifaBase['Precli_Tar'], 
 							'desde'=> $tarifaBase['Desde_Tar'], 

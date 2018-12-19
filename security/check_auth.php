@@ -1,6 +1,6 @@
 <?php
 	ob_start(); 	
- 	include('security/security.php');
+ 	include('security.php');
 	session_start();	
 	//Inicio la sesión
 	//COMPRUEBA QUE EL USUARIO ESTA AUTENTICADO		
