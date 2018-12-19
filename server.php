@@ -9,17 +9,19 @@ $jsondata = array('status'=>array('ok'=> true, 'message'=> 'Resultados esperados
 
 if($_POST['id_cliente']) {
 	$jsondata['success'] = true;
+	$request_client = $_POST['id_cliente'];
+	$request_empresa = $_POST['id_empresa'];	
     $sqlConection = new sqlServerConecction("hddevp.no-ip.org", "dl".$today->format('Y'), "SA", "HDM*2018");   
     # consulta numero 1..
-    $clientExist = $sqlConection->isValidCLient($_POST['id_empresa'], $_POST['id_cliente']);   
+    $clientExist = $sqlConection->isValidCLient($request_empresa, $request_client);   
 
     if(count(sqlsrv_fetch_array($clientExist, SQLSRV_FETCH_ASSOC ))<2){
         $jsondata['status'] = array('ok'=> false,'message'=> 'EL cliente introducido no existe , por favor Verifique!!!.');
         echo json_encode($jsondata);
         exit();
 	} else {
-		$getPreciosPorTarifas = $sqlConection->getTaifasBases($_POST['id_empresa'], $_POST['id_cliente']);	# consulta numero 2..
-		$getPreciosEspeciales = $sqlConection->getTarifasEspeciales($_POST['id_empresa'], $_POST['id_cliente']);
+		$getPreciosPorTarifas = $sqlConection->getTaifasBases($request_empresa, $request_client);	# consulta numero 2..
+		$getPreciosEspeciales = $sqlConection->getTarifasEspeciales($request_empresa, $request_client);	# consulta numero 2);
 		
 		# PRIMERAMENTE PARTIMOS DE LA PREMISA QUE LA RESPUESTA SON TODA LAS TARIFAS ESPECIALES..	
 		$elementos_id_aux = array();
