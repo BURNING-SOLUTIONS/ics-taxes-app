@@ -13,6 +13,8 @@ $(function () {
 			this._liReportsSelected = $("ul#reportListAvailable li.selected");
 			this._inputSearchClient = $("input#searchClientData");
 			this._inputSearchEmpresa = $("input#searchClientEmpresa");
+			this._rangeRadio = $('#range');
+            this._buttonSendCientRange = $('#searchClientData_btn');
 			this._array_lista_precios = arr || [];
 			this._array_lista_tarifas_fijas = [];			
 			this.registerListeners();
@@ -76,7 +78,6 @@ $(function () {
 					doctype: '<!doctype html>'
 				});
 			});
-
 			$("#servicio_nacional").on('click', '#print_servicio_nacional', function () {
 				$("#servicio_nacional").print({
 					globalStyles: true,
@@ -93,7 +94,6 @@ $(function () {
 					doctype: '<!doctype html>'
 				});
 			});
-
 			$("#servicio_insular").on('click', '#print_servicio_insular', function () {
 				$("#servicio_insular").print({
 					globalStyles: true,
@@ -110,7 +110,6 @@ $(function () {
 					doctype: '<!doctype html>'
 				});
 			});
-
 			$("#int_terrestre").on('click', '#print_int_terrestre', function () {
 				$("#int_terrestre").print({
 					globalStyles: true,
@@ -127,7 +126,6 @@ $(function () {
 					doctype: '<!doctype html>'
 				});
 			});
-
 			$("#servicio_aéreo_2").on('click', '#print_serv_aereo_2', function () {
 				$("#servicio_aéreo_2").print({
 					globalStyles: true,
@@ -144,7 +142,6 @@ $(function () {
 					doctype: '<!doctype html>'
 				});
 			});
-
 			$("#servicio_aéreo_1").on('click', '#print_serv_aereo_1', function () {
 				$("#servicio_aéreo_1").print({
 					globalStyles: true,
@@ -162,15 +159,30 @@ $(function () {
 				});
 			});
 
+			this.checkRouteType();
+
 			this._liReportsDisponibles.click(function (event) {
 				$(this).toggleClass('selected');
-			})
+			});
+
 			this._inputSearchClient.keyup((event) => {
-				if (event.which == 13) {
+				if (event.which === 13) {
 					event.preventDefault();
 					this.sendServerRequest();
 				}
 			});
+			this._buttonSendCientRange.click(()=>{
+                event.preventDefault();
+                this.sendServerRequestRangeClients();
+			})
+		}
+
+        checkRouteType(){
+            let url = new URL(window.location.href);
+            var isExternalLink = url.searchParams.get("isExternal");
+            if(isExternalLink){
+				this.sendServerRequest(true, url.searchParams)
+			}
 		}
 
 		getTotalReportsSelected(){
@@ -196,131 +208,180 @@ $(function () {
 			$('span.this_year').html(new Date().getFullYear())
 		}
 
-		sendServerRequest() {
-			if(!$("#searchClientData").val()){
-				alert('Especifique por favor el número de cliente que desea consultar.');
-			}
-			else if(!$("#searchClientEmpresa").val()){
-				alert('Esta olvidando especificar la empresa de este cliente.');
-			}
-			else if(this.getTotalReportsSelected() < 1){
-				alert('Seleccione al menos en un reporte en la lista de reportes disponibles para mostrar resultados.');
+
+
+		runCommonValidations(){
+			let response = true;
+            if(!$("#searchClientData").val()){
+                response = false;
+                alert('Especifique por favor el número de CLIENTE que desea consultar.');
+            }
+            else if(!$("#searchClientEmpresa").val()){
+                response = false;
+                alert('Esta olvidando especificar la EMPRESA de este cliente.');
+            }
+            else if(this.getTotalReportsSelected() < 1){
+                response = false;
+                alert('Seleccione al menos en un reporte en la lista de reportes disponibles para mostrar resultados.');
+            }
+            return response;
+		}
+
+        sendServerRequestRangeClients(){
+            if(!$("#searchClientEmpresa").val() || !$("#searchClientData_1").val() || !$("#searchClientData_2").val()){
+            	alert('Para realizar esta operación debe llenar los campos EMPRESA, y los números clientes DESDE y HASTA');
 			}else{
-				this.showHideLoadSpinner(false);	
-				$('#msgAlertReportNacional').attr('hidden', true);		
-				console.info('Init request');				
-				$.ajax({
-					type: "POST",
-					data: { "id_cliente": this._inputSearchClient.val(), "id_empresa": this._inputSearchEmpresa.val() },
-					url: "server.php",
-					success: (result) => {
-						//console.info(result);
-						$('input').val('0.00 €');
-						$('span.fixed-color1').css('color', 'transparent');
-						$('span.fixed-color').css('color', 'black');
-						var reportData = JSON.parse(result);
-						var results = reportData['results'];
-						var reporteLocal = {};
-						var reportNac = {};
-						var reporteInsular = {};
-																
-						if (reportData['status'].ok == false) {
-							alert(reportData['status'].message)
-						}else {
-						 let msg  =  results[0]['baja'] == 1 ? "Inactivo " : "";
-						 let msg1 = results[0]['BloqueoTrafico'] == 1 ? "Bloqueado en Tráfico" : "";
-						 let msg2 = results[0]['BloqueoNacional'] == 1 ? "Bloqueado Nacional " : "";
-						 if(msg || msg1 || msg2)
-						 	$('#msgAlertReportTodos').removeAttr('hidden').html(`Cliente ${msg} ${msg1} ${msg2}`);						 
-                         							 						 						
-						this.setReportHeaderNameClient(results["0"]);	
-						this.setYearNameAllReports();
+                console.info('Init request');
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        "route": "process-clients-range",
+                    	"id_empresa": this._inputSearchEmpresa.val(),
+						"range": {
+                    		"from": parseInt($("#searchClientData_1").val()),
+							"to": parseInt($("#searchClientData_2").val())
+                    	}
+					},
+                    url: "server.php",
+                    success: (result) => {
 
-						let elementos_nacionales = {
-							"522":{"id": "522", "arraySelf": []},
-							"501":{"id": "501", "arraySelf": []},
-							"840":{"id": "840", "arraySelf": []},
-							"329":{"id": "329", "arraySelf": []},
-							"523":{"id": "523", "arraySelf": []},
-							"503":{"id": "503", "arraySelf": []},
-							"841":{"id": "841", "arraySelf": []},
-							"330":{"id": "330", "arraySelf": []},
-							"549":{"id": "549", "arraySelf": []},
-							"504":{"id": "504", "arraySelf": []},
-							"842":{"id": "842", "arraySelf": []},
-							"331":{"id": "331", "arraySelf": []},
-							"525":{"id": "525", "arraySelf": []},
-							"505":{"id": "505", "arraySelf": []},
-							"318":{"id": "318", "arraySelf": []},
-							"322":{"id": "322", "arraySelf": []},
-							"310":{"id": "310", "arraySelf": []},
-							"314":{"id": "314", "arraySelf": []},
-							"319":{"id": "319", "arraySelf": []},
-							"323":{"id": "323", "arraySelf": []},
-							"315":{"id": "315", "arraySelf": []},
-							"320":{"id": "320", "arraySelf": []},
-							"324":{"id": "324", "arraySelf": []},
-							"312":{"id": "312", "arraySelf": []},
-							"316":{"id": "316", "arraySelf": []},
-						}
-						let elementos_insulares = {
-							"318":{"id": "318", "arraySelf": []},
-							"322":{"id": "322", "arraySelf": []},
-							"310":{"id": "310", "arraySelf": []},
-							"314":{"id": "314", "arraySelf": []},
-							"319":{"id": "319", "arraySelf": []},
-							"323":{"id": "323", "arraySelf": []},
-							"311":{"id": "311", "arraySelf": []},
-							"315":{"id": "315", "arraySelf": []},
-							"320":{"id": "320", "arraySelf": []},
-							"324":{"id": "324", "arraySelf": []},
-							"312":{"id": "312", "arraySelf": []},
-							"316":{"id": "316", "arraySelf": []},								
-						}		
-
-						Object.keys(results).forEach( (key) => {
-							let elemento_tarifario = results[key]['elemento'];
-							reporteLocal = new IcsReporteLocal(results[key]);
-							reporteLocal.drawRangeFills();
-							let is_national_tarife = (results[0]['tarifa'].indexOf("NR") >= 0 || results[0]['tarifa'].indexOf("N2") >= 0);
-							if(!(results[0]['tarifa'] && is_national_tarife)){
-								$('span.fixed-color1').css('color', 'black');
-								$('span.fixed-color').css('color', 'transparent');
-							}
-							if(elementos_nacionales[elemento_tarifario]){
-								elementos_nacionales[elemento_tarifario].arraySelf.push(results[key]);
-								reportNac = new IcsReporteNacional(results[key]);									
-								reportNac.drawRangeFills();									
-							}
-							if(elementos_insulares[elemento_tarifario]){
-								elementos_insulares[elemento_tarifario].arraySelf.push(results[key]);
-								reporteInsular = new IcsReporteInsular(results[key]);
-								reporteInsular.drawRangeFills();								
-							}
-
-						});								
-							reportNac.drawAditionalFills(elementos_nacionales);
-							reporteInsular.drawAditionalFills(elementos_insulares);
-						}							
 						this.showHideLoadSpinner(true);
 						console.info('Complete request');
+                    },
+                    error: (error)=> {
+                        this.showHideLoadSpinner(false);
+                        console.warn(error);
+                    }
+                });
+			}
+        }
+
+		sendServerRequest(external_link, searchParams) {
+			if(external_link){
+                $("#searchClientData").val(searchParams.get('cliente'));
+                $("#searchClientEmpresa").val(searchParams.get('empresa'));
+                $('ul#reportListAvailable li.available').click();
+                $('ul#reportListAvailable li.available').addClass('selected');
+			}
+			if(this.runCommonValidations()){
+                this.showHideLoadSpinner(false);
+                $('#msgAlertReportNacional').attr('hidden', true);
+                console.info('Init request');
+                $.ajax({
+                    type: "POST",
+                    data: {
+                    	"route": "get-client-rates",
+						"id_cliente": this._inputSearchClient.val(),
+						"id_empresa": this._inputSearchEmpresa.val()
 					},
-					error: function (error) {
-						console.warn(error);
-						this.showHideLoadSpinner(false);
-					}
-				});	
-			}			
+                    url: "server.php",
+                    success: (result) => {
+                        //console.info(result);
+                        $('input').val('0.00 €');
+                        $('span.fixed-color1').css('color', 'transparent');
+                        $('span.fixed-color').css('color', 'black');
+                        var reportData = JSON.parse(result);
+                        var results = reportData['results'];
+                        var reporteLocal = {};
+                        var reportNac = {};
+                        var reporteInsular = {};
+                        var elementos_nacionales = {
+                            "522":{"id": "522", "arraySelf": []},
+                            "501":{"id": "501", "arraySelf": []},
+                            "840":{"id": "840", "arraySelf": []},
+                            "329":{"id": "329", "arraySelf": []},
+                            "523":{"id": "523", "arraySelf": []},
+                            "503":{"id": "503", "arraySelf": []},
+                            "841":{"id": "841", "arraySelf": []},
+                            "330":{"id": "330", "arraySelf": []},
+                            "549":{"id": "549", "arraySelf": []},
+                            "504":{"id": "504", "arraySelf": []},
+                            "842":{"id": "842", "arraySelf": []},
+                            "331":{"id": "331", "arraySelf": []},
+                            "525":{"id": "525", "arraySelf": []},
+                            "505":{"id": "505", "arraySelf": []},
+                            "318":{"id": "318", "arraySelf": []},
+                            "322":{"id": "322", "arraySelf": []},
+                            "310":{"id": "310", "arraySelf": []},
+                            "314":{"id": "314", "arraySelf": []},
+                            "319":{"id": "319", "arraySelf": []},
+                            "323":{"id": "323", "arraySelf": []},
+                            "315":{"id": "315", "arraySelf": []},
+                            "320":{"id": "320", "arraySelf": []},
+                            "324":{"id": "324", "arraySelf": []},
+                            "312":{"id": "312", "arraySelf": []},
+                            "316":{"id": "316", "arraySelf": []},
+                        };
+                        var elementos_insulares = {
+                            "318":{"id": "318", "arraySelf": []},
+                            "322":{"id": "322", "arraySelf": []},
+                            "310":{"id": "310", "arraySelf": []},
+                            "314":{"id": "314", "arraySelf": []},
+                            "319":{"id": "319", "arraySelf": []},
+                            "323":{"id": "323", "arraySelf": []},
+                            "311":{"id": "311", "arraySelf": []},
+                            "315":{"id": "315", "arraySelf": []},
+                            "320":{"id": "320", "arraySelf": []},
+                            "324":{"id": "324", "arraySelf": []},
+                            "312":{"id": "312", "arraySelf": []},
+                            "316":{"id": "316", "arraySelf": []},
+                        };
+
+                        if (reportData['status'].ok === false) {
+                            alert(reportData['status'].message)
+                        }else {
+                            let msg  =  results[0]['baja'] === 1 ? "Inactivo " : "";
+                            let msg1 = results[0]['BloqueoTrafico'] === 1 ? "Bloqueado en Tráfico," : "";
+                            let msg2 = results[0]['BloqueoNacional'] === 1 ? "Bloqueado Nacional" : "";
+                            if(msg || msg1 || msg2)
+                                $('#msgAlertReportTodos').removeAttr('hidden').html(`Cliente ${msg} ${msg1} ${msg2}`);
+
+                            this.setReportHeaderNameClient(results["0"]);
+                            this.setYearNameAllReports();
+
+                            Object.keys(results).forEach( (key) => {
+                                let elemento_tarifario = results[key]['elemento'];
+                                reporteLocal = new IcsReporteLocal(results[key]);
+                                reporteLocal.drawRangeFills();
+                                let is_national_tarife = (results[0]['tarifa'].indexOf("NR") >= 0 || results[0]['tarifa'].indexOf("N2") >= 0);
+                                if(!(results[0]['tarifa'] && is_national_tarife)){
+                                    $('span.fixed-color1').css('color', 'black');
+                                    $('span.fixed-color').css('color', 'transparent');
+                                }
+                                if(elementos_nacionales[elemento_tarifario]){
+                                    elementos_nacionales[elemento_tarifario].arraySelf.push(results[key]);
+                                    reportNac = new IcsReporteNacional(results[key]);
+                                    reportNac.drawRangeFills();
+                                }
+                                if(elementos_insulares[elemento_tarifario]){
+                                    elementos_insulares[elemento_tarifario].arraySelf.push(results[key]);
+                                    reporteInsular = new IcsReporteInsular(results[key]);
+                                    reporteInsular.drawRangeFills();
+                                }
+
+                            });
+                            reportNac.drawAditionalFills(elementos_nacionales);
+                            reporteInsular.drawAditionalFills(elementos_insulares);
+                        }
+                        this.showHideLoadSpinner(true);
+                        console.info('Complete request');
+                    },
+                    error: (error)=> {
+                        this.showHideLoadSpinner(false);
+                        console.warn(error);
+                    }
+                });
+            }
 
 		}
 
 		getNombreById(id) {
 			var nombre = '';
 			NOMENCLADORES_LOCALES.Moto.forEach((val, pos) => {
-				if (val.id == id) {
+				if (val.id === id) {
 					nombre = val.name
 				}
-			})
+			});
 			return nombre;
 		}
 

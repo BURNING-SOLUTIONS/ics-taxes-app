@@ -107,7 +107,7 @@ $(document).ready(function () {
                     }
                 }
             }
-        })
+        });
 
      $("#div_left_side .closebtn").click(function () {
         $("#div_pagination").hide();
@@ -154,84 +154,7 @@ $(document).ready(function () {
 
     /*Control de todos los eventos que arrojan los campos input de rango clientes*/
 
-    $("#searchClientData").on({
-        keydown: function (event) {
-            /*verifico que todos os input esten llenos con valores validos y mando a porcesar datos*/
-            if (event.key == "Enter") {
-                if (isNaN($("#searchClientEmpresa"))  && isNaN($("#searchClientData").val())) {
-                    alert("enVIO PETICION AL SERVIDOR CON NUMERO DE CLIENTE");
-                }
-                else {
 
-                }
-            }
-
-        }
-    });
-
-    $("#searchClientData_1").on({
-        keydown: function (event) {
-            /*verifico que todos os input esten llenos con valores validos y mando a porcesar datos*/
-            var key = event.key;
-            if (key == "Enter")
-                if (isNAN($("#searchClientEmpresa").val()) && isNAN($("#searchClientData_1").val()) && isNAN($("#searchClientData_2").val())) {
-                    alert("enVIO PETICION AL SERVIDOR CON NUMERO DE CLIENTE1");
-                }
-                else {
-
-                }
-            if (/^([0-9])*$/.test(event.key) && $("#searchClientData_2").val() > 0) {
-                $("#searchClientData_btn").attr("disabled", false);
-            }
-            else {
-                var tecla = event.key;
-                switch (tecla) {
-
-                    case "Delete":
-                        if(/^([0-9])*$/.test($("#searchClientData_1").val()))
-                            $("#searchClientData_btn").attr("disabled", true);
-                        break;
-                    case "Backspace":
-                        if(/^([0-9])*$/.test($("#searchClientData_1").val()))
-                            $("#searchClientData_btn").attr("disabled", true);
-                        break;                      
-                    
-                }
-            }
-        }
-    });
-
-    $("#searchClientData_2").on({
-        keydown: function (event) {
-            /*verifico que todos os input esten llenos con valores validos y mando a porcesar datos*/
-            var key = event.key;
-            if (key == "Enter")
-                if (isNAN($("#searchClientEmpresa").val()) && isNAN($("#searchClientData_1").val()) && isNAN($("#searchClientData_2").val())) {
-                    alert("enVIO PETICION AL SERVIDOR CON NUMERO DE CLIENTE2");
-                }
-                else {
-
-                }
-            if (/^([0-9])*$/.test(event.key) && $("#searchClientData_1").val() > 0) {
-                $("#searchClientData_btn").attr("disabled", false);
-            }
-            else {
-                var tecla = event.key;
-                switch (tecla) {
-
-                    case "Delete":
-                        if(/^([0-9])*$/.test($("#searchClientData_2").val()))
-                            $("#searchClientData_btn").attr("disabled", true);
-                        break;
-                    case "Backspace":
-                        if(/^([0-9])*$/.test($("#searchClientData_2").val()))
-                            $("#searchClientData_btn").attr("disabled", true);
-                        break;                      
-                    
-                }
-            }
-        }
-    });
 
 
     /*Se captura el evento dle click a exportar*/

@@ -4,6 +4,10 @@
     max-width: 1500px;
     margin:0 auto;        
 }
+.form-control-dark::placeholder {
+    /*background-color: #6F6F6F !important;*/
+    color: #DBDBDB;
+}
 
 input, div, nav{
   /*border-radius: 0px !important;*/
@@ -15,7 +19,7 @@ span.fixed-color{
 }
 span.fixed-color1{
   color: transparent;
-  font: 2px;
+  font-size: 2px;
   font-weight: bold;
 
 }
