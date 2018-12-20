@@ -156,11 +156,26 @@ $(document).ready(function () {
 
 
 
+function ExportPdf(Contenido_ID) {
 
+        kendo.drawing
+            .drawDOM(("#" + Contenido_ID),
+            {
+                paperSize: "A4",
+                margin: { top: "1cm", bottom: "1cm" },
+                scale: 0.8,
+                height: 500
+            })
+            .then(function (group) {
+                kendo.drawing.pdf.saveAs(group, "Exported.pdf")
+            });
+    }
     /*Se captura el evento dle click a exportar*/
-    $("#pdf").click(function () {
-        Exportar_PDF(array_nombres_reportes[indice_activo], array_nombres_reportes[indice_activo]);
+     $("#pdf").click(function () {
+        ExportPdf(array_nombres_reportes[indice_activo], array_nombres_reportes[indice_activo]);
     });
+
+     
 
     $("#print").click(function () {      
         $("#"+ array_nombres_reportes[indice_activo]).print({        	
@@ -469,4 +484,6 @@ function Exportar_PDF(Contenido_ID, nombre) {
 
         }
     });
+
+    
 }

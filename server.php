@@ -25,11 +25,12 @@ function processClientsRangeController($sqlConection){
     $clientRangeInformation = $sqlConection->getClientRange($bussines, $from, $to);
     while ($cliente = sqlsrv_fetch_array($clientRangeInformation, SQLSRV_FETCH_ASSOC)) {
         array_push($jsondata['results'], $cliente);
+        echo(print_r($_SERVER));exit();
         $url = $_SERVER['HTTP_REFERER'];
         $path = "?empresa=".$bussines."&cliente=".$cliente['Cod_Cli']."&isExternal=true";
 
         #aqui se debe implementar el codigo para enviar email a los clientes..
-        #echo("$url$path");exit;
+        echo("$url$path");exit;
     }
 }
 
