@@ -130,9 +130,126 @@ $(document).ready(function () {
         $("#div_left_side .openbtn").hide();
     });
 
+        /* Cntrol d ecuand marca o desmarca el radio button*/
+    $("#range").click(function () {
+        if (this.checked) {
+            $("#searchClientData").hide();
+            $("#searchClientData_1").val("");
+            $("#searchClientData_2").val("");
+            $("#searchClientData_1").show();
+            $("#searchClientData_2").show();
+            $("#searchClientData_btn").show();
+        }
+        else {
+            $("#searchClientData").show();
+            $("#searchClientData_1").hide();
+            $("#searchClientData_2").hide();
+            $("#searchClientData_btn").hide();
+        }
+    });
+
+    /*Control de todos los eventos que arrojan los campos input de rango clientes*/
+
+    $("#searchClientData").on({
+        keydown: function (event) {
+            /*verifico que todos os input esten llenos con valores validos y mando a porcesar datos*/
+            if (event.key == "Enter") {
+                if (isNaN($("#searchClientEmpresa"))  && isNaN($("#searchClientData").val()) {
+                    alert("enVIO PETICION AL SERVIDOR CON NUMERO DE CLIENTE");
+                }
+                else {
+
+                }
+            }
+
+        }
+    });
+
+    $("#searchClientData_1").on({
+        keydown: function (event) {
+            /*verifico que todos os input esten llenos con valores validos y mando a porcesar datos*/
+            var key = event.key;
+            if (key == "Enter")
+                if (isNAN($("#searchClientEmpresa").val()) && isNAN($("#searchClientData_1").val()) && isNAN($("#searchClientData_2").val())) {
+                    alert("enVIO PETICION AL SERVIDOR CON NUMERO DE CLIENTE1");
+                }
+                else {
+
+                }
+            if (/^([0-9])*$/.test(event.key) && $("#searchClientData_2").val() > 0) {
+                $("#searchClientData_btn").attr("disabled", false);
+            }
+            else {
+                var tecla = event.key;
+                switch (tecla) {
+
+                    case "Delete":
+                        if(/^([0-9])*$/.test($("#searchClientData_1").val()))
+                            $("#searchClientData_btn").attr("disabled", true);
+                        break;
+                    case "Backspace":
+                        if(/^([0-9])*$/.test($("#searchClientData_1").val()))
+                            $("#searchClientData_btn").attr("disabled", true);
+                        break;                      
+                    
+                }
+            }
+        }
+    });
+
+    $("#searchClientData_2").on({
+        keydown: function (event) {
+            /*verifico que todos os input esten llenos con valores validos y mando a porcesar datos*/
+            var key = event.key;
+            if (key == "Enter")
+                if (isNAN($("#searchClientEmpresa").val()) && isNAN($("#searchClientData_1").val()) && isNAN($("#searchClientData_2").val())) {
+                    alert("enVIO PETICION AL SERVIDOR CON NUMERO DE CLIENTE2");
+                }
+                else {
+
+                }
+            if (/^([0-9])*$/.test(event.key) && $("#searchClientData_1").val() > 0) {
+                $("#searchClientData_btn").attr("disabled", false);
+            }
+            else {
+                var tecla = event.key;
+                switch (tecla) {
+
+                    case "Delete":
+                        if(/^([0-9])*$/.test($("#searchClientData_2").val()))
+                            $("#searchClientData_btn").attr("disabled", true);
+                        break;
+                    case "Backspace":
+                        if(/^([0-9])*$/.test($("#searchClientData_2").val()))
+                            $("#searchClientData_btn").attr("disabled", true);
+                        break;                      
+                    
+                }
+            }
+        }
+    });
+
+
     /*Se captura el evento dle click a exportar*/
-    $("#bt_exportar").click(function () {
-        Exportar_PDF(array_nombres_reportes[indice_activo], "archivo");
+    $("#pdf").click(function () {
+        Exportar_PDF(array_nombres_reportes[indice_activo], array_nombres_reportes[indice_activo]);
+    });
+
+    $("#print").click(function () {      
+        $("#"+ array_nombres_reportes[indice_activo]).print({        	
+            globalStyles: true,
+            mediaPrint: false,
+            stylesheet: "css/style_"+ array_nombres_reportes[indice_activo] +".css",
+            noPrintSelector: "",
+            iframe: true,
+            append: null,
+            prepend: null,
+            manuallyCopyFormValues: true,
+            deferred: $.Deferred(),
+            timeout: 750,
+            title: null,
+            doctype: '<!doctype html>'
+        });
     });
 
 });
@@ -141,12 +258,15 @@ $(document).ready(function () {
 /*Funcion para anadir al paginado un nuevo reporte al paginado*/
 function Add_Reporte_Paginado(nombre_reporte) {
 
+    var a = ($("#reportListAvailable").children("li")).toArray();
+
+
     if (array_nombres_reportes.length == 0) {
 
         var a = $("<a></a>").text("<");
         a.attr({ "class": "page-link", "href": "#" });
         var li = $("<li></li>").append(a);
-        li.attr({ "class": "page-item", "id": "Siguiente" });
+        li.attr({ "class": "page-item", "id": "previous" });
 
         var a1 = $("<a></a>").text(">");
         a1.attr({ "class": "page-link", "href": "#" });
@@ -173,8 +293,8 @@ function Add_Reporte_Paginado(nombre_reporte) {
     if (indice_activo == -1) {
         indice_activo = pos;
         $("#ul_pagination  [id = '" + (indice_activo) + "']").attr("class", "page-item" + "  " + "active");
-        console.log("el elemento a mostras:" + nombre_reporte);
         Hide_Reporte("plantilla");
+        Load_Templates();
         Show_Reporte(nombre_reporte);
     }
     else {
@@ -183,7 +303,9 @@ function Add_Reporte_Paginado(nombre_reporte) {
 
         indice_activo = pos;
         $("#ul_pagination  [id = '" + (pos) + "']").attr("class", "page-item" + "  " + "active");
+        Load_Templates();
         Show_Reporte(nombre_reporte);
+
     }
 
 }
@@ -239,65 +361,53 @@ function Remove_Reporte_Paginado(index) {
     }
 }
 
-/*Funcion para saber si un div esta vacio o no*/
 function Div_Is_Empty($target) {
     $target = ($target instanceof jQuery) ? $target : $($target);
     return ($target.length > 0) && !$.trim($target.html());
-};
+}
+
+/*Funcion apra cargar d eun solo golpe todos los templates cuando selecione un _Reporte*/
+function Load_Templates() {
+    var value = $("#reportListAvailable").children("li");
+    (value).each(function (index, item) {
+        if (Div_Is_Empty($("#div_show_report [id ='" + $(item).attr("value") + "']")))
+            $("#div_show_report [id ='" + $(item).attr("value") + "']").load("templates/" + $(item).attr("value") + ".html");
+        if ($(item).attr("value") == "int_terrestre") {
+            var value_1 = $("#reportListAvailable").children("div").children("label").children("input");
+            (value_1).each(function (index_1, item_1) {
+                if (Div_Is_Empty($("#div_show_report [id ='" + $(item_1).attr("value") + "']"))) {
+                    $("#div_show_report [id ='" + $(item_1).attr("value") + "']").load("templates/" + $(item_1).attr("value") + ".html");
+                }
+            });
+        }
+    });
+}
 
 /*Funcion para anadir dinamicamente e reporte segun lo selecione*/
 function Show_Reporte(nombre_reporte) {
 
     switch (nombre_reporte) {
-
         case "plantilla":
             if (Div_Is_Empty($("#div_show_report [id ='" + nombre_reporte + "']"))) {
                 $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/plantilla.html");
             }
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
             break;
-
         case "servicios_locales":
-            if (Div_Is_Empty($("#div_show_report [id ='" + nombre_reporte + "']"))) {
-                $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/servicios_locales.html");
-            }
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
             break;
-
         case "int_terrestre":
-            if (Div_Is_Empty($("#div_show_report [id ='" + nombre_reporte + "']"))) {
-                $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/Int.Terrestre.html");
-            }
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
-
             if (servicio_aereo == "servicio_aéreo_1") {
-                if (Div_Is_Empty($("#div_show_report #servicio_aéreo_1"))) {
-                    $("#div_show_report [id ='" + servicio_aereo + "']").load("templates/servicio_aéreo_1.html");
-                }
                 $("#servicio_aéreo_1").show();
             } else if (servicio_aereo == "servicio_aéreo_2") {
-                if (Div_Is_Empty($("#div_show_report #servicio_aéreo_2"))) {
-                    $("#div_show_report [id ='" + servicio_aereo + "']").load("templates/servicio_aéreo_2.html");
-                }
                 $("#servicio_aéreo_2").show();
             }
             break;
-
         case "servicio_nacional":
-            if (Div_Is_Empty($("#div_show_report [id ='" + nombre_reporte + "']"))) {
-                $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/servicio_nacional.html");
-            }
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
             break;
-
         case "servicio_insular":
-            if (Div_Is_Empty($("#div_show_report [id ='" + nombre_reporte + "']"))) {
-                $("#div_show_report [id ='" + nombre_reporte + "']").load("templates/servicio_insular.html");
-            }
-            $("#div_show_report [id ='" + nombre_reporte + "']").show();
-            break;
-
-        case "tarifa_carga":
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
             break;
     }
@@ -331,7 +441,7 @@ function Hide_Reporte(nombre_reporte) {
 
 function Hide_All_Reporte() {
 
-    $("#div_left_side .openbtn").hide();
+   $("#div_left_side .openbtn").hide();
     $("#div_action_report").hide();
     $("#div_pagination").show();
     $("#div_show_report #plantilla").hide();
@@ -343,6 +453,9 @@ function Hide_All_Reporte() {
     $("#div_show_report #servicio_reporte").hide();
     $("#div_show_report #tarifa_carga").hide();
     $("#div_show_report #servicio_insular").hide();
+    $("#searchClientData_1").hide();
+    $("#searchClientData_2").hide();
+    $("#searchClientData_btn").hide();
 }
 
 /* Aca termina el codigo para mostrar los reportes y ocultarlos*/
@@ -352,53 +465,65 @@ function Hide_All_Reporte() {
 
 /*Aca comien el codigo para relizar las acciones de imprimir y exportar los reportes seleccionados*/
 
+/*Metodo de validacion para saber que es un entero*/
+function Input_Is_Empty(id) {
+    return true;
+}
+
+
+function Input_Is_NUmber(id) {
+    return true;
+}
+
+
+
+
+/*Aca comien el codigo para relizar las acciones de imprimir y exportar los reportes seleccionados*/
+
+function Exportar() {
+    array_nombres_reportes.forEach(function (element) {
+        alert("Nombre:" + element);
+        Exportar_PDF(element, element);
+    });
+}
+
 function Exportar_PDF(Contenido_ID, nombre) {
-    var pdf = new jsPDF('l', 'mm', 'a4');
-    var html = $("#" + Contenido_ID).html();
-    specialElemententHandlers = {};
-    margin = { top: 10, bottom: 20, left: 10, width: 522 };
-    pdf.fromHTML(html, margin.left, margin.top, { 'width': margin.width }, function (dispose) { pdf.save(nombre + '.pdf') }, margin);
-}
+
+    var doc = new jsPDF("p", "mm", "a4");
+    var width_p = doc.internal.pageSize.getWidth();
+    var height_p = doc.internal.pageSize.getHeight();
+
+    html2canvas($("#" + Contenido_ID), {
+        onrendered: function (canvas) {
+            var img = canvas.toDataURL("image/jpg", 1.0);
+            /*var img_w = canvas.width;
+               var img_h = canvas.height;*/
+            /* alert("ancho:" + img_w + "ancho d ela hoja:"+ width_p);
+               alert("altura:" + img_h + "altura d ela hoja:"+ height_p);*/
+            //window.open(img);
+
+            doc.addImage(img, 'JPEG', 1, 1, width_p, height_p);
+            doc.save(nombre + '.pdf');
+
+            /* var pdf = doc.output('blob');
+ 
+             var data = new FormData();
+             data.append('data', pdf);
+ 
+ 
+             var xhr = new XMLHttpRequest();
+             xhr.onreadystatechange = function () {
+                 if (this.readyState == 4) {
+                     if (this.status !== 200) {
+                         // handle error
+                     }
+                 }
+             }
+ 
+             xhr.open('POST', 'upload.php', true);
+             xhr.send(data);*/
 
 
-
-
-
-
-
-
-
-
-/* Aca comeinsa el codigo para modificar reporte tarifas internacionales terrestres */
-
-function Add_Filas_Tabla() {
-    var campo;
-    var celda;
-    var fila;
-    for (var i = 0; i < 31; i++) {
-        fila = $("<tr></tr>");
-        for (var j = 0; j < 6; j++) {
-            if (j == 0) {
-                if (i >= 0 && i < 10) {
-                    campo = $("<a></a>").text("hola1");
-                    celda = $("<td></td>").append(campo);
-                    fila.append(celda);
-                } else if (i >= 10 && i < 15) {
-                    campo = $("<a></a>").text("hola2");
-                    celda = $("<td></td>").append(campo);
-                    fila.append(celda);
-                } else if (i >= 15 && i < 31) {
-                    campo = $("<a></a>").text("hola3");
-                    celda = $("<td></td>").append(campo);
-                    fila.append(celda);
-                }
-            }
-            campo = $("<a></a>").text("hola");
-            celda = $("<td></td>").append(campo);
-            fila.append(celda);
         }
-    }
-
-    $(".tbody_t_i_t .tr_second").after(fila);
+    });
 }
-
