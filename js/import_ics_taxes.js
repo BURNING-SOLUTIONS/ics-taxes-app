@@ -312,14 +312,14 @@ $(function () {
                             });
                             reportNac.drawAditionalFills(elementos_nacionales);
                             reporteInsular.drawAditionalFills(elementos_insulares);
-                            let url = `http://192.168.0.66/1-ISNTANPACK/ics-taxes-app/inicio.html?source=external&empresa=${this._inputSearchEmpresa.val()}&cliente=${this._inputSearchClient.val()}`;
+                            /*let url = `http://192.168.0.66/1-ISNTANPACK/ics-taxes-app/inicio.html?source=external&empresa=${this._inputSearchEmpresa.val()}&cliente=${this._inputSearchClient.val()}`;
                             //console.info(url);
                             let emailRecipient = new IcsEmail();
                             emailRecipient.sendEmail(
                                 "ramonlahabana1989@gmail.com",
                                 "liliamlge7@gmail.com",
                                 "INSTAPACK Developer Team",
-                                url);
+                                url);*/
                         }
                         this.showHideLoadSpinner(true);
                         //console.info('Complete request');

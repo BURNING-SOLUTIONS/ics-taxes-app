@@ -154,7 +154,7 @@ $(document).ready(function () {
         keydown: function (event) {
             /*verifico que todos os input esten llenos con valores validos y mando a porcesar datos*/
             if (event.key == "Enter") {
-                if (isNaN($("#searchClientEmpresa"))  && isNaN($("#searchClientData").val()) {
+                if (isNaN($("#searchClientEmpresa"))  && isNaN($("#searchClientData").val())) {
                     alert("enVIO PETICION AL SERVIDOR CON NUMERO DE CLIENTE");
                 }
                 else {
