@@ -80,7 +80,11 @@ class sqlServerConecction{
 
         return $this->createQuery($sql);
     }
+    public function getClienteRango($empresa, $from, $to){
+    	$sql = "SELECT Cod_Cli, Nom_Cli, EMail_Cli from dbo.clientes where Emp_Cli={$empresa}  and Cod_Cli> {$from}  and Cod_Cli<{$to}";
 
+    	return $this->createQuery($sql);
+    }
 
 } 
 
