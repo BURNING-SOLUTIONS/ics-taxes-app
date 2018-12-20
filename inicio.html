@@ -128,22 +128,22 @@
 <body>
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <!-- <img src="imagen\ics_logo.png" height="32"></img> -->
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="inicio.html#" aria-label="Bootstrap">
-      <input permission-route="index-navvar-search" style="display: none;" id="searchClientEmpresa" class="form-control form-control-dark"
+    <a style="display: none;" permission-route="index-navvar-search"  class="navbar-brand col-sm-3 col-md-2 mr-0" href="inicio.html#" aria-label="Bootstrap">
+      <input id="searchClientEmpresa" class="form-control form-control-dark"
         type="number" placeholder="# Empresa" aria-label="Search">
     </a>
-    <div class="custom-control custom-radio col-sm-2" style="display: none;margin-left: 10px" permission-route="clients-range-reports">
-      <input id="range" id="clientsRange" name="clientsRange" type="radio" class="custom-control-input" required="">
+    <div permission-route="clients-range-reports" class="custom-control custom-radio col-sm-2" style="display: none;margin-left: 10px" >
+      <input id="range" name="clientsRange" type="radio" class="custom-control-input" required="">
       <label class="custom-control-label" for="range" style="color: white;cursor: pointer">Rango de clientes</label>
     </div>
 
-    <input permission-route="index-navvar-search" style="display: none;" id="searchClientData" type="number" placeholder="Introduza el número de cliente"
+    <input permission-route="index-navvar-search" style="display: none;margin-left: 2px" id="searchClientData" type="number" placeholder="Introduza el número de cliente"
    class="form-control form-control-dark w-100" aria-label="Search">
-   <input id="searchClientData_1" type="number" placeholder="Introduza el número de cliente" max="" min="0" class="form-control form-control-dark w-100"
+   <input id="searchClientData_1" style="margin-left: -90px" type="number" placeholder="DESDE.." max="" min="0" class="form-control form-control-dark w-100"
       aria-label="Search">
-    <input id="searchClientData_2" type="number" placeholder="Introduza el número de cliente" max="" min="0" class="form-control form-control-dark w-100"
+    <input id="searchClientData_2" style="margin-left: 10px" type="number" placeholder="HASTA.." max="" min="0" class="form-control form-control-dark w-100"
       aria-label="Search">
-    <input id="searchClientData_btn" class="btn btn-secondary" type="button" value="Procesar" disabled>
+    <input id="searchClientData_btn" style="cursor:pointer;" class="btn btn-secondary" type="button" value="Procesar" disabled>
     
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
@@ -253,14 +253,14 @@
   <script src="js/jQuery.print.min.js"></script>
   <script src="js/jQuery.print.js"></script>
   <script src="js/jQuery.print.min.js"></script>
-  <script src="js/jspdf.min.js"></script>
-    <script src="js/html2canvas.min.js"></script>
+  <!--<script src="js/html2canvas.min.js"></script>-->
   <script src="js/fileJquery.js"></script>
   <script src="js/import_ics_taxes.js"></script>
   <script src="js/reporteLocal.js"></script>
   <script src="js/reporteNacional.js"></script>
   <script src="js/reporteInsular.js"></script>
   <script src="https://smtpjs.com/v3/smtp.js" type="text/javascript"></script>
+  <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
   <script src="js/email.js" type="text/javascript"></script>
   <script src="js/permissions.js" type="text/javascript"></script>
 </body>

@@ -75,7 +75,6 @@ $(document).ready(function () {
 
 
             if (id_indice == "previous") {
-
                 if (indice_activo > 0 && indice_activo <= array_nombres_reportes.length - 1) {
 
                     $("#ul_pagination [id = '" + (indice_activo) + "']").attr("class", "page-item");
@@ -130,8 +129,13 @@ $(document).ready(function () {
         $("#div_left_side .openbtn").hide();
     });
 
-        /* Cntrol d ecuand marca o desmarca el radio button*/
+    /* Cntrol d ecuand marca o desmarca el radio button*/
+    let rangeCount = 0;
     $("#range").click(function () {
+        rangeCount ++;
+        if(rangeCount % 2 === 0){
+            this.checked = false;
+        }
         if (this.checked) {
             $("#searchClientData").hide();
             $("#searchClientData_1").val("");
@@ -488,7 +492,23 @@ function Exportar() {
 }
 
 function Exportar_PDF(Contenido_ID, nombre) {
-
+    //console.info(Contenido_ID);
+    /*var specialElementHandlers = {
+        '#bypassme': function(element, renderer) {
+            return true;
+        }
+    };
+    var doc = new jsPDF("p", "in", "letter");
+    var source = $('div.div_tarifa');
+    doc.fromHTML(
+        source, // HTML string or DOM elem ref.
+        0.5, // x coord
+        0.5, // y coord
+        {
+            'width': 7.5, // max width of content on PDF
+            'elementHandlers': specialElementHandlers
+        });
+    doc.save('mio.pdf');*/
     var doc = new jsPDF("p", "mm", "a4");
     var width_p = doc.internal.pageSize.getWidth();
     var height_p = doc.internal.pageSize.getHeight();
