@@ -1,0 +1,379 @@
+[1mdiff --git a/conexion.php b/conexion.php[m
+[1mindex 77f9234..db1166a 100644[m
+[1m--- a/conexion.php[m
+[1m+++ b/conexion.php[m
+[36m@@ -80,7 +80,11 @@[m [mclass sqlServerConecction{[m
+ [m
+         return $this->createQuery($sql);[m
+     }[m
+[32m+[m[32m    public function getClienteRango($empresa, $from, $to){[m
+[32m+[m[41m    [m	[32m$sql = "SELECT Cod_Cli, Nom_Cli, EMail_Cli from dbo.clientes where Emp_Cli={$empresa}  and Cod_Cli> {$from}  and Cod_Cli<{$to}";[m
+ [m
+[32m+[m[41m    [m	[32mreturn $this->createQuery($sql);[m
+[32m+[m[32m    }[m
+ [m
+ } [m
+ [m
+[1mdiff --git a/js/import_ics_taxes.js b/js/import_ics_taxes.js[m
+[1mindex ec48baf..ac01a84 100644[m
+[1m--- a/js/import_ics_taxes.js[m
+[1m+++ b/js/import_ics_taxes.js[m
+[36m@@ -1,435 +1,414 @@[m
+[32m+[m
+ $(function () {[m
+[31m-    class IcsTaxesTraslate {[m
+[31m-[m
+[31m-        constructor(arr) {[m
+[31m-            this._oFileIn = document.getElementById('file_prices_list_input');[m
+[31m-            this._buttonSubmit = document.getElementById("butttonCalculeTarifas");[m
+[31m-            this._consoleElement = document.getElementById("console-container");[m
+[31m-            this._progressBarElement = $("div.progress-bar");[m
+[31m-            this._ajaxLoadRequest = $('#ajaxLoadRequest');[m
+[31m-            this._servicios_locales_table = $("table#servicios_locales");[m
+[31m-            this._liReportsDisponibles = $("ul#reportListAvailable li.available");[m
+[31m-            this._liReportsSelected = $("ul#reportListAvailable li.selected");[m
+[31m-            this._inputSearchClient = $("input#searchClientData");[m
+[31m-            this._inputSearchEmpresa = $("input#searchClientEmpresa");[m
+[31m-            this._array_lista_precios = arr || [];[m
+[31m-            this._array_lista_tarifas_fijas = [];[m
+[31m-            this.registerListeners();[m
+[31m-            var that = this;[m
+[31m-        }[m
+[31m-[m
+[31m-        set consoleElement(consoleElement) {[m
+[31m-            this._consoleElement = consoleElement;[m
+[31m-        }[m
+[31m-[m
+[31m-        get consoleElement() {[m
+[31m-            return this._consoleElement;[m
+[31m-        }[m
+[31m-[m
+[31m-        set progressBarElement(progressBarElement) {[m
+[31m-            this._progressBarElement = progressBarElement;[m
+[31m-        }[m
+[31m-[m
+[31m-        get progressBarElement() {[m
+[31m-            return this._progressBarElement;[m
+[31m-        }[m
+[31m-[m
+[31m-        get serviciosLocalesTable() {[m
+[31m-            return this._servicios_locales_table;[m
+[31m-        }[m
+[31m-[m
+[31m-        set serviciosLocalesTable(servicios_locales_table) {[m
+[31m-            this._servicios_locales_table = servicios_locales_table;[m
+[31m-        }[m
+[31m-[m
+[31m-        set buttonSubmit(buttonSubmitnew) {[m
+[31m-            this._buttonSubmit = buttonSubmitnew;[m
+[31m-        }[m
+[31m-[m
+[31m-        get buttonSubmit() {[m
+[31m-            return this._buttonSubmit;[m
+[31m-        }[m
+[31m-[m
+[31m-        set array_lista_precios(precios) {[m
+[31m-            this._array_lista_precios = precios;[m
+[31m-        }[m
+[31m-[m
+[31m-        get array_lista_precios() {[m
+[31m-            return this._array_lista_precios;[m
+[31m-        }[m
+[31m-[m
+[31m-        registerListeners() {[m
+[31m-            $("#servicios_locales").on('click', '#imprimirReporte', function () {[m
+[31m-                $("#servicios_locales").print({[m
+[31m-                    globalStyles: true,[m
+[31m-                    mediaPrint: false,[m
+[31m-                    stylesheet: "css/style_servicios_locales.css",[m
+[31m-                    noPrintSelector: ".not_print",[m
+[31m-                    iframe: true,[m
+[31m-                    append: null,[m
+[31m-                    prepend: null,[m
+[31m-                    manuallyCopyFormValues: true,[m
+[31m-                    deferred: $.Deferred(),[m
+[31m-                    timeout: 750,[m
+[31m-                    title: null,[m
+[31m-                    doctype: '<!doctype html>'[m
+[31m-                });[m
+[31m-            });[m
+[31m-[m
+[31m-            $("#servicio_nacional").on('click', '#print_servicio_nacional', function () {[m
+[31m-                $("#servicio_nacional").print({[m
+[31m-                    globalStyles: true,[m
+[31m-                    mediaPrint: false,[m
+[31m-                    stylesheet: "css/style_servicio_nacional.css",[m
+[31m-                    noPrintSelector: ".not_print",[m
+[31m-                    iframe: true,[m
+[31m-                    append: null,[m
+[31m-                    prepend: null,[m
+[31m-                    manuallyCopyFormValues: true,[m
+[31m-                    deferred: $.Deferred(),[m
+[31m-                    timeout: 750,[m
+[31m-                    title: null,[m
+[31m-                    doctype: '<!doctype html>'[m
+[31m-                });[m
+[31m-            });[m
+[31m-[m
+[31m-            $("#servicio_insular").on('click', '#print_servicio_insular', function () {[m
+[31m-                $("#servicio_insular").print({[m
+[31m-                    globalStyles: true,[m
+[31m-                    mediaPrint: false,[m
+[31m-                    stylesheet: "css/style_servicios_locales.css",[m
+[31m-                    noPrintSelector: ".not_print",[m
+[31m-                    iframe: true,[m
+[31m-                    append: null,[m
+[31m-                    prepend: null,[m
+[31m-                    manuallyCopyFormValues: true,[m
+[31m-                    deferred: $.Deferred(),[m
+[31m-                    timeout: 750,[m
+[31m-                    title: null,[m
+[31m-                    doctype: '<!doctype html>'[m
+[31m-                });[m
+[31m-            });[m
+[31m-[m
+[31m-            $("#int_terrestre").on('click', '#print_int_terrestre', function () {[m
+[31m-                $("#int_terrestre").print({[m
+[31m-                    globalStyles: true,[m
+[31m-                    mediaPrint: false,[m
+[31m-                    stylesheet: "css/style_servicios_locales.css",[m
+[31m-                    noPrintSelector: ".not_print",[m
+[31m-                    iframe: true,[m
+[31m-                    append: null,[m
+[31m-                    prepend: null,[m
+[31m-                    manuallyCopyFormValues: true,[m
+[31m-                    deferred: $.Deferred(),[m
+[31m-                    timeout: 750,[m
+[31m-                    title: null,[m
+[31m-                    doctype: '<!doctype html>'[m
+[31m-                });[m
+[31m-            });[m
+[31m-[m
+[31m-            $("#servicio_aéreo_2").on('click', '#print_serv_aereo_2', function () {[m
+[31m-                $("#servicio_aéreo_2").print({[m
+[31m-                    globalStyles: true,[m
+[31m-                    mediaPrint: false,[m
+[31m-                    stylesheet: "css/style_servicios_locales.css",[m
+[31m-                    noPrintSelector: ".not_print",[m
+[31m-                    iframe: true,[m
+[31m-                    append: null,[m
+[31m-                    prepend: null,[m
+[31m-                    manuallyCopyFormValues: true,[m
+[31m-                    deferred: $.Deferred(),[m
+[31m-                    timeout: 750,[m
+[31m-                    title: null,[m
+[31m-                    doctype: '<!doctype html>'[m
+[31m-                });[m
+[31m-            });[m
+[31m-[m
+[31m-            $("#servicio_aéreo_1").on('click', '#print_serv_aereo_1', function () {[m
+[31m-                $("#servicio_aéreo_1").print({[m
+[31m-                    globalStyles: true,[m
+[31m-                    mediaPrint: false,[m
+[31m-                    stylesheet: "css/style_servicios_locales.css",[m
+[31m-                    noPrintSelector: ".not_print",[m
+[31m-                    iframe: true,[m
+[31m-                    append: null,[m
+[31m-                    prepend: null,[m
+[31m-                    manuallyCopyFormValues: true,[m
+[31m-                    deferred: $.Deferred(),[m
+[31m-                    timeout: 750,[m
+[31m-                    title: null,[m
+[31m-                    doctype: '<!doctype html>'[m
+[31m-                });[m
+[31m-            });[m
+[31m-[m
+[31m-            this._liReportsDisponibles.click(function (event) {[m
+[31m-                $(this).toggleClass('selected');[m
+[31m-            });[m
+[31m-[m
+[31m-            this._inputSearchClient.keyup((event) => {[m
+[31m-                if (event.which === 13) {[m
+[31m-                    event.preventDefault();[m
+[31m-                    this.sendServerRequest();[m
+[31m-                }[m
+[31m-            });[m
+[31m-        }[m
+[31m-[m
+[31m-        getTotalReportsSelected() {[m
+[31m-            return $("#reportListAvailable").find('li.selected').length;[m
+[31m-        }[m
+[31m-[m
+[31m-        showHideLoadSpinner(boolean) {[m
+[31m-            (!boolean) ? this._ajaxLoadRequest.removeAttr('hidden') : this._ajaxLoadRequest.attr('hidden', true);[m
+[31m-        }[m
+[31m-[m
+[31m-        setReportHeaderNameClient(element) {[m
+[31m-            if (element) {[m
+[31m-                $('h3#codeClientLocal').empty().html(`Servicios locales: ${this._inputSearchClient.val()} - ${element['nombre']}`);[m
+[31m-                $('h3#codeClientNacional').empty().html(`Servicios Nacionales: ${this._inputSearchClient.val()} - ${element['nombre']}`);[m
+[31m-                $('h3#codeClientInsular').empty().html(`Servicios Insular: ${this._inputSearchClient.val()} - ${element['nombre']}`);[m
+[31m-                $('h3#codeClientIntTerrestre').html(`${this._inputSearchClient.val()} - ${element['nombre']}`);[m
+[31m-                $('h3#codeClientIntTerrestre2').html(`${this._inputSearchClient.val()} - ${element['nombre']}`);[m
+[31m-                $('h3#codeClientIntTerrestre3').html(`${this._inputSearchClient.val()} - ${element['nombre']}`);[m
+[31m-            }[m
+[31m-        }[m
+[31m-[m
+[31m-        setYearNameAllReports() {[m
+[31m-            $('span.this_year').html(new Date().getFullYear())[m
+[31m-        }[m
+[31m-[m
+[31m-        runBasicValidations() {[m
+[31m-            let pass_rules = true;[m
+[31m-            if (!this._inputSearchClient.val()) {[m
+[31m-                pass_rules = false;[m
+[31m-                alert('Especifique por favor el número de cliente que desea consultar.');[m
+[31m-            }[m
+[31m-            else if (!this._inputSearchEmpresa.val()) {[m
+[31m-                pass_rules = false;[m
+[31m-                alert('Esta olvidando especificar la empresa de este cliente.');[m
+[31m-            }[m
+[31m-            else if (this.getTotalReportsSelected() < 1) {[m
+[31m-                pass_rules = false;[m
+[31m-                alert('Seleccione al menos en un reporte en la lista de reportes disponibles para mostrar resultados.');[m
+[31m-            }[m
+[31m-            return pass_rules;[m
+[31m-        }[m
+[31m-[m
+[31m-        sendServerRequest() {[m
+[31m-            if (this.runBasicValidations()) {[m
+[31m-                this.showHideLoadSpinner(false);[m
+[31m-                $('#msgAlertReportNacional').attr('hidden', true);[m
+[31m-                //console.info('Init request');[m
+[31m-                $.ajax({[m
+[31m-                    type: "POST",[m
+[31m-                    url: "server.php",[m
+[31m-                    data: {[m
+[31m-                        "id_cliente": this._inputSearchClient.val(),[m
+[31m-                        "id_empresa": this._inputSearchEmpresa.val()[m
+[31m-                    },[m
+[31m-                    success: (result) => {[m
+[31m-                        //console.info(result);[m
+[31m-                        $('tbody > input').val('0.00 €');[m
+[31m-                        $('span.fixed-color1').css('color', 'transparent');[m
+[31m-                        $('span.fixed-color').css('color', 'black');[m
+[31m-                        var reportData = JSON.parse(result);[m
+[31m-                        var results = reportData['results'];[m
+[31m-                        var elementos_nacionales = {[m
+[31m-                            "522": {"id": "522", "arraySelf": []},[m
+[31m-                            "501": {"id": "501", "arraySelf": []},[m
+[31m-                            "840": {"id": "840", "arraySelf": []},[m
+[31m-                            "329": {"id": "329", "arraySelf": []},[m
+[31m-                            "523": {"id": "523", "arraySelf": []},[m
+[31m-                            "503": {"id": "503", "arraySelf": []},[m
+[31m-                            "841": {"id": "841", "arraySelf": []},[m
+[31m-                            "330": {"id": "330", "arraySelf": []},[m
+[31m-                            "549": {"id": "549", "arraySelf": []},[m
+[31m-                            "504": {"id": "504", "arraySelf": []},[m
+[31m-                            "842": {"id": "842", "arraySelf": []},[m
+[31m-                            "331": {"id": "331", "arraySelf": []},[m
+[31m-                            "525": {"id": "525", "arraySelf": []},[m
+[31m-                            "505": {"id": "505", "arraySelf": []},[m
+[31m-                            "318": {"id": "318", "arraySelf": []},[m
+[31m-                            "322": {"id": "322", "arraySelf": []},[m
+[31m-                            "310": {"id": "310", "arraySelf": []},[m
+[31m-                            "314": {"id": "314", "arraySelf": []},[m
+[31m-                            "319": {"id": "319", "arraySelf": []},[m
+[31m-                            "323": {"id": "323", "arraySelf": []},[m
+[31m-                            "315": {"id": "315", "arraySelf": []},[m
+[31m-                            "320": {"id": "320", "arraySelf": []},[m
+[31m-                            "324": {"id": "324", "arraySelf": []},[m
+[31m-                            "312": {"id": "312", "arraySelf": []},[m
+[31m-                            "316": {"id": "316", "arraySelf": []},[m
+[31m-                        };[m
+[31m-                        var elementos_insulares = {[m
+[31m-                            "318": {"id": "318", "arraySelf": []},[m
+[31m-                            "322": {"id": "322", "arraySelf": []},[m
+[31m-                            "310": {"id": "310", "arraySelf": []},[m
+[31m-                            "314": {"id": "314", "arraySelf": []},[m
+[31m-                            "319": {"id": "319", "arraySelf": []},[m
+[31m-                            "323": {"id": "323", "arraySelf": []},[m
+[31m-                            "311": {"id": "311", "arraySelf": []},[m
+[31m-                            "315": {"id": "315", "arraySelf": []},[m
+[31m-                            "320": {"id": "320", "arraySelf": []},[m
+[31m-                            "324": {"id": "324", "arraySelf": []},[m
+[31m-                            "312": {"id": "312", "arraySelf": []},[m
+[31m-                            "316": {"id": "316", "arraySelf": []},[m
+[31m-                        };[m
+[31m-                        var reporteLocal = {};[m
+[31m-                        var reportNac = {};[m
+[31m-                        var reporteInsular = {};[m
+[31m-                        if (reportData['status'].ok === false) {[m
+[31m-                            alert(reportData['status'].message)[m
+[31m-                        } else {[m
+[31m-                            let msg = results[0]['baja'] === 1 ? "Inactivo " : "";[m
+[31m-                            let msg1 = results[0]['BloqueoTrafico'] === 1 ? "Bloqueado en Tráfico" : "";[m
+[31m-                            let msg2 = results[0]['BloqueoNacional'] === 1 ? "Bloqueado Nacional " : "";[m
+[31m-                            if (msg || msg1 || msg2)[m
+[31m-                                $('#msgAlertReportTodos').removeAttr('hidden').html(`Cliente ${msg} ${msg1} ${msg2}`);[m
+[31m-[m
+[31m-                            this.setReportHeaderNameClient(results["0"]);[m
+[31m-                            this.setYearNameAllReports();[m
+[31m-[m
+[31m-                            Object.keys(results).forEach((key) => {[m
+[31m-                                let elemento_tarifario = results[key]['elemento'];[m
+[31m-                                let is_national_tarife = (results[0]['tarifa'].indexOf("NR") >= 0 || results[0]['tarifa'].indexOf("N2") >= 0);[m
+[31m-                                reporteLocal = new IcsReporteLocal(results[key]);[m
+[31m-                                reporteLocal.drawRangeFills();[m
+[31m-[m
+[31m-                                if (!(results[0]['tarifa'] && is_national_tarife)) {[m
+[31m-                                    $('span.fixed-color1').css('color', 'black');[m
+[31m-                                    $('span.fixed-color').css('color', 'transparent');[m
+[31m-                                }[m
+[31m-                                if (elementos_nacionales[elemento_tarifario]) {[m
+[31m-                                    elementos_nacionales[elemento_tarifario].arraySelf.push(results[key]);[m
+[31m-                                    reportNac = new IcsReporteNacional(results[key]);[m
+[31m-                                    reportNac.drawRangeFills();[m
+[31m-                                }[m
+[31m-                                if (elementos_insulares[elemento_tarifario]) {[m
+[31m-                                    elementos_insulares[elemento_tarifario].arraySelf.push(results[key]);[m
+[31m-                                    reporteInsular = new IcsReporteInsular(results[key]);[m
+[31m-                                    reporteInsular.drawRangeFills();[m
+[31m-                                }[m
+[31m-[m
+[31m-                            });[m
+[31m-                            reportNac.drawAditionalFills(elementos_nacionales);[m
+[31m-                            reporteInsular.drawAditionalFills(elementos_insulares);[m
+[31m-                            /*let url = `http://192.168.0.66/1-ISNTANPACK/ics-taxes-app/inicio.html?source=external&empresa=${this._inputSearchEmpresa.val()}&cliente=${this._inputSearchClient.val()}`;[m
+[31m-                            //console.info(url);[m
+[31m-                            let emailRecipient = new IcsEmail();[m
+[31m-                            emailRecipient.sendEmail([m
+[31m-                                "ramonlahabana1989@gmail.com",[m
+[31m-                                "liliamlge7@gmail.com",[m
+[31m-                                "INSTAPACK Developer Team",[m
+[31m-                                url);*/[m
+[31m-                        }[m
+[31m-                        this.showHideLoadSpinner(true);[m
+[31m-                        //console.info('Complete request');[m
+[31m-                    },[m
+[31m-                    error: (error) => {[m
+[31m-                        this.showHideLoadSpinner(false);[m
+[31m-                        console.warn(error);[m
+[31m-[m
+[31m-                    }[m
+[31m-                });[m
+[31m-            }[m
+[31m-[m
+[31m-        }[m
+[31m-[m
+[31m-        getNombreById(id) {[m
+[31m-            var nombre = '';[m
+[31m-            NOMENCLADORES_LOCALES.Moto.forEach((val, pos) => {[m
+[31m-                if (val.id === id) {[m
+[31m-                    nombre = val.name[m
+[31m-                }[m
+[31m-            });[m
+[31m-            return nombre;[m
+[31m-        }[m
+[31m-[m
+[31m-        calculeNewTaxes(Event) {[m
+[31m-            Event.preventDefault();[m
+[31m-            this.addConsoleText('2 - Calculando tarifas locales...');[m
+[31m-            //console.warn(this.array_lista_precios)[m
+[31m-            let moto_locales = this.array_lista_precios.filter(tarifa => {[m
+[31m-                return (NOMENCLADORES_LOCALES.Moto.map(nom => nom.id.toString()).indexOf(tarifa.elemento_tarifa_id.toString())) !== -1[m
+[31m-            });[m
+[31m-            //console.warn()[m
+[31m-            $("table#servicios_locales tbody").append(`<td style='font-weight: bold'> Moto </td>`);[m
+[31m-            moto_locales.forEach((val, pos) => {[m
+[31m-                $("table#servicios_locales tbody").appe
