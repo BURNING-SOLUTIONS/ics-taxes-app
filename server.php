@@ -26,8 +26,11 @@ function processClientsRangeController($sqlConection){
     while ($cliente = sqlsrv_fetch_array($clientRangeInformation, SQLSRV_FETCH_ASSOC)) {
         array_push($jsondata['results'], $cliente);
         $path = "/inicio.html?empresa=".$bussines."&cliente=".$cliente['Cod_Cli']."&isExternal=true";
+        $url = "$PROYECT_CONFIG[server_host]$PROYECT_CONFIG[project_raise]$path";
         #aqui se debe implementar el codigo para enviar email a los clientes..
-        echo("$PROYECT_CONFIG[server_host]$PROYECT_CONFIG[project_raise]$path");exit;
+        #utilizando la $url en la variable
+        
+
     }
 }
 
