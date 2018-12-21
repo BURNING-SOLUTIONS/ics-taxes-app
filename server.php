@@ -18,19 +18,16 @@ switch ($_POST['route']) {
 
 function processClientsRangeController($sqlConection){
     $jsondata = array('status' => array('ok' => true, 'message' => 'Resultados esperados.'), 'results' => array());
-    $emails_to_send = array();
+    $PROYECT_CONFIG = parse_ini_file('config/config.ini');
     $bussines = $_POST['id_empresa'];
     $from = $_POST['range']['from'];
     $to = $_POST['range']['to'];
     $clientRangeInformation = $sqlConection->getClientRange($bussines, $from, $to);
     while ($cliente = sqlsrv_fetch_array($clientRangeInformation, SQLSRV_FETCH_ASSOC)) {
         array_push($jsondata['results'], $cliente);
-        echo(print_r($_SERVER));exit();
-        $url = $_SERVER['HTTP_REFERER'];
-        $path = "?empresa=".$bussines."&cliente=".$cliente['Cod_Cli']."&isExternal=true";
-
+        $path = "/inicio.html?empresa=".$bussines."&cliente=".$cliente['Cod_Cli']."&isExternal=true";
         #aqui se debe implementar el codigo para enviar email a los clientes..
-        echo("$url$path");exit;
+        echo("$PROYECT_CONFIG[server_host]$PROYECT_CONFIG[project_raise]$path");exit;
     }
 }
 
