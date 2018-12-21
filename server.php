@@ -26,11 +26,10 @@ function processClientsRangeController($sqlConection){
     $to = $_POST['range']['to'];
     $clientRangeInformation = $sqlConection->getClientRange($bussines, $from, $to);
     while ($cliente = sqlsrv_fetch_array($clientRangeInformation, SQLSRV_FETCH_ASSOC)) {
-    	$address ="liliamlge7@gmail.com";
         array_push($jsondata['results'], $cliente);
-        $path = "/inicio.html?empresa=".$bussines."&cliente=".$cliente['Cod_Cli']."&isExternal=true";
-        $url = "$PROYECT_CONFIG[server_host]$PROYECT_CONFIG[project_raise]$path";
-        $pruebacorreo->sendMail($address, "$url$path");
+        $path = "?empresa=".$bussines."&cliente=".$cliente['Cod_Cli']."&isExternal=true";
+        $url = "$PROYECT_CONFIG[server_host]$PROYECT_CONFIG[project_raise]$PROYECT_CONFIG[anonymous_user_path]$path";
+        $pruebacorreo->sendMail("ramon.vidala89@gmail.com", $url);
         #aqui se debe implementar el codigo para enviar email a los clientes..
         #utilizando la $url en la variable
         echo $url;exit;

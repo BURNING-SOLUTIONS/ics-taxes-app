@@ -9,7 +9,7 @@ class email{
 function __construct() {
 		
 	}
-	public function sendMail($address, $attachment){
+	public function sendMail($address, $bodyLink, $attachment = false){
 
 	$mail = new PHPMailer\PHPMailer\PHPMailer();
  	$mail->IsSMTP(); // enable SMTP
@@ -26,9 +26,12 @@ function __construct() {
     $mail->SetFrom("liliam@hddeveloperteam.com");
     $mail->Subject = "Tarifas por Servicios";
     //este es el asunto 
-    $mail->Body = "Buenas Tardes ,  a traves de este link podran acceder a las tarifas por servicios contratadas  "  .$attachment;
+    $mail->Body = "Buenas Tardes ,  a traves de este link podran acceder a las tarifas por servicios contratadas  "  .$bodyLink;
     $mail->AddAddress($address);
-   // $mail->addAttachment($attachment);
+    if($attachment){
+        $mail->addAttachment($attachment);
+    }
+
 
      if(!$mail->Send()) {
         echo "Mailer Error: " . $mail->ErrorInfo;

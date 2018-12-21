@@ -159,6 +159,7 @@ $(function () {
 				});
 			});
 
+			this.markedAllReportsByDefault();
 			this.checkRouteType();
 
 			this._liReportsDisponibles.click(function (event) {
@@ -175,6 +176,11 @@ $(function () {
                 event.preventDefault();
                 this.sendServerRequestRangeClients();
 			})
+		}
+
+		markedAllReportsByDefault(){
+            this._liReportsDisponibles.click();
+            this._liReportsDisponibles.addClass('selected');
 		}
 
         checkRouteType(){
@@ -260,8 +266,6 @@ $(function () {
 			if(external_link){
                 $("#searchClientData").val(searchParams.get('cliente'));
                 $("#searchClientEmpresa").val(searchParams.get('empresa'));
-                $('ul#reportListAvailable li.available').click();
-                $('ul#reportListAvailable li.available').addClass('selected');
 			}
 			if(this.runCommonValidations()){
                 this.showHideLoadSpinner(false);
