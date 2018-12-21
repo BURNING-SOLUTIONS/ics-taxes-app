@@ -2,6 +2,7 @@
 include('conexion.php');
 include('reportes/serviciosLocales.php');
 include('security/security.php');
+include('utils/email.php');
 
 # conexion sql a base de datos primer paso....
 $today = new DateTime(); # today date
@@ -17,6 +18,7 @@ switch ($_POST['route']) {
 }
 
 function processClientsRangeController($sqlConection){
+	$pruebacorreo = new email();
     $jsondata = array('status' => array('ok' => true, 'message' => 'Resultados esperados.'), 'results' => array());
     $PROYECT_CONFIG = parse_ini_file('config/config.ini');
     $bussines = $_POST['id_empresa'];
@@ -24,11 +26,11 @@ function processClientsRangeController($sqlConection){
     $to = $_POST['range']['to'];
     $clientRangeInformation = $sqlConection->getClientRange($bussines, $from, $to);
     while ($cliente = sqlsrv_fetch_array($clientRangeInformation, SQLSRV_FETCH_ASSOC)) {
+    	$address ="liliamlge7@gmail.com";
         array_push($jsondata['results'], $cliente);
         $path = "/inicio.html?empresa=".$bussines."&cliente=".$cliente['Cod_Cli']."&isExternal=true";
         $url = "$PROYECT_CONFIG[server_host]$PROYECT_CONFIG[project_raise]$path";
-        #aqui se debe implementar el codigo para enviar email a los clientes..
-        #utilizando la $url en la variable
+        $pruebacorreo->sendMail($address, "$url$path"); 
         
 
     }
