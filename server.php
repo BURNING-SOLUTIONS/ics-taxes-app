@@ -30,9 +30,10 @@ function processClientsRangeController($sqlConection){
         array_push($jsondata['results'], $cliente);
         $path = "/inicio.html?empresa=".$bussines."&cliente=".$cliente['Cod_Cli']."&isExternal=true";
         $url = "$PROYECT_CONFIG[server_host]$PROYECT_CONFIG[project_raise]$path";
-        $pruebacorreo->sendMail($address, "$url$path"); 
-        
-
+        $pruebacorreo->sendMail($address, "$url$path");
+        #aqui se debe implementar el codigo para enviar email a los clientes..
+        #utilizando la $url en la variable
+        echo $url;exit;
     }
 }
 
