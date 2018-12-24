@@ -156,26 +156,26 @@ $(document).ready(function () {
 
 
 
-function ExportPdf(Contenido_ID) {
-
-        kendo.drawing
-            .drawDOM(("#" + Contenido_ID),
-            {
-                paperSize: "A4",
-                margin: { top: "1cm", bottom: "1cm" },
-                scale: 0.8,
-                height: 500
+    function ExportPdf(Contenido_ID, name_file) {
+        kendo.drawing.drawDOM($("#" + Contenido_ID))
+            .then(function(group){
+                return kendo.drawing.exportPDF(group, {
+                    paperSize: "auto",
+                    margin: { left: "1cm", top: "1cm", right: "1cm", bottom: "1cm" }
+                });
             })
-            .then(function (group) {
-                kendo.drawing.pdf.saveAs(group, "Exported.pdf")
+            .done(function(data){
+                kendo.saveAs({
+                    dataURI: data,
+                    fileName: name_file
+                })
             });
     }
+
     /*Se captura el evento dle click a exportar*/
      $("#pdf").click(function () {
         ExportPdf(array_nombres_reportes[indice_activo], array_nombres_reportes[indice_activo]);
     });
-
-     
 
     $("#print").click(function () {      
         $("#"+ array_nombres_reportes[indice_activo]).print({        	
