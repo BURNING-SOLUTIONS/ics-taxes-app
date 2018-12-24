@@ -70,7 +70,7 @@ class sqlServerConecction{
 	public function getTarifasEspeciales($empresa, $cliente){
 	    $sql = "SELECT Nom_Cli,Cod_Cli,Baja_Cli,EMail_Cli,Bloqueo_Cli, BloqueoNac_Cli, Ele_Pre,TarNac_Cli,Precli_Pre,Desde_Pre, Hasta_Pre FROM dbo.precios 
                   inner join dbo.clientes on Cod_Pre=Cod_Cli 
-		        where  Emp_Pre={$_POST['id_empresa']} and Cod_Pre={$cliente} and Dep_Pre=' '  and Dep_Cli=' ' and Precli_Pre>0 and Emp_Cli={$empresa} order by Ele_Pre asc";
+		        where  Emp_Pre={$empresa} and Cod_Pre={$cliente} and Dep_Pre=' '  and Dep_Cli=' ' and Precli_Pre>0 and Emp_Cli={$empresa} order by Ele_Pre asc";
 
         return $this->createQuery($sql);
 	}
@@ -81,7 +81,7 @@ class sqlServerConecction{
         return $this->createQuery($sql);
     }
     public function getClientRange($empresa, $from, $to){
-    	$sql = "SELECT Cod_Cli, Nom_Cli, EMail_Cli from dbo.clientes where Emp_Cli={$empresa} and Dep_Cli='' and Cod_Cli> {$from}  and Cod_Cli<{$to}";
+    	$sql = "SELECT Cod_Cli, Nom_Cli, EMail_Cli from dbo.clientes where Emp_Cli={$empresa} and Dep_Cli='' and Cod_Cli>= {$from}  and Cod_Cli<={$to}";
 
     	return $this->createQuery($sql);
     }

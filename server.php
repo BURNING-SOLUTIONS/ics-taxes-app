@@ -1,7 +1,8 @@
 <?php
 include('conexion.php');
 include('reportes/serviciosLocales.php');
-include('security/security.php');
+#include('security/security.php');
+include('utils/cryptojs-aes.php');
 include('utils/email.php');
 
 # conexion sql a base de datos primer paso....
@@ -27,24 +28,28 @@ function processClientsRangeController($sqlConection){
     $clientRangeInformation = $sqlConection->getClientRange($bussines, $from, $to);
     while ($cliente = sqlsrv_fetch_array($clientRangeInformation, SQLSRV_FETCH_ASSOC)) {
         array_push($jsondata['results'], $cliente);
-        $path = "?empresa=".$bussines."&cliente=".$cliente['Cod_Cli']."&isExternal=true";
-        $url = "$PROYECT_CONFIG[server_host]$PROYECT_CONFIG[project_raise]$PROYECT_CONFIG[anonymous_user_path]$path";
-        $pruebacorreo->sendMail("ramon.vidala89@gmail.com", $url);
-        #aqui se debe implementar el codigo para enviar email a los clientes..
+        $path = cryptoJsAesEncrypt("ics_taxes_myapp", array('bussiness'=> $bussines, 'cliente'=>$cliente));
+        $url = "$PROYECT_CONFIG[server_host]$PROYECT_CONFIG[project_raise]$PROYECT_CONFIG[anonymous_user_path]"."?external_source=".base64_encode($path);
+        # $pruebacorreo->sendMail("liliamlge7@gmail.com", $url);
         #utilizando la $url en la variable
-        echo $url;exit;
+        echo $url; exit();
     }
 }
 
 function clientGetRatesController($sqlConection){
     $jsondata = array('status' => array('ok' => true, 'message' => 'Resultados esperados.'), 'results' => array());
 
-    if ($_POST['id_cliente']) {
+    if (isset($_POST['id_cliente']) || isset($_POST['base64'])) {
         $jsondata['success'] = true;
-        $request_client = $_POST['id_cliente'];
-        $request_empresa = $_POST['id_empresa'];
-
-
+        if(isset($_POST['base64'])){
+            $decrypt = cryptoJsAesDecrypt("ics_taxes_myapp", base64_decode($_POST['base64']));
+            $request_client = $decrypt['cliente']['Cod_Cli'];
+            $request_empresa = $decrypt['bussiness'];
+            //echo $request_client."  :  ".$request_empresa;exit;
+        }else{
+            $request_client = $_POST['id_cliente'];
+            $request_empresa = $_POST['id_empresa'];
+        }
         # consulta numero 1..
         $clientExist = $sqlConection->isValidCLient($request_empresa, $request_client);
 
@@ -105,7 +110,6 @@ function clientGetRatesController($sqlConection){
     } else {
         $jsondata['status'] = array('ok' => false, 'message' => 'No se ha recibido ningun numero de cliente');
     }
-
     echo json_encode($jsondata, JSON_FORCE_OBJECT);
     exit();
 }

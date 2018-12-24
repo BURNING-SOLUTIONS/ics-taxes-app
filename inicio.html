@@ -117,6 +117,21 @@
     .social-link:hover path {
       fill: red;
     }
+    div.ngdialog-overlay-blocking {
+      position: fixed;
+      height: auto;
+      background: rgba(0, 0, 0, 0.5);
+      z-index:1000001;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      -webkit-backface-visibility: hidden;
+      overflow-x: hidden;
+      padding-left: 19px;
+      outline: 0;
+      overflow-y: auto!important;
+    }
   </style>
 
 
@@ -127,6 +142,14 @@
 </head>
 
 <body>
+<div class="ngdialog-overlay-blocking" hidden>
+  <div style="margin-top:15%;margin-left:40%;position:fixed;width:200px;z-index:101">
+    <progressbar class="progress-striped active" value="100">
+      Procesando los datos del reporte espere por favor..
+    </progressbar>
+  </div>
+</div>
+
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <!-- <img src="imagen\ics_logo.png" height="32"></img> -->
     <a style="display: none;" permission-route="index-navvar-search"  class="navbar-brand col-sm-3 col-md-2 mr-0" href="inicio.html#" aria-label="Bootstrap">
@@ -266,6 +289,8 @@
   <!-- <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script> -->
   <script src="js/email.js" type="text/javascript"></script>
   <script src="js/permissions.js" type="text/javascript"></script>
+  <script src="js/aes-json-format.js" type="text/javascript"></script>
+  <script src="js/base64.js" type="text/javascript"></script>
   <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
   <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
 </body>

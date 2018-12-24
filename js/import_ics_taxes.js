@@ -185,7 +185,7 @@ $(function () {
 
         checkRouteType(){
             let url = new URL(window.location.href);
-            var isExternalLink = url.searchParams.get("isExternal");
+            var isExternalLink = url.searchParams.get("external_source");
             if(isExternalLink){
 				this.sendServerRequest(true, url.searchParams)
 			}
@@ -238,6 +238,7 @@ $(function () {
             	alert('Para realizar esta operación debe llenar los campos EMPRESA, y los números clientes DESDE y HASTA');
 			}else{
                 console.info('Init request');
+                $('.ngdialog-overlay-blocking').removeAttr('hidden');
                 $.ajax({
                     type: "POST",
                     data: {
@@ -250,8 +251,8 @@ $(function () {
 					},
                     url: "server.php",
                     success: (result) => {
-
 						this.showHideLoadSpinner(true);
+                        $('.ngdialog-overlay-blocking').attr('hidden', true);
 						console.info('Complete request');
                     },
                     error: (error)=> {
@@ -262,26 +263,28 @@ $(function () {
 			}
         }
 
+        /*b64_to_utf8( str ) {
+            return Base64.decode(str);
+        }*/
+
 		sendServerRequest(external_link, searchParams) {
-			if(external_link){
-                $("#searchClientData").val(searchParams.get('cliente'));
-                $("#searchClientEmpresa").val(searchParams.get('empresa'));
-			}
-			if(this.runCommonValidations()){
+			let params = {};
+            if(!external_link)
+                params = {"route": "get-client-rates", "id_cliente": this._inputSearchClient.val(), "id_empresa": this._inputSearchEmpresa.val()}
+            else
+                params = { "route": "get-client-rates","base64": searchParams.get("external_source")};
+
+			if(external_link || this.runCommonValidations()){
                 this.showHideLoadSpinner(false);
+                $('.ngdialog-overlay-blocking').removeAttr('hidden');
                 $('#msgAlertReportNacional').attr('hidden', true);
-                console.info('Init request');
                 $.ajax({
                     type: "POST",
-                    data: {
-                    	"route": "get-client-rates",
-						"id_cliente": this._inputSearchClient.val(),
-						"id_empresa": this._inputSearchEmpresa.val()
-					},
+                    data: params,
                     url: "server.php",
                     success: (result) => {
                         //console.info(result);
-                        $('input').val('0.00 €');
+                        $('tbody input').val('0.00 €');
                         $('span.fixed-color1').css('color', 'transparent');
                         $('span.fixed-color').css('color', 'black');
                         var reportData = JSON.parse(result);
@@ -368,10 +371,12 @@ $(function () {
                             reporteInsular.drawAditionalFills(elementos_insulares);
                         }
                         this.showHideLoadSpinner(true);
+                        $('.ngdialog-overlay-blocking').attr('hidden', true);
                         console.info('Complete request');
                     },
                     error: (error)=> {
                         this.showHideLoadSpinner(false);
+                        $('.ngdialog-overlay-blocking').attr('hidden', true);
                         console.warn(error);
                     }
                 });

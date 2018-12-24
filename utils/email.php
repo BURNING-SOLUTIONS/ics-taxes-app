@@ -7,14 +7,13 @@
 class email{
 
 function __construct() {
-		
+
 	}
 	public function sendMail($address, $bodyLink, $attachment = false){
 
 	$mail = new PHPMailer\PHPMailer\PHPMailer();
  	$mail->IsSMTP(); // enable SMTP
 
-  
     $mail->SMTPDebug = 2; // debugging: 1 = errors and messages, 2 = messages only
     $mail->SMTPAuth = true; // authentication enabled
     $mail->SMTPSecure = "ssl"; // secure transfer enabled REQUIRED for Gmail
@@ -22,10 +21,10 @@ function __construct() {
     $mail->Port = 465; // or 587
     $mail->IsHTML(true);
     $mail->Username = "liliam@hddeveloperteam.com";
-    $mail->Password = "n4IrzPxR";
+    $mail->Password = "5Mt5HAz3";
     $mail->SetFrom("liliam@hddeveloperteam.com");
     $mail->Subject = "Tarifas por Servicios";
-    //este es el asunto 
+    //este es el asunto
     $mail->Body = "Buenas Tardes ,  a traves de este link podran acceder a las tarifas por servicios contratadas  "  .$bodyLink;
     $mail->AddAddress($address);
     if($attachment){
@@ -40,6 +39,6 @@ function __construct() {
      }
 
 	}
- 
+
 }
 ?>
