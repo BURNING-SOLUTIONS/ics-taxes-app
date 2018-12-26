@@ -214,8 +214,6 @@ $(function () {
 			$('span.this_year').html(new Date().getFullYear())
 		}
 
-
-
 		runCommonValidations(){
 			let response = true;
             if(!$("#searchClientData").val()){
@@ -244,6 +242,7 @@ $(function () {
                     data: {
                         "route": "process-clients-range",
                     	"id_empresa": this._inputSearchEmpresa.val(),
+                        "filters": $('.demo').val(),
 						"range": {
                     		"from": parseInt($("#searchClientData_1").val()),
 							"to": parseInt($("#searchClientData_2").val())
@@ -251,8 +250,13 @@ $(function () {
 					},
                     url: "server.php",
                     success: (result) => {
-						this.showHideLoadSpinner(true);
+                    	var reportData = JSON.parse(result);
+						this.showHideLoadSpinner(false);
                         $('.ngdialog-overlay-blocking').attr('hidden', true);
+                        //console.warn(result);
+                        if (reportData['status'].ok === true) {
+                            alert(reportData['status'].message)
+                        }
 						console.info('Complete request');
                     },
                     error: (error)=> {
@@ -263,17 +267,12 @@ $(function () {
 			}
         }
 
-        /*b64_to_utf8( str ) {
-            return Base64.decode(str);
-        }*/
-
 		sendServerRequest(external_link, searchParams) {
 			let params = {};
             if(!external_link)
-                params = {"route": "get-client-rates", "id_cliente": this._inputSearchClient.val(), "id_empresa": this._inputSearchEmpresa.val()}
+                params = {"route": "get-client-rates", "id_cliente": this._inputSearchClient.val(), "id_empresa": this._inputSearchEmpresa.val()};
             else
                 params = { "route": "get-client-rates","base64": searchParams.get("external_source")};
-
 			if(external_link || this.runCommonValidations()){
                 this.showHideLoadSpinner(false);
                 $('.ngdialog-overlay-blocking').removeAttr('hidden');
@@ -337,15 +336,17 @@ $(function () {
                         if (reportData['status'].ok === false) {
                             alert(reportData['status'].message)
                         }else {
+
                             let msg  =  results[0]['baja'] === 1 ? "Inactivo " : "";
                             let msg1 = results[0]['BloqueoTrafico'] === 1 ? "Bloqueado en Tráfico," : "";
                             let msg2 = results[0]['BloqueoNacional'] === 1 ? "Bloqueado Nacional" : "";
+
                             if(msg || msg1 || msg2)
-                                $('#msgAlertReportTodos').removeAttr('hidden').html(`Cliente ${msg} ${msg1} ${msg2}`);
+                                $('#msgAlertReportTodos')/*.removeAttr('hidden')*/.html(`Cliente ${msg} ${msg1} ${msg2}`);
 
                             this.setReportHeaderNameClient(results["0"]);
                             this.setYearNameAllReports();
-
+							var cont = 0;
                             Object.keys(results).forEach( (key) => {
                                 let elemento_tarifario = results[key]['elemento'];
                                 reporteLocal = new IcsReporteLocal(results[key]);
@@ -365,8 +366,10 @@ $(function () {
                                     reporteInsular = new IcsReporteInsular(results[key]);
                                     reporteInsular.drawRangeFills();
                                 }
+                                cont++;
 
                             });
+                            //console.info(cont);
                             reportNac.drawAditionalFills(elementos_nacionales);
                             reporteInsular.drawAditionalFills(elementos_insulares);
                         }

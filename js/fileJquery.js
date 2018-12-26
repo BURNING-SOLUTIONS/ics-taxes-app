@@ -133,7 +133,7 @@ $(document).ready(function () {
     let rangeCount = 0;
     $("#range").click(function () {
         rangeCount ++;
-        if(rangeCount % 2 === 0){
+        if(rangeCount !== 0 && rangeCount % 2 === 0){
             this.checked = false;
         }
         if (this.checked) {
@@ -141,14 +141,18 @@ $(document).ready(function () {
             $("#searchClientData_1").val("");
             $("#searchClientData_2").val("");
             $("#searchClientData_1").show();
+            $('#demoContiner').removeAttr('hidden');
             $("#searchClientData_2").show();
             $("#searchClientData_btn").show();
+            $('div#bodyContainer').hide('fast');
         }
         else {
             $("#searchClientData").show();
             $("#searchClientData_1").hide();
             $("#searchClientData_2").hide();
+            $('#demoContiner').attr('hidden', true);
             $("#searchClientData_btn").hide();
+            $('div#bodyContainer').show('fast');
         }
     });
 
@@ -177,6 +181,11 @@ $(document).ready(function () {
         ExportPdf(array_nombres_reportes[indice_activo], array_nombres_reportes[indice_activo]);
     });
 
+    $('.demo').fSelect({
+        placeholder: 'Filtrar',
+        showSearch: true
+    });
+
     $("#print").click(function () {      
         $("#"+ array_nombres_reportes[indice_activo]).print({        	
             globalStyles: true,
@@ -203,7 +212,7 @@ function Add_Reporte_Paginado(nombre_reporte) {
     var a = ($("#reportListAvailable").children("li")).toArray();
 
 
-    if (array_nombres_reportes.length == 0) {
+    if (array_nombres_reportes.length === 0) {
 
         var a = $("<a></a>").text("<");
         a.attr({ "class": "page-link", "href": "#" });
@@ -232,7 +241,7 @@ function Add_Reporte_Paginado(nombre_reporte) {
     ($("#ul_pagination li").last()).before(li);
 
     /*activa el nuevo elemento agregado y desactiva el que le precede*/
-    if (indice_activo == -1) {
+    if (indice_activo === -1) {
         indice_activo = pos;
         $("#ul_pagination  [id = '" + (indice_activo) + "']").attr("class", "page-item" + "  " + "active");
         Hide_Reporte("plantilla");
