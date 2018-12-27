@@ -176,7 +176,9 @@ $(document).ready(function () {
     });
 
     $('.demo').fSelect({
-        placeholder: 'Incluir clientes',
+
+       placeholder: 'Incluir clientes',
+
         showSearch: false
     });
 
