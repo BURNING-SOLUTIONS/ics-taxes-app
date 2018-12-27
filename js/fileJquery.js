@@ -182,8 +182,8 @@ $(document).ready(function () {
     });
 
     $('.demo').fSelect({
-        placeholder: 'Filtrar',
-        showSearch: true
+        placeholder: 'Incluir Clientes',
+        showSearch: false
     });
 
     $("#print").click(function () {      
