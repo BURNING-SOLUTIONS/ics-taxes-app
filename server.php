@@ -16,7 +16,6 @@ $sqlConection = new sqlServerConecction(
     "$PROYECT_CONFIG[database_password]"
 );
 
-
 #simulando enrutado desde la vista se debe mandar la ruta correspondiente para redireccionar al controlador especifico
 switch ($_POST['route']) {
     case "get-client-rates":
