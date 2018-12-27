@@ -61,6 +61,30 @@ class sqlServerConecction
         return sqlsrv_query($this->getConnection(), $sql);
     }
 
+    public function getClientData($empresa, $cliente)
+    {
+        $sql =
+            " SELECT Nom_Cli,Cod_Cli,EMail_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar,Hasta_Tar from dbo.clientes 
+	    inner join dbo.tarifas on  Emp_Cli=Emp_Tar and TarLoc_Cli=Cod_Tar where Cod_Cli={$cliente} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$empresa}
+	    and Ele_Tar
+	    NOT IN(SELECT  Ele_Pre FROM dbo.precios  inner join dbo.clientes on Cod_Pre=Cod_Cli where  Emp_Pre={$empresa} and Cod_Pre={$cliente} and Dep_Pre=' '  and Dep_Cli=' ' and Precli_Pre>0 and Emp_Cli={$empresa})
+	    union
+	    Select Nom_Cli,Cod_Cli,EMail_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar,Hasta_Tar from dbo.clientes 
+	    inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarNac_Cli=Cod_Tar where Cod_Cli={$cliente} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$empresa}		
+	    and Ele_Tar
+	    NOT IN(SELECT  Ele_Pre FROM dbo.precios  inner join dbo.clientes on Cod_Pre=Cod_Cli where  Emp_Pre={$empresa} and Cod_Pre={$cliente} and Dep_Pre=' '  and Dep_Cli=' ' and Precli_Pre>0 and Emp_Cli={$empresa})
+	    union Select Nom_Cli,Cod_Cli,EMail_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli,Ele_Tar,Precli_Tar, Desde_Tar, Hasta_Tar from dbo.clientes 
+	    inner join dbo.tarifas on   Emp_Cli=Emp_Tar and TarPrv_Cli=Cod_Tar where Cod_Cli={$cliente} and Precli_Tar>' 0'  and Dep_Cli='' and Emp_Tar={$empresa} 
+	    and Ele_Tar
+	    NOT IN(SELECT  Ele_Pre FROM dbo.precios  inner join dbo.clientes on Cod_Pre=Cod_Cli where  Emp_Pre={$empresa} and Cod_Pre={$cliente} and Dep_Pre=' '  and Dep_Cli=' ' and Precli_Pre>0 and Emp_Cli={$empresa})
+	    union 
+	    SELECT Nom_Cli,Cod_Cli, EMail_Cli,Baja_Cli,Bloqueo_Cli, BloqueoNac_Cli,TarNac_Cli, Ele_Pre,Precli_Pre,Desde_Pre, Hasta_Pre FROM dbo.precios 
+	    inner join dbo.clientes on Cod_Pre=Cod_Cli where  Emp_Pre={$empresa} and Cod_Pre={$cliente} and Dep_Pre=' '  and Dep_Cli=' ' and Precli_Pre>0 and Emp_Cli={$empresa}
+	    order by Ele_Tar asc";
+
+        return $this->createQuery($sql);
+    }
+
     public function getTaifasBases($empresa, $cliente)
     {
         $sql =

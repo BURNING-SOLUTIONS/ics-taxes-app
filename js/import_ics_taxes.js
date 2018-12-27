@@ -239,6 +239,7 @@ $(function () {
                 $('.ngdialog-overlay-blocking').removeAttr('hidden');
                 $.ajax({
                     type: "POST",
+                    timeout: 1200000,
                     data: {
                         "route": "process-clients-range",
                     	"id_empresa": this._inputSearchEmpresa.val(),
@@ -279,6 +280,7 @@ $(function () {
                 $('#msgAlertReportNacional').attr('hidden', true);
                 $.ajax({
                     type: "POST",
+                    timeout: 1200000,
                     data: params,
                     url: "server.php",
                     success: (result) => {
@@ -336,13 +338,12 @@ $(function () {
                         if (reportData['status'].ok === false) {
                             alert(reportData['status'].message)
                         }else {
-
                             let msg  =  results[0]['baja'] === 1 ? "Inactivo " : "";
                             let msg1 = results[0]['BloqueoTrafico'] === 1 ? "Bloqueado en Tráfico," : "";
                             let msg2 = results[0]['BloqueoNacional'] === 1 ? "Bloqueado Nacional" : "";
 
                             if(msg || msg1 || msg2)
-                                $('#msgAlertReportTodos')/*.removeAttr('hidden')*/.html(`Cliente ${msg} ${msg1} ${msg2}`);
+                                $('#msgAlertReportTodos').html(`Cliente ${msg} ${msg1} ${msg2}`);
 
                             this.setReportHeaderNameClient(results["0"]);
                             this.setYearNameAllReports();
