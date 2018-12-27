@@ -158,6 +158,7 @@ $(function () {
 					doctype: '<!doctype html>'
 				});
 			});
+			$("button#sendEmail").on('click', this.senClienEamil);
 
 			this.markedAllReportsByDefault();
 			this.checkRouteType();
@@ -176,6 +177,25 @@ $(function () {
                 event.preventDefault();
                 this.sendServerRequestRangeClients();
 			})
+		}
+
+        senClienEamil(){
+            $.ajax({
+                type: "POST",
+                timeout: 600000,
+                url: "server.php",
+                data: {
+                    "route": "send-client-email",
+                    "pdf_data": data.split('data:application/pdf;base64,')[1],
+                },
+                success: (result) => {
+                    console.info('complete request')
+                },
+                error: (error)=> {
+                    //this.showHideLoadSpinner(false);
+                    console.warn(error);
+                }	
+            });
 		}
 
 		markedAllReportsByDefault(){

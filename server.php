@@ -24,6 +24,22 @@ switch ($_POST['route']) {
     case "process-clients-range":
         processClientsRangeController($sqlConection);
         break;
+    case "send-client-email":
+        sendClientEamil($sqlConection);
+        break;
+}
+
+function sendClientEamil($sqlConection)
+{
+    $name    = "report.pdf";
+    //Decode pdf content
+    $pdf_decoded = base64_decode ($_POST['pdf_data']);
+    // you record the file in existing folder
+    if(file_put_contents($name, $pdf_decoded)){
+        $pruebacorreo = new email();
+        $pruebacorreo->sendMail("jrborges@humandatamanager.com", "Saludos le adjuntamos su doc", $name);
+    }
+
 }
 
 ?>
