@@ -182,7 +182,11 @@ $(document).ready(function () {
     });
 
     $('.demo').fSelect({
+<<<<<<< HEAD
         placeholder: 'Incluir Clientes',
+=======
+        placeholder: 'Incluir clientes',
+>>>>>>> a4ffa493b396b752841641679a46a3dd6e03f720
         showSearch: false
     });
 

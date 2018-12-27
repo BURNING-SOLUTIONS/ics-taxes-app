@@ -8,8 +8,13 @@ include('controllers/processClientsRangeController.php');
 
 # conexion sql a base de datos primer paso....
 $today = new DateTime(); # today date
-$sqlConection = new sqlServerConecction("hddevp.no-ip.org", "dl" . $today->format('Y'), "SA", "HDM*2018");
-
+$PROYECT_CONFIG = parse_ini_file('config/config.ini');
+$sqlConection = new sqlServerConecction(
+    "$PROYECT_CONFIG[database_host]",
+    "dl" . $today->format('Y'),
+    "$PROYECT_CONFIG[database_user]",
+    "$PROYECT_CONFIG[database_password]"
+);
 
 #simulando enrutado desde la vista se debe mandar la ruta correspondiente para redireccionar al controlador especifico
 switch ($_POST['route']) {
