@@ -14,7 +14,7 @@ class email
 
     public function sendMail($address, $subject, $body, $attachment = false)
     {
-
+        $PROYECT_CONFIG = parse_ini_file('config/config.ini');
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         $mail->IsSMTP(); // enable SMTP
 
@@ -24,9 +24,9 @@ class email
         $mail->Host = "hddeveloperteam-com.correoseguro.dinaserver.com";
         $mail->Port = 465; // or 587
         $mail->IsHTML(true);
-        $mail->Username = "liliam@hddeveloperteam.com";
-        $mail->Password = "5Mt5HAz3";
-        $mail->SetFrom("liliam@hddeveloperteam.com");
+        $mail->Username = "$PROYECT_CONFIG[email_username]";
+        $mail->Password = "$PROYECT_CONFIG[email_password]";
+        $mail->SetFrom("$PROYECT_CONFIG[email_sender]");
         $mail->Subject = $subject;;
         //este es el asunto
         $mail->Body = $body;
