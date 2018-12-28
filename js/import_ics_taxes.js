@@ -346,7 +346,7 @@ $(function () {
 
                             if(msg || msg1 || msg2)
                                 $('#msgAlertReportTodos').html(`Cliente ${msg} ${msg1} ${msg2}`);
-                            	$('#codeClientNacional').html(`Cliente ${msg} ${msg1} ${msg2}`);
+                            	
 
                             this.setReportHeaderNameClient(results["0"]);
                             this.setYearNameAllReports();

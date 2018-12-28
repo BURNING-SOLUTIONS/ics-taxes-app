@@ -25,13 +25,16 @@
             font-weight: 500;
             font-size: 13px
         }
-        #servicios_locales.div_contact_1{
-           font-weight: bold;
-           text-align: center;
-           background-color: #4fc3f7 !important;
-           color: black !important;   
-           margin-top: 2px;
-           margin-bottom: 2px;  
+      
+#servicios_locales .div_1 .div_contact_1{   
+    font-weight: bold;
+    text-align: center;
+    background-color: #4fc3f7 !important;
+    color: black !important;   
+    margin-top: 2px;
+    margin-bottom: 2px;  
+
+  
 }
         .table.services-table td, .table th {
             padding: 8px;           
@@ -68,7 +71,7 @@
 
         .td_title_descripcion{
         position: relative; 
-        background-color: gray;
+        background-color: gray;div_1
         color: white;    
         font-weight: bold; 
         text-align: center;
@@ -83,7 +86,12 @@
         padding: 1px;
      } 
 
-
+#servicios_locales .div_1 .div_contact_2{
+    padding: 1px;   
+    font-weight: bold;
+    text-align: center;  
+ 
+}
       #servicios_locales_moto .th_2{
           background-color:  #4fc3f7 !important; 
            width:60%;
@@ -262,16 +270,16 @@
      }
 
 
-#servicios_locales.div_contact_1{
+#servicios_locales .div_1 .div_contact_1{
    
-    font-weight: bold;
     text-align: center;
     background-color: #4fc3f7 !important;
-    color: black !important;   
-    margin-top: 2px;
-    margin-bottom: 2px;     
-} 
-#servicios_locales .div_contact_2{
+    -webkit-print-color-adjust: exact; 
+    color-adjust: exact; 
+    color: black !important;     
+}
+
+#servicios_locales .div_1 .div_contact_2{
     padding: 1px;
     margin-top: 2px;
     margin-bottom: 2px; 
