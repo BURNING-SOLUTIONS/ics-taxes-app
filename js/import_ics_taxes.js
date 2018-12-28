@@ -2,6 +2,7 @@ $(function () {
     class IcsTaxesTraslate {
 
         constructor(arr) {
+        	var that = this;
             this._oFileIn = document.getElementById('file_prices_list_input');
             this._buttonSubmit = document.getElementById("butttonCalculeTarifas");
             this._consoleElement = document.getElementById("console-container");
@@ -16,8 +17,7 @@ $(function () {
             this._buttonSendCientRange = $('#searchClientData_btn');
             this._array_lista_precios = arr || [];
             this._array_lista_tarifas_fijas = [];
-            this.registerListeners();
-            var that = this;
+            this.registerListeners();            
         }
 
         set consoleElement(consoleElement) {
@@ -64,13 +64,8 @@ $(function () {
 
         }
 
-        registerListeners() {
-            $("button#sendEmail").on('click', this.sendClientEmail);
-            $('#exampleModal').on('show.bs.modal', (e) => {
-                $('#recipient-address').val($('#containerEmail').val());
-            });
-
-            this.markedAllReportsByDefault();
+        registerListeners() {           
+			this.markedAllReportsByDefault();
             this.checkRouteType();
             this._liReportsDisponibles.click(function (event) {
                 $(this).toggleClass('selected');
@@ -85,6 +80,10 @@ $(function () {
                 event.preventDefault();
                 this.sendServerRequestRangeClients();
             })
+            $("button#sendEmail").on('click', this.sendClientEmail);
+            $('#exampleModal').on('show.bs.modal', (e) => {
+                $('#recipient-address').val($('#containerEmail').val());
+            });
         }
 
         markedAllReportsByDefault() {
@@ -111,50 +110,57 @@ $(function () {
         }
 
         sendClientEmail() {
-            //this.showHideLoadSpinner(false);
+			/*this._ajaxLoadRequest.removeAttr('hidden');
+     		$('.ngdialog-overlay-blocking').removeAttr('hidden');*/
             if ($("#recipient-address").val() && $("#recipient-subject").val() && $("#recipient-message").val()) {
-                kendo.drawing.drawDOM($("#div_show_report"))
-                    .then(function (group) {
-                        return kendo.drawing.exportPDF(group, {
-                            paperSize: "auto",
-                            margin: {left: "1cm", top: "1cm", right: "1cm", bottom: "1cm"}
-                        });
-                    })
-                    .done((data) => {
-                        $.ajax({
-                            type: "POST",
-                            timeout: 600000,
-                            url: "server.php",
-                            data: {
-                                "route": "send-client-email",
-                                "subject": $("#recipient-subject").val(),
-                                "address": $("#recipient-address").val(),
-                                "message_body": $("#recipient-message").val(),
-                                "pdf_data": data.split('data:application/pdf;base64,')[1],
-                            },
-                            success: (result) => {
-                                try {
-                                    var reportData = JSON.parse(result);
-                                }
-                                catch (e) {
-                                    alert('Ha ocurrido un error enviando el mensaje Inténtelo más tarde o contacte con el adminsitrador.');
-                                }
-                                $("#recipient-subject").val("");
-                                $("#recipient-message").val("");
-                                $('#exampleModal').modal('hide');
-                                if (reportData['status'].ok === false) {
-                                    alert(reportData['status'].message)
-                                } else {
-                                    console.info('mensaje enviado bien');
-                                }
-                                $('#errorEmailSender').attr('hidden', true);
-                            },
-                            error: (error) => {
-                                console.warn(error);
-                                $('#errorEmailSender').attr('hidden', true);
-                            }
-                        });
+            kendo.pdf.defineFont({
+	            "DejaVu Sans":"http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans.ttf",
+	            "DejaVu Sans|Bold":"http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
+	            "DejaVu Sans|Bold|Italic":"http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
+	            "DejaVu Sans|Italic":"http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf"
+	        });
+            kendo.drawing.drawDOM($("#div_show_report"))
+                .then(function (group) {
+                    return kendo.drawing.exportPDF(group, {
+                        paperSize: "auto",
+                        margin: {left: "1cm", top: "1cm", right: "1cm", bottom: "1cm"}
                     });
+                })
+                .done((data) => {
+                    $.ajax({
+                        type: "POST",
+                        timeout: 600000,
+                        url: "server.php",
+                        data: {
+                            "route": "send-client-email",
+                            "subject": $("#recipient-subject").val(),
+                            "address": $("#recipient-address").val(),
+                            "message_body": $("#recipient-message").val(),
+                            "pdf_data": data.split('data:application/pdf;base64,')[1],
+                        },
+                        success: (result) => {
+                            try {
+                                var reportData = JSON.parse(result);
+                            }
+                            catch (e) {
+                                alert('Ha ocurrido un error enviando el mensaje Inténtelo más tarde o contacte con el adminsitrador.');
+                            }
+                            $("#recipient-subject").val("");
+                            $("#recipient-message").val("");
+                            $('#exampleModal').modal('hide');
+                            if (reportData['status'].ok === false) {
+                                alert(reportData['status'].message)
+                            } else {
+                                console.info('mensaje enviado bien');
+                            }
+                            $('#errorEmailSender').attr('hidden', true);
+                        },
+                        error: (error) => {
+                            console.warn(error);
+                            $('#errorEmailSender').attr('hidden', true);
+                        }
+                    });
+                });
             }else
                 $('#errorEmailSender').removeAttr('hidden');
             /**/

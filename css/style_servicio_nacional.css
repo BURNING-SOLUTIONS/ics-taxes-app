@@ -30,7 +30,7 @@
 
 .table_servicios_nacionales .tr_1 .td_7{
     border-left:solid 2px #4fc3f7 ;
-    border-right: solid 2px black;
+    border-right: solid 0.7px black;
 }
 .table_servicios_nacionales .tr_1 .td_2{
     border-right:solid 2px #4fc3f7 ;    
@@ -54,16 +54,16 @@
 }
 
 .table_servicios_nacionales  .td_content{
-    border-bottom:solid 2px black ;
-    border-top:solid 2px black;    
+    border-bottom:solid 0.7px black ;
+    border-top:solid 0.7px black;    
 }
 
 .table_servicios_nacionales .td_content_1{
-   border-left:solid 2px black ;
+   border-left:solid 0.7px black ;
 }
 
 .table_servicios_nacionales .td_content_4{
-    border-right:solid 2px black ;    
+    border-right:solid 0.7px black ;    
 }
 
 
@@ -152,7 +152,7 @@ body { margin: 2cm; }
 
 .table_servicios_nacionales .tr_1 .td_7{
     border-left:solid 2px #4fc3f7 ;
-    border-right:solid 2px black ; 
+    border-right:solid 0.7px black ; 
 }
 .table_servicios_nacionales .tr_1 .td_2{
     border-right:solid 2px #4fc3f7 !important ;    
@@ -179,16 +179,16 @@ body { margin: 2cm; }
 }
 
 .table_servicios_nacionales  .td_content{
-    border-bottom:solid 2px black ;
-    border-top:solid 2px black;    
+    border-bottom:solid 0.7px black ;
+    border-top:solid 0.7px black;    
 }
 
 .table_servicios_nacionales .td_content_1{
-   border-left:solid 2px black ;
+   border-left:solid 0.7px black ;
 }
 
 .table_servicios_nacionales .td_content_4{
-    border-right:solid 2px black ;    
+    border-right:solid 0.7px black ;    
 }
 
 #servicio_nacional .div_contact_1{

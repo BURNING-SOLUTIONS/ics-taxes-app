@@ -161,6 +161,12 @@ $(document).ready(function () {
 
 
     function ExportPdf(Contenido_ID, name_file) {
+        kendo.pdf.defineFont({
+            "DejaVu Sans":"http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans.ttf",
+            "DejaVu Sans|Bold":"http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
+            "DejaVu Sans|Bold|Italic":"http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
+            "DejaVu Sans|Italic":"http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf"
+        });
         kendo.drawing.drawDOM($("#" + Contenido_ID))
             .then(function(group){
                 return kendo.drawing.exportPDF(group, {

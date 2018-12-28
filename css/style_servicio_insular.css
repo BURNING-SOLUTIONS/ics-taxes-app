@@ -86,7 +86,7 @@ table{
 }
 
 .table_servicios_insulares .tr_2 .td_8{
-    border-right: solid 2px black;     
+    border-right: solid 0.7px black;     
 }
 
 .table_servicios_insulares .tr_3 .td_1{
@@ -111,16 +111,16 @@ table{
     padding: 1px;
 }
 .table_servicios_insulares  .td_content{
-    border-bottom:solid 2px black ;
-    border-top:solid 2px black;    
+    border-bottom:solid 0.7px black ;
+    border-top:solid 0.7px black;    
 }
 
 .table_servicios_insulares .td_content_1{
-   border-left:solid 2px black ;
+   border-left:solid 0.7px black ;
 }
 
 .table_servicios_insulares .td_content_5{
-    border-right:solid 2px black ;    
+    border-right:solid 0.7px black ;    
 }
 
 .table_servicios_insulares  .td_blue_3{
@@ -257,7 +257,7 @@ table{
 }
 
 .table_servicios_insulares .tr_2 .td_8{
-    border-right: solid 2px black;     
+    border-right: solid 0.7px black;     
 }
 
 .table_servicios_insulares .tr_3 .td_1{
@@ -288,16 +288,16 @@ table{
     padding: 1px;
 }
 .table_servicios_insulares  .td_content{
-    border-bottom:solid 2px black ;
-    border-top:solid 2px black;    
+    border-bottom:solid 0.7px black ;
+    border-top:solid 0.7px black;    
 }
 
 .table_servicios_insulares .td_content_1{
-   border-left:solid 2px black ;
+   border-left:solid 0.7px black ;
 }
 
 .table_servicios_insulares .td_content_5{
-    border-right:solid 2px black ;    
+    border-right:solid0.7px black ;    
 }
 
 .table_servicios_insulares  .td_blue_3{
