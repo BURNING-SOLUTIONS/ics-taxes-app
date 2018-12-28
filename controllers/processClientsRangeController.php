@@ -30,14 +30,14 @@ function processClientsRangeController($sqlConection){
                 array_push($emailsClienSend, $cliente);
                 //echo print_r($cliente);# send emaiil
                 /*# $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);*/
-                $pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
+                #$pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
             }
             if($filterActives){
                 if($cliente['Baja_Cli'] == 1){
                     array_push($emailsClienSend, $cliente);
                     //echo print_r($cliente);# send emaiil
                     /*# $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);*/
-                    $pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
+                    #$pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
                     continue;
                 }
             }
@@ -46,7 +46,7 @@ function processClientsRangeController($sqlConection){
                     array_push($emailsClienSend, $cliente);
                     //echo print_r($cliente);# send emaiil
                     /*# $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);*/
-                    $pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
+                    #$pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
                     continue;
                 }
             }
