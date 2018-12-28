@@ -289,6 +289,8 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header" style="padding: 7px">
+          <p style="font-size: 18px !important; font-weight: 600 !important; background-color: white !important;padding-left: 8px !important;color: black !important" 
+          class="h2 mb-2 font-weight-normal">Enviar tarifas por correo electrónico</p>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -298,21 +300,21 @@
             Debe completar todo los campos del formulario para continuar.
           </div>
           <form>
-            <div class="form-group">
-              <label for="recipient-address" class="col-form-label required">Email *</label>
-              <input style="background-color: #039be5;color: white;font-weight: 500" type="email" class="form-control" id="recipient-address">
+            <div class="form-group" style="margin-top: -16px">
+              <label for="recipient-address" class="col-form-label required" style="font-size: 14px"> Email * </label>
+              <input style="background-color: #81d4fa;color: #37474f; font-weight: 500" type="email" class="form-control" id="recipient-address">
             </div>
-            <div class="form-group">
-              <label for="recipient-subject" class="col-form-label required">Asunto *</label>
+            <div class="form-group" style="margin-top: -16px">
+              <label for="recipient-subject" class="col-form-label required" style="font-size: 14px"> Asunto * </label>
               <input type="text" class="form-control" id="recipient-subject">
             </div>
-            <div class="form-group">
-              <label for="recipient-message" class="col-form-label required">Mensaje *</label>
+            <div class="form-group" style="margin-top: -9px">
+              <label for="recipient-message" class="col-form-label required" style="font-size: 14px"> Mensaje * </label>
               <textarea rows="4" class="form-control" id="recipient-message"></textarea>
             </div>
           </form>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer" style="padding: 10px">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           <button type="button" class="btn btn-primary" id="sendEmail"> Enviar <img src="imagen/send.svg" height="27"/> </button>
         </div>
