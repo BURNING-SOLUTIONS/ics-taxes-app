@@ -1,4 +1,5 @@
 
+
 var array_nombres_reportes = new Array();
 var indice_activo = -1;
 var servicio_aereo = "";
@@ -12,17 +13,17 @@ $(document).ready(function () {
 
     $("#reportListAvailable li").click(function () {
 
-        var nombre_reporte = $(this).attr("value");
+        var nombre_reporte = $(this).attr("value")
         /*comrueba en este array dinamico si ya s eseeciono algun reporte*/
         var index = array_nombres_reportes.indexOf(nombre_reporte);
         if (index >= 0) {
             Remove_Reporte_Paginado(index);
-            if (nombre_reporte === "int_terrestre") {
+            if (nombre_reporte == "int_terrestre") {
                 $(".div_panel").slideToggle("fast");
             }
         }
         else {
-            if (nombre_reporte === "int_terrestre") {
+            if (nombre_reporte == "int_terrestre") {
                 $(".div_panel").slideToggle("fast");
                 /*desabilito los demas reportes hsta que selecione o ciere*/
             }
@@ -71,7 +72,9 @@ $(document).ready(function () {
     $("#ul_pagination ").on(
         "click", "li", function () {
             var id_indice = $(this).attr("id");
-            if (id_indice === "previous") {
+
+
+            if (id_indice == "previous") {
                 if (indice_activo > 0 && indice_activo <= array_nombres_reportes.length - 1) {
 
                     $("#ul_pagination [id = '" + (indice_activo) + "']").attr("class", "page-item");
@@ -81,7 +84,7 @@ $(document).ready(function () {
                     --indice_activo;
                 }
             }
-            else if (id_indice === "next") {
+            else if (id_indice == "next") {
                 if (indice_activo >= 0 && indice_activo < array_nombres_reportes.length - 1) {
 
                     $("#ul_pagination [id = '" + (indice_activo) + "']").attr("class", "page-item");
@@ -93,7 +96,7 @@ $(document).ready(function () {
             }
             else {
                 for (var i = 0; i < array_nombres_reportes.length; i++) {
-                    if (i !== id_indice) {
+                    if (i != id_indice) {
                         $("#ul_pagination [id = '" + (i) + "']").attr("class", "page-item");
                         Hide_Reporte(array_nombres_reportes[i]);
                     }
@@ -154,6 +157,9 @@ $(document).ready(function () {
     });
 
     /*Control de todos los eventos que arrojan los campos input de rango clientes*/
+
+
+
     function ExportPdf(Contenido_ID, name_file) {
         kendo.drawing.drawDOM($("#" + Contenido_ID))
             .then(function(group){

@@ -119,8 +119,8 @@ class sqlServerConecction
     {
         /*$filterActives = in_array('inactivos', $filters) ? 1 : 0;
         $filterBloq = in_array('bloqueados', $filters) ? 1 : 0;*/
-        $sql = "SELECT Cod_Cli, Nom_Cli, EMail_Cli, Baja_Cli, BloqueoNac_Cli, Bloqueo_Cli  from dbo.clientes where Emp_Cli={$empresa} 
-                and Dep_Cli='' and Cod_Cli>= {$from}  and Cod_Cli<={$to}";
+        $sql = "SELECT Cod_Cli, Nom_Cli, EMail_Cli, Baja_Cli, BloqueoNac_Cli, Bloqueo_Cli  from dbo.clientes where Emp_Cli = {$empresa}
+                and Dep_Cli = '' and Cod_Cli >= {$from}  and Cod_Cli <= {$to} and EMail_Cli != ''";
 
         return $this->createQuery($sql);
     }

@@ -31,14 +31,28 @@ switch ($_POST['route']) {
 
 function sendClientEamil($sqlConection)
 {
-    $name    = "report.pdf";
+    $jsondata = array(
+        "status" => array('ok' => true, 'message' => 'Email Enviado Satisfactoriamente.'),
+        "results" => array()
+    );
+    $file_name    = "report.pdf";
     //Decode pdf content
     $pdf_decoded = base64_decode ($_POST['pdf_data']);
     // you record the file in existing folder
-    if(file_put_contents($name, $pdf_decoded)){
-        $pruebacorreo = new email();
-        $pruebacorreo->sendMail("jrborges@humandatamanager.com", "Saludos le adjuntamos su doc", $name);
+    try {
+        # enviando email al cliente...
+        if(file_put_contents($file_name, $pdf_decoded)){
+            $pruebacorreo = new email();
+            $pruebacorreo->sendMail("jrborges@humandatamanager.com", $_POST['subject'], $_POST['message_body'], $file_name);
+        }
+        echo json_encode($jsondata, JSON_FORCE_OBJECT);
+        exit();
+    } catch (Exception $e) {
+        $jsondata['status'] = array('ok' => false, 'message' => $e->getMessage());
+        echo json_encode($jsondata);
+        exit();
     }
+
 
 }
 
