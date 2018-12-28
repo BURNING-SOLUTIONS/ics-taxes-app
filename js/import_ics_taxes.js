@@ -139,6 +139,7 @@ $(function () {
                             "pdf_data": data.split('data:application/pdf;base64,')[1],
                         },
                         success: (result) => {
+                            console.info(result);
                             try {
                                 var reportData = JSON.parse(result);
                             }
