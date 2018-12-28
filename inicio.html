@@ -144,6 +144,7 @@
 </head>
 
 <body>
+<input id="containerEmail" hidden="true"></body>
 <div class="ngdialog-overlay-blocking" hidden>
   <div style="margin-top:15%;margin-left:40%;position:fixed;width:200px;z-index:101">
     <progressbar class="progress-striped active" value="100">
@@ -249,6 +250,9 @@
                 <img src="imagen/printer.svg" height="15"/> Imprimir </button>
               <button class="btn btn-sm btn-outline-secondary not_print" id="pdf">
                 <img src="imagen/pdf.svg" height="15"/> Exportar</button>
+              <button permission-route="button-send-email" class="btn btn-sm btn-outline-secondary not_print"
+                      data-toggle="modal" data-target="#exampleModal" data-whatever="@fat" hidden="true">
+                <img src="imagen/envelope.svg" height="16"/> Enviar email</button>
             </div>
           </div>
         </div>
@@ -279,6 +283,40 @@
           </div>
         </div>
       </main>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="padding: 7px">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="errorEmailSender" class="alert alert-danger" role="alert" style="font-size: 14px; margin-left: 5px;padding: 10px" hidden="true">
+            Debe completar todo los campos del formulario para continuar.
+          </div>
+          <form>
+            <div class="form-group">
+              <label for="recipient-address" class="col-form-label required">Email *</label>
+              <input style="background-color: #039be5;color: white;font-weight: 500" type="email" class="form-control" id="recipient-address">
+            </div>
+            <div class="form-group">
+              <label for="recipient-subject" class="col-form-label required">Asunto *</label>
+              <input type="text" class="form-control" id="recipient-subject">
+            </div>
+            <div class="form-group">
+              <label for="recipient-message" class="col-form-label required">Mensaje *</label>
+              <textarea rows="4" class="form-control" id="recipient-message"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="sendEmail"> Enviar <img src="imagen/send.svg" height="27"/> </button>
+        </div>
+      </div>
     </div>
   </div>
 

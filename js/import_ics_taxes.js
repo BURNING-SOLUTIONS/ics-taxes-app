@@ -60,112 +60,21 @@ $(function () {
             return this._array_lista_precios;
         }
 
+        getEmailActualClient() {
+
+        }
+
         registerListeners() {
-            $("#servicios_locales").on('click', '#imprimirReporte', function () {
-                $("#servicios_locales").print({
-                    globalStyles: true,
-                    mediaPrint: false,
-                    stylesheet: "css/style_servicios_locales.css",
-                    noPrintSelector: ".not_print",
-                    iframe: true,
-                    append: null,
-                    prepend: null,
-                    manuallyCopyFormValues: true,
-                    deferred: $.Deferred(),
-                    timeout: 750,
-                    title: null,
-                    doctype: '<!doctype html>'
-                });
+            $("button#sendEmail").on('click', this.sendClientEmail);
+            $('#exampleModal').on('show.bs.modal', (e) => {
+                $('#recipient-address').val($('#containerEmail').val());
             });
-            $("#servicio_nacional").on('click', '#print_servicio_nacional', function () {
-                $("#servicio_nacional").print({
-                    globalStyles: true,
-                    mediaPrint: false,
-                    stylesheet: "css/style_servicio_nacional.css",
-                    noPrintSelector: ".not_print",
-                    iframe: true,
-                    append: null,
-                    prepend: null,
-                    manuallyCopyFormValues: true,
-                    deferred: $.Deferred(),
-                    timeout: 750,
-                    title: null,
-                    doctype: '<!doctype html>'
-                });
-            });
-            $("#servicio_insular").on('click', '#print_servicio_insular', function () {
-                $("#servicio_insular").print({
-                    globalStyles: true,
-                    mediaPrint: false,
-                    stylesheet: "css/style_servicios_locales.css",
-                    noPrintSelector: ".not_print",
-                    iframe: true,
-                    append: null,
-                    prepend: null,
-                    manuallyCopyFormValues: true,
-                    deferred: $.Deferred(),
-                    timeout: 750,
-                    title: null,
-                    doctype: '<!doctype html>'
-                });
-            });
-            $("#int_terrestre").on('click', '#print_int_terrestre', function () {
-                $("#int_terrestre").print({
-                    globalStyles: true,
-                    mediaPrint: false,
-                    stylesheet: "css/style_servicios_locales.css",
-                    noPrintSelector: ".not_print",
-                    iframe: true,
-                    append: null,
-                    prepend: null,
-                    manuallyCopyFormValues: true,
-                    deferred: $.Deferred(),
-                    timeout: 750,
-                    title: null,
-                    doctype: '<!doctype html>'
-                });
-            });
-            $("#servicio_aéreo_2").on('click', '#print_serv_aereo_2', function () {
-                $("#servicio_aéreo_2").print({
-                    globalStyles: true,
-                    mediaPrint: false,
-                    stylesheet: "css/style_servicios_locales.css",
-                    noPrintSelector: ".not_print",
-                    iframe: true,
-                    append: null,
-                    prepend: null,
-                    manuallyCopyFormValues: true,
-                    deferred: $.Deferred(),
-                    timeout: 750,
-                    title: null,
-                    doctype: '<!doctype html>'
-                });
-            });
-            $("#servicio_aéreo_1").on('click', '#print_serv_aereo_1', function () {
-                $("#servicio_aéreo_1").print({
-                    globalStyles: true,
-                    mediaPrint: false,
-                    stylesheet: "css/style_servicios_locales.css",
-                    noPrintSelector: ".not_print",
-                    iframe: true,
-                    append: null,
-                    prepend: null,
-                    manuallyCopyFormValues: true,
-                    deferred: $.Deferred(),
-                    timeout: 750,
-                    title: null,
-                    doctype: '<!doctype html>'
-                });
-            });
-            $("button#sendEmail").on('click', this.senClientEmail);
 
             this.markedAllReportsByDefault();
             this.checkRouteType();
-
             this._liReportsDisponibles.click(function (event) {
                 $(this).toggleClass('selected');
             });
-
             this._inputSearchClient.keyup((event) => {
                 if (event.which === 13) {
                     event.preventDefault();
@@ -176,48 +85,6 @@ $(function () {
                 event.preventDefault();
                 this.sendServerRequestRangeClients();
             })
-        }
-
-        senClientEmail() {
-            this.showHideLoadSpinner(false);
-            kendo.drawing.drawDOM($("#div_show_report"))
-                .then(function (group) {
-                    return kendo.drawing.exportPDF(group, {
-                        paperSize: "auto",
-                        margin: {left: "1cm", top: "1cm", right: "1cm", bottom: "1cm"}
-                    });
-                })
-                .done((data) => {
-                    $.ajax({
-                        type: "POST",
-                        timeout: 600000,
-                        url: "server.php",
-                        data: {
-                            "route": "send-client-email",
-                            "subject": $("#recipient-subject").val(),
-                            "message_body": $("#recipient-message").val(),
-                            "pdf_data": data.split('data:application/pdf;base64,')[1],
-                        },
-                        success: (result) => {
-                            $("#recipient-subject").val("");
-                            $("#recipient-message").val("");
-                            $('#exampleModal').modal('hide');
-                            if (reportData['status'].ok === false) {
-                                alert(reportData['status'].message)
-                            } else {
-                                console.info('mensaje enviado bien');
-                            }
-                        },
-                        error: (error) => {
-                            console.warn(error);
-                        }
-                    });
-                    /*kendo.saveAs({
-                        dataURI: data,
-                        fileName: name_file
-                    })*/
-                });
-            /**/
         }
 
         markedAllReportsByDefault() {
@@ -241,6 +108,56 @@ $(function () {
             let overlay = $('.ngdialog-overlay-blocking');
             (!boolean) ? overlay.removeAttr('hidden') : overlay.attr('hidden', true);
             (!boolean) ? this._ajaxLoadRequest.removeAttr('hidden') : this._ajaxLoadRequest.attr('hidden', true);
+        }
+
+        sendClientEmail() {
+            //this.showHideLoadSpinner(false);
+            if ($("#recipient-address").val() && $("#recipient-subject").val() && $("#recipient-message").val()) {
+                kendo.drawing.drawDOM($("#div_show_report"))
+                    .then(function (group) {
+                        return kendo.drawing.exportPDF(group, {
+                            paperSize: "auto",
+                            margin: {left: "1cm", top: "1cm", right: "1cm", bottom: "1cm"}
+                        });
+                    })
+                    .done((data) => {
+                        $.ajax({
+                            type: "POST",
+                            timeout: 600000,
+                            url: "server.php",
+                            data: {
+                                "route": "send-client-email",
+                                "subject": $("#recipient-subject").val(),
+                                "address": $("#recipient-address").val(),
+                                "message_body": $("#recipient-message").val(),
+                                "pdf_data": data.split('data:application/pdf;base64,')[1],
+                            },
+                            success: (result) => {
+                                try {
+                                    var reportData = JSON.parse(result);
+                                }
+                                catch (e) {
+                                    alert('Ha ocurrido un error enviando el mensaje Inténtelo más tarde o contacte con el adminsitrador.');
+                                }
+                                $("#recipient-subject").val("");
+                                $("#recipient-message").val("");
+                                $('#exampleModal').modal('hide');
+                                if (reportData['status'].ok === false) {
+                                    alert(reportData['status'].message)
+                                } else {
+                                    console.info('mensaje enviado bien');
+                                }
+                                $('#errorEmailSender').attr('hidden', true);
+                            },
+                            error: (error) => {
+                                console.warn(error);
+                                $('#errorEmailSender').attr('hidden', true);
+                            }
+                        });
+                    });
+            }else
+                $('#errorEmailSender').removeAttr('hidden');
+            /**/
         }
 
         setReportHeaderNameClient(element) {
@@ -338,6 +255,7 @@ $(function () {
                         $('span.fixed-color').css('color', 'black');
                         var reportData = JSON.parse(result);
                         var results = reportData['results'];
+                        $('#containerEmail').val(results[0].email);
                         var reporteLocal = {};
                         var reportNac = {};
                         var reporteInsular = {};
@@ -369,38 +287,21 @@ $(function () {
                             "316": {"id": "316", "arraySelf": []},
                         };
                         var elementos_insulares = {
-                            <<<<<<< HEAD
-                        "318": {"id": "318", "arraySelf": []},
-                        "322": {"id": "322", "arraySelf": []},
-                        "310": {"id": "310", "arraySelf": []},
-                        "314": {"id": "314", "arraySelf": []},
-                        "319": {"id": "319", "arraySelf": []},
-                        "323": {"id": "323", "arraySelf": []},
-                        "311": {"id": "311", "arraySelf": []},
-                        "315": {"id": "315", "arraySelf": []},
-                        "320": {"id": "320", "arraySelf": []},
-                        "324": {"id": "324", "arraySelf": []},
-                        "312": {"id": "312", "arraySelf": []},
-                        "316": {"id": "316", "arraySelf": []},
-                        "1655": {"id": "1655", "arraySelf": []},
-                        "1665": {"id": "1665", "arraySelf": []},
-                    =======
-                            "318":{"id": "318", "arraySelf": []},
-                        "322":{"id": "322", "arraySelf": []},
-                        "310":{"id": "310", "arraySelf": []},
-                        "314":{"id": "314", "arraySelf": []},
-                        "319":{"id": "319", "arraySelf": []},
-                        "323":{"id": "323", "arraySelf": []},
-                        "311":{"id": "311", "arraySelf": []},
-                        "315":{"id": "315", "arraySelf": []},
-                        "320":{"id": "320", "arraySelf": []},
-                        "324":{"id": "324", "arraySelf": []},
-                        "312":{"id": "312", "arraySelf": []},
-                        "316":{"id": "316", "arraySelf": []},
-                        "1655":{"id": "1655", "arraySelf": []},
-                        "1665":{"id": "1665", "arraySelf": []},
-                    >>>>>>> 2f2b5f8571e820d988e7f950a3d1aefa7a267de1
-                    };
+                            "318": {"id": "318", "arraySelf": []},
+                            "322": {"id": "322", "arraySelf": []},
+                            "310": {"id": "310", "arraySelf": []},
+                            "314": {"id": "314", "arraySelf": []},
+                            "319": {"id": "319", "arraySelf": []},
+                            "323": {"id": "323", "arraySelf": []},
+                            "311": {"id": "311", "arraySelf": []},
+                            "315": {"id": "315", "arraySelf": []},
+                            "320": {"id": "320", "arraySelf": []},
+                            "324": {"id": "324", "arraySelf": []},
+                            "312": {"id": "312", "arraySelf": []},
+                            "316": {"id": "316", "arraySelf": []},
+                            "1655": {"id": "1655", "arraySelf": []},
+                            "1665": {"id": "1665", "arraySelf": []},
+                        };
 
                         if (reportData['status'].ok === false) {
                             alert(reportData['status'].message)

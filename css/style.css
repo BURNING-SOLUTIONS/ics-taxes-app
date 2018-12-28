@@ -143,7 +143,9 @@ span.fixed-color1{
 /*
    * Navbar
    */
-
+label.required{
+    color: #e53935;
+}
 .navbar-brand {
     padding-top: .75rem;
     padding-bottom: .75rem;

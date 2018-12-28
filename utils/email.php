@@ -34,12 +34,11 @@ class email
         if ($attachment) {
             $mail->addAttachment($attachment);
         }
-        /*if (!$mail->Send()) {
-            echo "Mailer Error: " . $mail->ErrorInfo;
-        } else {
-            echo "Message has been sent";
-        }*/
-
+        try{
+            $mail->Send();
+        }catch(Exception $e){
+            throw new Exception($e->getMessage());
+        }
     }
 
 }
