@@ -333,6 +333,8 @@ $(function () {
                             "324":{"id": "324", "arraySelf": []},
                             "312":{"id": "312", "arraySelf": []},
                             "316":{"id": "316", "arraySelf": []},
+                            "1655":{"id": "1655", "arraySelf": []},
+                            "1665":{"id": "1665", "arraySelf": []},
                         };
 
                         if (reportData['status'].ok === false) {
@@ -344,6 +346,7 @@ $(function () {
 
                             if(msg || msg1 || msg2)
                                 $('#msgAlertReportTodos').html(`Cliente ${msg} ${msg1} ${msg2}`);
+                            	$('#codeClientNacional').html(`Cliente ${msg} ${msg1} ${msg2}`);
 
                             this.setReportHeaderNameClient(results["0"]);
                             this.setYearNameAllReports();
