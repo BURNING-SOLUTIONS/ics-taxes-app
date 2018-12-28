@@ -2,7 +2,16 @@
 	ob_start(); 	
  	include('../conexion.php');
 
-	$sqlConection = new sqlServerConecction("hddevp.no-ip.org", "dl2018", "SA", "HDM*2018");
+ 	$PROYECT_CONFIG = parse_ini_file('../config/config.ini');
+	$today = new DateTime(); # today date
+	
+	$sqlConection = new sqlServerConecction(
+	    "$PROYECT_CONFIG[database_host]",
+	    "dl" . $today->format('Y'),
+	    "$PROYECT_CONFIG[database_user]",
+	    "$PROYECT_CONFIG[database_password]"
+	);
+
     # consulta numero 1..
 	$getusuarios = $sqlConection->createQuery("SELECT Nom_Usu,Password_Usu FROM dbo.usuarios 
 		where Nom_Usu='{$_POST['user']}' and Password_Usu={$_POST['pass']}");	
