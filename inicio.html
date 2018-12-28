@@ -155,8 +155,8 @@
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <!-- <img src="imagen\ics_logo.png" height="32"></img> -->
     <a style="display: none;" permission-route="index-navvar-search"  class="navbar-brand col-sm-3 col-md-2 mr-0" href="inicio.html#" aria-label="Bootstrap">
-      <input id="searchClientEmpresa" class="form-control form-control-dark"
-        type="number" placeholder="# Empresa" aria-label="Search">
+    <input id="searchClientEmpresa" class="form-control form-control-dark"
+      type="number" placeholder="# Empresa" aria-label="Search">
     </a>
     <div permission-route="clients-range-reports" class="custom-control custom-radio col-sm-2" style="display: none;margin-left: 10px;margin-top: 5px !important;">
       <input id="range" name="clientsRange" type="radio" class="custom-control-input" required="">
@@ -242,16 +242,13 @@
 
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-4 pb-2 mb-3 border-bottom">
           <h1 class="h2"><img src="imagen/logo-instapack.png" height="50" align="center"></img> Reportes </h1>
-          <div permission-route="index-navvar-search" class="alert alert-danger" id="msgAlertReportTodos" role="alert" style="background-color: transparent;border: 1px transparent solid" hidden="true"></div>
-          <div id="buttonActions" class="btn-toolbar mb-2 mb-md-0">
+          <div permission-route="index-navvar-search" class="alert alert-danger" id="msgAlertReportTodos" role="alert" style="background-color: transparent;border: 1px transparent solid; color:red" hidden="true"></div>
+          <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
               <button class="btn btn-sm btn-outline-secondary not_print" id="print">
-                <img src="imagen/printer.svg" height="16"/> Imprimir </button>
+                <img src="imagen/printer.svg" height="15"/> Imprimir </button>
               <button class="btn btn-sm btn-outline-secondary not_print" id="pdf">
-                <img src="imagen/pdf.svg" height="16"/> Exportar</button>
-              <button permission-route="index-navvar-search" class="btn btn-sm btn-outline-secondary not_print"
-                      data-toggle="modal" data-target="#exampleModal" data-whatever="@fat" hidden="true">
-                <img src="imagen/envelope.svg" height="16"/> Enviar email</button>
+                <img src="imagen/pdf.svg" height="15"/> Exportar</button>
             </div>
           </div>
         </div>
@@ -284,33 +281,6 @@
       </main>
     </div>
   </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="padding-left: 0">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-subject" class="col-form-label">Asunto:</label>
-            <input type="text" class="form-control" id="recipient-subject">
-          </div>
-          <div class="form-group">
-            <label for="recipient-message" class="col-form-label">Mensaje:</label>
-            <textarea rows="4" class="form-control" id="recipient-message"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" id="sendEmail"> Enviar mensaje </button>
-      </div>
-    </div>
-  </div>
-</div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/popper.min.js"></script>
