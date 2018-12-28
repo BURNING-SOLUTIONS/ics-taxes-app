@@ -143,7 +143,7 @@ $(function () {
                                 var reportData = JSON.parse(result);
                             }
                             catch (e) {
-                                alert('Ha ocurrido un error enviando el mensaje Inténtelo más tarde o contacte con el adminsitrador.');
+                                console.info(e + ' Ha ocurrido un error enviando el mensaje Inténtelo más tarde o contacte con el adminsitrador.');
                             }
                             $("#recipient-subject").val("");
                             $("#recipient-message").val("");
