@@ -109,11 +109,11 @@ $(document).ready(function () {
             }
         });
 
-     $("#div_left_side .closebtn").click(function () {
+    $("#div_left_side .closebtn").click(function () {
         $("#div_pagination").hide();
         $("#reportListAvailable").hide();
-        $("#div_left_side").css({ "background-color": "#white", "width": "2%" });      
-       
+        $("#div_left_side").css({ "background-color": "#white", "width": "2%" });
+
         $("#div_show_report").css({ "margin-left": "6.5%" });
         $("#div_show_report").attr("class", "col-md-11");
         $("#div_left_side .openbtn").show();
@@ -132,8 +132,8 @@ $(document).ready(function () {
     /* Cntrol d ecuand marca o desmarca el radio button*/
     let rangeCount = 0;
     $("#range").click(function () {
-        rangeCount ++;
-        if(rangeCount !== 0 && rangeCount % 2 === 0){
+        rangeCount++;
+        if (rangeCount !== 0 && rangeCount % 2 === 0) {
             this.checked = false;
         }
         if (this.checked) {
@@ -161,20 +161,20 @@ $(document).ready(function () {
 
 
     function ExportPdf(Contenido_ID, name_file) {
-        kendo.pdf.defineFont({
-            "DejaVu Sans":"http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans.ttf",
-            "DejaVu Sans|Bold":"http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
-            "DejaVu Sans|Bold|Italic":"http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
-            "DejaVu Sans|Italic":"http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf"
+       kendo.pdf.defineFont({
+            "DejaVu Sans": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans.ttf",
+            "DejaVu Sans|Bold": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
+            "DejaVu Sans|Bold|Italic": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
+            "DejaVu Sans|Italic": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf"
         });
         kendo.drawing.drawDOM($("#" + Contenido_ID))
-            .then(function(group){
+            .then(function (group) {
                 return kendo.drawing.exportPDF(group, {
                     paperSize: "auto",
                     margin: { left: "1cm", top: "1cm", right: "1cm", bottom: "1cm" }
                 });
             })
-            .done(function(data){
+            .done(function (data) {
                 kendo.saveAs({
                     dataURI: data,
                     fileName: name_file
@@ -183,22 +183,22 @@ $(document).ready(function () {
     }
 
     /*Se captura el evento dle click a exportar*/
-     $("#pdf").click(function () {
+    $("#pdf").click(function () {
         ExportPdf(array_nombres_reportes[indice_activo], array_nombres_reportes[indice_activo]);
     });
 
     $('.demo').fSelect({
 
-       placeholder: 'Incluir clientes',
+        placeholder: 'Incluir clientes',
 
         showSearch: false
     });
 
-    $("#print").click(function () {      
-        $("#"+ array_nombres_reportes[indice_activo]).print({        	
+    $("#print").click(function () {
+        $("#" + array_nombres_reportes[indice_activo]).print({
             globalStyles: true,
             mediaPrint: false,
-            stylesheet: "css/style_"+ array_nombres_reportes[indice_activo] +".css",
+            stylesheet: "css/style_" + array_nombres_reportes[indice_activo] + ".css",
             noPrintSelector: "",
             iframe: true,
             append: null,
@@ -369,6 +369,9 @@ function Show_Reporte(nombre_reporte) {
         case "servicio_insular":
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
             break;
+        case "servicios_de_cargas":
+            $("#div_show_report [id ='" + nombre_reporte + "']").show();
+            break;
     }
 }
 
@@ -395,12 +398,15 @@ function Hide_Reporte(nombre_reporte) {
         case "servicio_insular":
             $("#div_show_report [id ='" + nombre_reporte + "']").hide();
             break;
+        case "servicios_de_cargas":
+            $("#div_show_report [id ='" + nombre_reporte + "']").hide();
+            break;
     }
 }
 
 function Hide_All_Reporte() {
 
-   $("#div_left_side .openbtn").hide();
+    $("#div_left_side .openbtn").hide();
     $("#div_action_report").hide();
     $("#div_pagination").show();
     $("#div_show_report #plantilla").hide();
@@ -412,6 +418,7 @@ function Hide_All_Reporte() {
     $("#div_show_report #servicio_reporte").hide();
     $("#div_show_report #tarifa_carga").hide();
     $("#div_show_report #servicio_insular").hide();
+    $("#div_show_report #servicios_de_cargas").hide();
     $("#searchClientData_1").hide();
     $("#searchClientData_2").hide();
     $("#searchClientData_btn").hide();
@@ -502,5 +509,5 @@ function Exportar_PDF(Contenido_ID, nombre) {
         }
     });
 
-    
+
 }
