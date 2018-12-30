@@ -109,6 +109,7 @@ $(function () {
                     $("#div_show_report [id ='" + $(item).val() + "']").hide();
                 });
                 $("#div_show_report [id ='" + array_nombres_reportes[indice_activo] + "']").show();
+                $('#errorEmailSender').attr('hidden', true);
             });
 
 
@@ -181,20 +182,25 @@ $(function () {
                             },
                             success: (result) => {
                                 console.info(result);
-                                try {
+                                if(result.indexOf('Authentication successful')!== -1){
+                                    alert('mensaje enviado correctamente.')
+                                }else{
+                                    alert('Ha ocurrido un error enviando el mensaje Inténtelo más tarde o contacte con el adminsitrador.')
+                                }
+                                /*try {
                                     var reportData = JSON.parse(result);
                                 }
                                 catch (e) {
                                     console.info(e + ' Ha ocurrido un error enviando el mensaje Inténtelo más tarde o contacte con el adminsitrador.');
-                                }
+                                }*/
                                 $("#recipient-subject").val("");
                                 $("#recipient-message").val("");
                                 $('#exampleModal').modal('hide');
-                                if (reportData['status'].ok === false) {
+                                /*if (reportData['status'].ok === false) {
                                     alert(reportData['status'].message)
                                 } else {
                                     console.info('mensaje enviado bien');
-                                }
+                                }*/
                                 $('#errorEmailSender').attr('hidden', true);
                             },
                             error: (error) => {
