@@ -12,6 +12,7 @@ $(function () {
             this._liReportsDisponibles = $("ul#reportListAvailable li.available");
             this._liReportsSelected = $("ul#reportListAvailable li.selected");
             this._inputSearchClient = $("input#searchClientData");
+            this._modalEmail = $('#exampleModal');
             this._inputSearchEmpresa = $("input#searchClientEmpresa");
             this._rangeRadio = $('#range');
             this._buttonSendCientRange = $('#searchClientData_btn');
@@ -60,10 +61,6 @@ $(function () {
             return this._array_lista_precios;
         }
 
-        getEmailActualClient() {
-
-        }
-
         registerListeners() {
             this.markedAllReportsByDefault();
             this.checkRouteType();
@@ -79,18 +76,16 @@ $(function () {
             this._buttonSendCientRange.click(() => {
                 event.preventDefault();
                 this.sendServerRequestRangeClients();
-            })
+            });
 
             $("button#sendEmail").on('click', this.sendClientEmail);
             /*evento para el model levante*/
 
             ($("#modal-report").find("input")).on('click', function () {
-             
 
             });
 
-            $('#exampleModal').on('show.bs.modal', (e) => {
-
+            this._modalEmail.on('show.bs.modal', (e) => {
                 $('#recipient-address').val($('#containerEmail').val());
 
                 var value = $("#modal-report").find("input");
@@ -103,7 +98,7 @@ $(function () {
                 }, this);
             });
 
-            $('#exampleModal').on('hide.bs.modal', (e) => {                 
+            this._modalEmail.on('hide.bs.modal', (e) => {
                 var value = $("#modal-report").find("input"); 
                 (value).each(function (index, item) {
                     $("#div_show_report [id ='" + $(item).val() + "']").hide();
@@ -112,13 +107,13 @@ $(function () {
                 $('#errorEmailSender').attr('hidden', true);
             });
 
-
-
         }
 
         markedAllReportsByDefault() {
+            let liReportsDisponibles = $("ul#reportListAvailable li.available");
             this._liReportsDisponibles.click();
             this._liReportsDisponibles.addClass('selected');
+            $('ul.pagination > li.page-item#0').click();
         }
 
         checkRouteType() {
@@ -195,7 +190,7 @@ $(function () {
                                 }*/
                                 $("#recipient-subject").val("");
                                 $("#recipient-message").val("");
-                                $('#exampleModal').modal('hide');
+                                this._modalEmail.modal('hide');
                                 /*if (reportData['status'].ok === false) {
                                     alert(reportData['status'].message)
                                 } else {

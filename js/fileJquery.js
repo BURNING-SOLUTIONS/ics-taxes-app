@@ -8,12 +8,14 @@ var servicio_aereo = "";
 $(document).ready(function () {
     /*Oculta todos los reportes*/
     $('[data-toggle="tooltip"]').tooltip();
+
     Hide_All_Reporte();
+
     Show_Reporte("plantilla");
 
     $("#reportListAvailable li").click(function () {
 
-        var nombre_reporte = $(this).attr("value")
+        var nombre_reporte = $(this).attr("value");
         /*comrueba en este array dinamico si ya s eseeciono algun reporte*/
         var index = array_nombres_reportes.indexOf(nombre_reporte);
         if (index >= 0) {
@@ -240,7 +242,7 @@ function Add_Reporte_Paginado(nombre_reporte) {
 
     array_nombres_reportes.push(nombre_reporte);
     var pos = array_nombres_reportes.length - 1;
-    console.log(array_nombres_reportes[pos]);
+    //console.log(array_nombres_reportes[pos]);
     /*creo el indice para anadirlo al paginado*/
     var a = $("<a></a>", { "data-toggle": "tooltip", "data-placement": "top", "title": nombre_reporte, "data-trigger": "hover" }).text(pos + 1);
     a.attr({ "class": "page-link", "href": "#" });
@@ -405,29 +407,11 @@ function Hide_Reporte(nombre_reporte) {
 }
 
 function Hide_All_Reporte() {
-
-    $("#div_left_side .openbtn").hide();
-    $("#div_action_report").hide();
+    $("#div_left_side .openbtn, #div_action_report, #div_pagination, #plantilla,  #servicios_locales, #int_terrestre, #servicio_aéreo_2, #servicio_aéreo_1, #servicio_nacional, #servicio_reporte, #tarifa_carga, #servicio_insular, #servicios_de_cargas, #searchClientData_1, #searchClientData_2, #searchClientData_btn").hide();
     $("#div_pagination").show();
-    $("#div_show_report #plantilla").hide();
-    $("#div_show_report #servicios_locales").hide();
-    $("#div_show_report #int_terrestre").hide();
-    $("#div_show_report #servicio_aéreo_2").hide();
-    $("#div_show_report #servicio_aéreo_1").hide();
-    $("#div_show_report #servicio_nacional").hide();
-    $("#div_show_report #servicio_reporte").hide();
-    $("#div_show_report #tarifa_carga").hide();
-    $("#div_show_report #servicio_insular").hide();
-    $("#div_show_report #servicios_de_cargas").hide();
-    $("#searchClientData_1").hide();
-    $("#searchClientData_2").hide();
-    $("#searchClientData_btn").hide();
 }
 
 /* Aca termina el codigo para mostrar los reportes y ocultarlos*/
-
-
-
 
 /*Aca comien el codigo para relizar las acciones de imprimir y exportar los reportes seleccionados*/
 
@@ -440,9 +424,6 @@ function Input_Is_Empty(id) {
 function Input_Is_NUmber(id) {
     return true;
 }
-
-
-
 
 /*Aca comien el codigo para relizar las acciones de imprimir y exportar los reportes seleccionados*/
 
