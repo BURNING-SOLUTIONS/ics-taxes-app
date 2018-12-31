@@ -176,26 +176,16 @@ $(function () {
                                 "pdf_data": data.split('data:application/pdf;base64,')[1],
                             },
                             success: (result) => {
-                                console.info(result);
-                                if(result.indexOf('Authentication successful')!== -1){
-                                    alert('mensaje enviado correctamente.')
+                                let response = JSON.parse(result);
+                                //console.info(response);
+                                if(response['status'].ok === true){
+                                    alert(response['status'].message)
                                 }else{
-                                    alert('Ha ocurrido un error enviando el mensaje Inténtelo más tarde o contacte con el adminsitrador.')
+                                    alert(response['status'].error)
                                 }
-                                /*try {
-                                    var reportData = JSON.parse(result);
-                                }
-                                catch (e) {
-                                    console.info(e + ' Ha ocurrido un error enviando el mensaje Inténtelo más tarde o contacte con el adminsitrador.');
-                                }*/
                                 $("#recipient-subject").val("");
                                 $("#recipient-message").val("");
-                                this._modalEmail.modal('hide');
-                                /*if (reportData['status'].ok === false) {
-                                    alert(reportData['status'].message)
-                                } else {
-                                    console.info('mensaje enviado bien');
-                                }*/
+                                $('#exampleModal').modal('hide');
                                 $('#errorEmailSender').attr('hidden', true);
                             },
                             error: (error) => {
@@ -262,12 +252,14 @@ $(function () {
                     },
                     url: "server.php",
                     success: (result) => {
+                        //console.warn(result);
+                        console.info('init request');
                         var reportData = JSON.parse(result);
+                        //console.info(reportData);
                         this.showHideLoadSpinner(false);
                         $('.ngdialog-overlay-blocking').attr('hidden', true);
-                        //console.warn(result);
                         if (reportData['status'].ok === true) {
-                            alert(reportData['status'].message)
+                            alert(`${reportData['results']} y, ${(reportData['errors'] ? reportData['errors'] : '')}`)
                         }
                         console.info('Complete request');
                     },

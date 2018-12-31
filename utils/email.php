@@ -17,8 +17,9 @@ class email
         $PROYECT_CONFIG = parse_ini_file('config/config.ini');
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         $mail->IsSMTP(); // enable SMTP
-
-        $mail->SMTPDebug = 2; // debugging: 1 = errors and messages, 2 = messages only
+        $mail->SMTPDebug = false;
+        $mail->do_debug = 0;
+        //$mail->SMTPDebug = 2; // debugging: 1 = errors and messages, 2 = messages only
         $mail->SMTPAuth = true; // authentication enabled
         $mail->SMTPSecure = "ssl"; // secure transfer enabled REQUIRED for Gmail
         $mail->Host = "$PROYECT_CONFIG[email_host]";

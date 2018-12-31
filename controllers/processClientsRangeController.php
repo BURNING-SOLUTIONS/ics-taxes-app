@@ -12,6 +12,7 @@ function processClientsRangeController($sqlConection){
         "results" => array()
     );
     $emailsClienSend = array();
+    $emailsErrorClienSend = 0;
     $pruebacorreo = new email();
     $PROYECT_CONFIG = parse_ini_file('config/config.ini');
     $bussines = $_POST['id_empresa'];
@@ -26,36 +27,40 @@ function processClientsRangeController($sqlConection){
             $filterActives = in_array('inactivos', $filters) ? 1 : 0;
             $filterBloq = in_array('bloqueados', $filters) ? 1 : 0;
 
-            if(($cliente['Baja_Cli'] == 0 && $cliente['BloqueoNac_Cli'] == 0 && $cliente['Bloqueo_Cli'] == 0)){
-                array_push($emailsClienSend, $cliente);
-                # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
-                #$pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
-            }
-            if($filterActives){
-                if($cliente['Baja_Cli'] == 1){
+            try{
+                if(($cliente['Baja_Cli'] == 0 && $cliente['BloqueoNac_Cli'] == 0 && $cliente['Bloqueo_Cli'] == 0)){
                     array_push($emailsClienSend, $cliente);
                     # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
-                    # $pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
-                    continue;
+                     $pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
                 }
-            }
-            if($filterBloq){
-                if($cliente['BloqueoNac_Cli'] == 1 || $cliente['Bloqueo_Cli']){
-                    array_push($emailsClienSend, $cliente);
-                    # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
-                    # $pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
-                    continue;
+                if($filterActives){
+                    if($cliente['Baja_Cli'] == 1){
+                        array_push($emailsClienSend, $cliente);
+                        # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
+                         $pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
+                        continue;
+                    }
                 }
+                if($filterBloq){
+                    if($cliente['BloqueoNac_Cli'] == 1 || $cliente['Bloqueo_Cli']){
+                        array_push($emailsClienSend, $cliente);
+                        # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
+                         $pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
+                        continue;
+                    }
+                }
+            }catch (Exception $e){
+                $emailsErrorClienSend++;
+                continue;
             }
 
 
         }
     }
-
-    echo json_encode(
-        array(
-            'status' => array('ok' => true, 'message' => 'Emails enviados satisfactoriamente.'),
-            'results' => count($emailsClienSend)), JSON_FORCE_OBJECT);
+    $jsondata['results'] = "Se han enviado correctamente ".count($emailsClienSend)." mensajes";
+    $jsondata['errors'] = "No ha sido posible enviar correctamente $emailsErrorClienSend mensajes";
+    //echo(print_r($jsondata));exit();
+    echo json_encode($jsondata, JSON_FORCE_OBJECT);
     exit();
 
 }
