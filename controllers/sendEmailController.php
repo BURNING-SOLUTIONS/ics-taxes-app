@@ -8,7 +8,7 @@
 
 function sendClientEamil($sqlConection)
 {
-    $jsondata = array("status" => array('ok' => true, 'message' => 'Email Enviado Satisfactoriamente.'), "results" => array());
+    $jsondata = array("status" => array('ok' => true, 'message' => 'Email enviado satisfactoriamente.'), "results" => array());
     $name = "report.pdf";
     //Decode pdf content
     $pdf_decoded = base64_decode($_POST['pdf_data']);

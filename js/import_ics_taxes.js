@@ -179,9 +179,11 @@ $(function () {
                                 let response = JSON.parse(result);
                                 //console.info(response);
                                 if(response['status'].ok === true){
-                                    alert(response['status'].message)
+                                    swal("Operación Finalizada", response['status'].message, "success");
+                                    //alert(response['status'].message)
                                 }else{
-                                    alert(response['status'].error)
+                                    swal("Error!", response['status'].error, "error");
+                                    //alert(response['status'].error)
                                 }
                                 $("#recipient-subject").val("");
                                 $("#recipient-message").val("");
@@ -236,38 +238,55 @@ $(function () {
             if (!$("#searchClientEmpresa").val() || !$("#searchClientData_1").val() || !$("#searchClientData_2").val()) {
                 alert('Para realizar esta operación debe llenar los campos EMPRESA, y los números clientes DESDE y HASTA');
             } else {
-                console.info('Init request');
-                $('.ngdialog-overlay-blocking').removeAttr('hidden');
-                $.ajax({
-                    type: "POST",
-                    timeout: 1200000,
-                    data: {
-                        "route": "process-clients-range",
-                        "id_empresa": this._inputSearchEmpresa.val(),
-                        "filters": $('.demo').val(),
-                        "range": {
-                            "from": parseInt($("#searchClientData_1").val()),
-                            "to": parseInt($("#searchClientData_2").val())
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            console.info('Init request');
+                            $('.ngdialog-overlay-blocking').removeAttr('hidden');
+                            $.ajax({
+                                type: "POST",
+                                timeout: 1200000,
+                                data: {
+                                    "route": "process-clients-range",
+                                    "id_empresa": this._inputSearchEmpresa.val(),
+                                    "filters": $('.demo').val(),
+                                    "range": {
+                                        "from": parseInt($("#searchClientData_1").val()),
+                                        "to": parseInt($("#searchClientData_2").val())
+                                    }
+                                },
+                                url: "server.php",
+                                success: (result) => {
+                                    //console.warn(result);
+                                    console.info('init request');
+                                    var reportData = JSON.parse(result);
+                                    //console.info(reportData);
+                                    this.showHideLoadSpinner(false);
+                                    $('.ngdialog-overlay-blocking').attr('hidden', true);
+                                    if (reportData['status'].ok === true) {
+                                        swal(`${reportData['results']} y, ${(reportData['errors'] ? reportData['errors'] : '')}`, {
+                                            icon: "success",
+                                        });
+                                    }
+                                    console.info('Complete request');
+                                },
+                                error: (error) => {
+                                    this.showHideLoadSpinner(false);
+                                    console.warn(error);
+                                }
+                            });
+                        } else {
+                            swal("Operación cancelada.");
                         }
-                    },
-                    url: "server.php",
-                    success: (result) => {
-                        //console.warn(result);
-                        console.info('init request');
-                        var reportData = JSON.parse(result);
-                        //console.info(reportData);
-                        this.showHideLoadSpinner(false);
-                        $('.ngdialog-overlay-blocking').attr('hidden', true);
-                        if (reportData['status'].ok === true) {
-                            alert(`${reportData['results']} y, ${(reportData['errors'] ? reportData['errors'] : '')}`)
-                        }
-                        console.info('Complete request');
-                    },
-                    error: (error) => {
-                        this.showHideLoadSpinner(false);
-                        console.warn(error);
-                    }
-                });
+                    });
+
+
             }
         }
 
