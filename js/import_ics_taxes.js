@@ -326,6 +326,7 @@ $(function () {
                         var reporteLocal = {};
                         var reportNac = {};
                         var reporteInsular = {};
+                        var reporteCarga = {};
                         var elementos_nacionales = {
                             "522": { "id": "522", "arraySelf": [] },
                             "501": { "id": "501", "arraySelf": [] },
@@ -369,6 +370,13 @@ $(function () {
                             "1655": { "id": "1655", "arraySelf": [] },
                             "1665": { "id": "1665", "arraySelf": [] },
                         };
+                        var elementos_carga = {
+                            "753": { "id": "753", "arraySelf": [] },
+                            "752": { "id": "752", "arraySelf": [] },
+                            "1674": { "id": "1674", "arraySelf": [] },
+                            "1844": { "id": "1844", "arraySelf": [] },
+                            
+                        };
 
                         if (reportData['status'].ok === false) {
                             alert(reportData['status'].message)
@@ -402,6 +410,11 @@ $(function () {
                                     reporteInsular = new IcsReporteInsular(results[key]);
                                     reporteInsular.drawRangeFills();
                                 }
+                                 if (elementos_carga[elemento_tarifario]) {
+                                    elementos_carga[elemento_tarifario].arraySelf.push(results[key]);
+                                    reporteCarga = new IcsReporteCarga(results[key]);
+                                    reporteCarga.drawRangeFills();
+                                }
 
                                 if(parseInt(results[key]['elemento'])>=5000 && parseInt(results[key]['elemento'])<=5999){
                                     especialRateCharge = true;
@@ -413,6 +426,7 @@ $(function () {
                                 this.showAlertClientMessage(`Este cliente tiene una tarifa de carga especial.`);
                             reportNac.drawAditionalFills(elementos_nacionales);
                             reporteInsular.drawAditionalFills(elementos_insulares);
+                            
                         }
                         this.showHideLoadSpinner(true);
                         $('.ngdialog-overlay-blocking').attr('hidden', true);
