@@ -217,6 +217,10 @@ $(function () {
             $('span.this_year').html(new Date().getFullYear())
         }
 
+        showAlertClientMessage(message){
+            $('#msgAlertReportTodos').html(message);
+        }
+
         runCommonValidations() {
             let response = true;
             if (!$("#searchClientData").val()) {
@@ -303,6 +307,7 @@ $(function () {
             if (external_link || this.runCommonValidations()) {
                 this.showHideLoadSpinner(false);
                 $('#msgAlertReportNacional').attr('hidden', true);
+                $('#msgAlertReportTodos').html("");
                 $.ajax({
                     type: "POST",
                     timeout: 1200000,
@@ -316,6 +321,7 @@ $(function () {
                         $('span.fixed-color').css('color', 'black');
                         var reportData = JSON.parse(result);
                         var results = reportData['results'];
+                        var especialRateCharge = false;
                         $('#containerEmail').val(results[0].email);
                         var reporteLocal = {};
                         var reportNac = {};
@@ -370,9 +376,8 @@ $(function () {
                             let msg = results[0]['baja'] === 1 ? "Inactivo " : "";
                             let msg1 = results[0]['BloqueoTrafico'] === 1 ? "Bloqueado en Tráfico," : "";
                             let msg2 = results[0]['BloqueoNacional'] === 1 ? "Bloqueado Nacional" : "";
-
                             if (msg || msg1 || msg2)
-                                $('#msgAlertReportTodos').html(`Cliente ${msg} ${msg1} ${msg2}`);
+                                this.showAlertClientMessage(`Cliente ${msg} ${msg1} ${msg2}`);
 
 
                             this.setReportHeaderNameClient(results["0"]);
@@ -397,10 +402,15 @@ $(function () {
                                     reporteInsular = new IcsReporteInsular(results[key]);
                                     reporteInsular.drawRangeFills();
                                 }
+
+                                if(parseInt(results[key]['elemento'])>=5000 && parseInt(results[key]['elemento'])<=5999){
+                                    especialRateCharge = true;
+                                }
                                 cont++;
 
                             });
-                            //console.info(cont);
+                            if(especialRateCharge)
+                                this.showAlertClientMessage(`Este cliente tiene una tarifa de carga especial.`);
                             reportNac.drawAditionalFills(elementos_nacionales);
                             reporteInsular.drawAditionalFills(elementos_insulares);
                         }
