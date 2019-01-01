@@ -1,5 +1,5 @@
 $(function () {
-    class IcsTaxesTraslate {
+    class IcsTaxesTraslate {      
 
         constructor(arr) {
             var that = this;
@@ -62,8 +62,8 @@ $(function () {
         }
 
         registerListeners() {
-            this.markedAllReportsByDefault();
             this.checkRouteType();
+            this.markedAllReportsByDefault();            
             this._liReportsDisponibles.click(function (event) {
                 $(this).toggleClass('selected');
             });
@@ -119,9 +119,14 @@ $(function () {
         checkRouteType() {
             let url = new URL(window.location.href);
             var isExternalLink = url.searchParams.get("external_source");
+            //console.info(isExternalLink);
             if (isExternalLink) {
                 this.sendServerRequest(true, url.searchParams)
-            }
+            }/*else{
+                console.info(getPermisionsList());
+                //if(getPermisionsList().length === 0)
+                    //window.location.href = 'index.html';
+            }*/
         }
 
         getTotalReportsSelected() {
@@ -243,8 +248,8 @@ $(function () {
                 alert('Para realizar esta operación debe llenar los campos EMPRESA, y los números clientes DESDE y HASTA');
             } else {
                 swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    title: "Está seguro?",
+                    text: "Si acepta realizar esta operación se enviaran emails masivamente a todos los clientes del rango indicado enviándoles su url de acceso al sistema para que conzcan sus tarifas actuales.",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
