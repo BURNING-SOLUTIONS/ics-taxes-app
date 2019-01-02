@@ -162,31 +162,43 @@ $(document).ready(function () {
 
 
 
-    function ExportPdf(Contenido_ID, name_file) {
+    function ExportPdf() {
        kendo.pdf.defineFont({
             "DejaVu Sans": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans.ttf",
             "DejaVu Sans|Bold": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
             "DejaVu Sans|Bold|Italic": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
             "DejaVu Sans|Italic": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf"
         });
-        kendo.drawing.drawDOM($("#" + Contenido_ID))
-            .then(function (group) {
-                return kendo.drawing.exportPDF(group, {
-                    paperSize: "auto",
-                    margin: { left: "1cm", top: "1cm", right: "1cm", bottom: "1cm" }
+
+
+        var value = $("#modal-export").find("input");
+
+                (value).each(function (index, item) {
+                    if ($(item).prop('checked')) {
+                        $("#div_show_report [id ='" + $(item).val() + "']").show();                        
+                    }
+                    else {
+                        $("#div_show_report [id ='" + $(item).val() + "']").hide();                       
+                    }
                 });
-            })
+              console.warn($("#div_show_report"));
+                kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin: "1.5cm", scale: 0.5 })
+
+                    .then(function (group) {
+                        return kendo.drawing.exportPDF(group);
+                    })
             .done(function (data) {
                 kendo.saveAs({
                     dataURI: data,
-                    fileName: name_file
+                    fileName: "Reportes"
                 })
             });
     }
 
     /*Se captura el evento dle click a exportar*/
     $("#pdf").click(function () {
-        ExportPdf(array_nombres_reportes[indice_activo], array_nombres_reportes[indice_activo]);
+        ExportPdf();
+       
     });
 
     $('.demo').fSelect({
