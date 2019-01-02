@@ -420,6 +420,8 @@ $(function () {
                                     elementos_carga[elemento_tarifario].arraySelf.push(results[key]);
                                     reporteCarga = new IcsReporteCarga(results[key]);
                                     reporteCarga.drawRangeFills();
+
+
                                 }
 
                                 if(parseInt(results[key]['elemento'])>=5000 && parseInt(results[key]['elemento'])<=5999){
@@ -428,10 +430,14 @@ $(function () {
                                 cont++;
 
                             });
-                            if(especialRateCharge)
-                                this.showAlertClientMessage(`Este cliente tiene una tarifa de carga especial.`);
+                            
+                            reporteCarga.drawAditionalFills(elementos_carga);
                             reportNac.drawAditionalFills(elementos_nacionales);
                             reporteInsular.drawAditionalFills(elementos_insulares);
+                           if(especialRateCharge){
+                                this.showAlertClientMessage(`Este cliente tiene una tarifa de carga especial.`);
+                                reporteCarga.cleanTable();
+                           }
                             
                         }
                         this.showHideLoadSpinner(true);

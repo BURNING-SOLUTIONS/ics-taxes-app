@@ -50,25 +50,29 @@ class IcsReporteCarga {
 			//OPERACIONES PARA PINTAR LOS ELEMENTOS BASICOS DE EL REPORTE CARGA
 			let idcarga = `${this._elemento['elemento']}${this._elemento['hasta']}`;
 			idcarga = idcarga.replace(/\s/g, '');			
-
+	
 			if( $(`table.tabla_tarifas_cargas> tbody input#${idcarga}`) ){
 					$(`table.tabla_tarifas_cargas> tbody input#${idcarga}`)
 						.val(`${this._elemento['precio'].toFixed(2)} €`);
-			}				
+			}	
+				
+					
 		}
 
-		getKgAdicional(asc){			
+		getKgAdicional(asc){	
+		
 			let result = "";
 			let last_pos = asc.length - 1;
 			let prev_last_pos = asc.length - 2;
 			if(this.isLimitValRate((asc[last_pos]['hasta']))){
 				result = (asc[last_pos]['precio']).toFixed(2);
+
 			}else {
 				result = (asc[last_pos]['precio']-asc[prev_last_pos]['precio'] ).toFixed(2);
 			}
 			return result;	
 		}
-/*
+
 		drawAditionalFills(elementos_carga){
       		//console.warn(elementos_carga);
 			Object.keys(elementos_carga).forEach((key)=>{					
@@ -84,14 +88,14 @@ class IcsReporteCarga {
 				}); 
 				/*if(key){
 					console.info(asc);
-				}*
+				}*/
 
 				let last_pos = asc.length - 1;
 				let prev_last_pos = asc.length - 2;					
 				$(`table.tabla_tarifas_cargas  > tbody input#${key}[refid="kg"]`)
 					.val(`${this.getKgAdicional(asc)} €`)				
 			})
-
+            
 			this.drawTomisslFills(elementos_carga);
 		}
 
@@ -175,7 +179,10 @@ class IcsReporteCarga {
 			
 		}	
 
-		*/
+		cleanTable(){
+			$("#tabla_tarifas_cargas > tbody input").val("0.00 €");
+			//console.warn("pase por aqui ");	
+		}
 
 }
 
