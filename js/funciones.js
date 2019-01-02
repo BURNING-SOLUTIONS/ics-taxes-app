@@ -56,37 +56,36 @@ function Cantidad_CheckBox_Marcados() {
 /* metodos para mostrar dinamicamente los reportes*/
 
 /*array a cojone para dibujar dinamicamente la tabla del reporte servicios todo esto deberia venir de la BD*/
-var array_servicios = new Array(
+/*var array_servicios =
+    new Array(
     {
         tipo_servicio: "MOTO URGENTE",
         descripcion: "asdasdadasdasdasda",
         nombre_servicio: "MOTO",
-        array_elementos: new Array(
+        array_elementos: [{
+            id: "001",
+            nombre: "Dirreciones"
+        },
             {
-                id: 001,
-                nombre: "Dirreciones"
-            },
-            {
-                id: 003,
+                id: "003",
                 nombre: "PESOS Y MEDIDAS(Hasta 5 kg y 45*25*25 cm)"
             },
             {
-                id: 002,
+                id: "002",
                 nombre: "Tiempo de espera(A partir de 10 minutos)"
             },
             {
-                id: 005,
+                id: "005,
                 nombre: "Kilometros(Fuera del casco Urbano)"
             },
             {
-                id: 004,
+                id: "004",
                 nombre: "CANON DE LLUVIA(Por direccion)"
             },
             {
-                id: 006,
+                id: "006",
                 nombre: "CANON DE LLUVIA(Por Km)"
-            }
-        )
+            }]
     },
     {
         tipo_servicio: "FURGONETAS",
@@ -112,7 +111,7 @@ var array_servicios = new Array(
         descripcion: "asdasdadasdasdasda sobre las furgonetas",
         nombre_servicio: "FURGONETA 1500 Kg",
         array_elementos: new Array(
-            
+
             {
                 id: 679,
                 nombre: "PRECIO POR DIRECCION"
@@ -127,7 +126,7 @@ var array_servicios = new Array(
             }
         )
     }
-)
+)*/
 
 function Elemento(id,nombre) {
   this.id = id;
@@ -157,15 +156,15 @@ function Generar_Reporte() {
     array_tipos_servicios = new Array();
     //variable que guarda sobre que div cabecera agregar la tabla que s egenerara para cada elemto serivicio d emi array de servicios
     var pos_div_cabecera;
-    var tipo_servicio
+    var tipo_servicio;
 
-    for (var i = 0; i < array_servicios.length; i++) {
+    /*for (var i = 0; i < array_servicios.length; i++) {
         
         console.log("entre en generar reporte: "+ i);
 
          tipo_servicio = array_servicios[i].tipo_servicio;
         
-        /*aca compruebo si el servicio existe o no, si existe no creo una cabecera nueva solo agrego como hijo la tabla html genrada dinamicamente a esa cabecera, d eno exixstir si creo una cabesera nuevo y luego agrego el codigo html de la tabal generada*/
+        /!*aca compruebo si el servicio existe o no, si existe no creo una cabecera nueva solo agrego como hijo la tabla html genrada dinamicamente a esa cabecera, d eno exixstir si creo una cabesera nuevo y luego agrego el codigo html de la tabal generada*!/
         var existe_cabecera = Existe_Servicio(array_tipos_servicios, tipo_servicio);
        
        
@@ -181,7 +180,7 @@ function Generar_Reporte() {
         }
      
         array_cabeceras_servicios[pos_div_cabecera].appendChild(generar_tabla_reporte1(array_servicios[i]));
-    }
+    }*/
   
     for (var i = 0; i < array_cabeceras_servicios.length; i++)
         body.appendChild(array_cabeceras_servicios[i]);
