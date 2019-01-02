@@ -96,6 +96,10 @@ $(function () {
                 array_nombres_reportes.forEach(function (element) {
                     $('#chbox_' + element).prop('checked', true);                  
                 }, this);
+
+                setTimeout(()=>{
+                    $('#recipient-address').focus();
+                },800)
             });
 
             this._modalEmail.on('hide.bs.modal', (e) => {
