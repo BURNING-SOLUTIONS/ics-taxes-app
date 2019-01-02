@@ -326,6 +326,7 @@ $(function () {
                         $('span.fixed-color').css('color', 'black');
                         var reportData = JSON.parse(result);
                         var results = reportData['results'];
+                        //console.info(results);
                         var especialRateCharge = false;
                         $('#containerEmail').val(results[0].email);
                         var reporteLocal = {};

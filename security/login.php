@@ -4,10 +4,10 @@
 
  	$PROYECT_CONFIG = parse_ini_file('../config/config.ini');
 	$today = new DateTime(); # today date
-	
+
 	$sqlConection = new sqlServerConecction(
 	    "$PROYECT_CONFIG[database_host]",
-	    "dl" . $today->format('Y'),
+	    "dl2018" /*. $today->format('Y')*/,
 	    "$PROYECT_CONFIG[database_user]",
 	    "$PROYECT_CONFIG[database_password]"
 	);
