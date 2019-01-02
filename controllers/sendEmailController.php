@@ -24,6 +24,9 @@ function sendClientEamil($sqlConection)
                 $_POST['subject'],
                 $_POST['message_body'],
                 $name);
+            if (file_exists($name)) {
+                unlink($name);
+            }
         }
     } catch (Exception $e) {
         $jsondata = array(
