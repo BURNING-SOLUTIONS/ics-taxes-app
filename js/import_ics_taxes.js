@@ -144,8 +144,6 @@ $(function () {
         }
 
         sendClientEmail() {
-			/*this._ajaxLoadRequest.removeAttr('hidden');
-     		$('.ngdialog-overlay-blocking').removeAttr('hidden');*/
             if ($("#recipient-address").val() && $("#recipient-subject").val() && $("#recipient-message").val()) {
                 $("#loadingEmail")
                     .addClass("fa-spin")
@@ -169,7 +167,6 @@ $(function () {
                 });
 
                 kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin: "1.5cm", scale: 0.5 })
-
                     .then(function (group) {
                         return kendo.drawing.exportPDF(group);
                     })
@@ -344,6 +341,7 @@ $(function () {
                         var reportNac = {};
                         var reporteInsular = {};
                         var reporteCarga = {};
+                        var condicionesGenerales = {};
                         var elementos_nacionales = {
                             "522": { "id": "522", "arraySelf": [] },
                             "501": { "id": "501", "arraySelf": [] },
@@ -395,6 +393,7 @@ $(function () {
                             
                         };
 
+
                         if (reportData['status'].ok === false) {
                             alert(reportData['status'].message)
                         } else {
@@ -411,6 +410,8 @@ $(function () {
                             Object.keys(results).forEach((key) => {
                                 let elemento_tarifario = results[key]['elemento'];
                                 reporteLocal = new IcsReporteLocal(results[key]);
+                                reporteLocal.drawRangeFills();
+                                reporteLocal = new IcsCondicionesGenerales(results[key]);
                                 reporteLocal.drawRangeFills();
                                 let is_national_tarife = (results[0]['tarifa'].indexOf("NR") >= 0 || results[0]['tarifa'].indexOf("N2") >= 0);
                                 if (!(results[0]['tarifa'] && is_national_tarife)) {

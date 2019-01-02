@@ -16,130 +16,8 @@
   <link rel="stylesheet" href="css/style_servicio_nacional.css">
   <link rel="stylesheet" href="css/style_servicio_insular.css">
   <link rel="stylesheet" href="css/style_servicios_de_cargas.css">
+  <link rel="stylesheet" href="css/style_condiciones_generales.css">
   <link rel="stylesheet" href="css/fSelect.css">
-
-
-  <style type="text/css">
-    .feather {
-      width: 16px;
-      height: 16px;
-      vertical-align: text-bottom;
-    }
-    /*
-       * Sidebar
-       */
-    
-    .sidebar {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 100;
-      /* Behind the navbar */
-      padding: 48px 0 0;
-      /* Height of navbar */
-      box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-    }
-    
-    .sidebar-sticky {
-      position: relative;
-      top: 0;
-      height: calc(100vh - 48px);
-      padding-top: .5rem;
-      overflow-x: hidden;
-      overflow-y: auto;
-      /* Scrollable contents if viewport is shorter than content. */
-    }
-    
-    @supports ((position: -webkit-sticky) or (position: sticky)) {
-      .sidebar-sticky {
-        position: -webkit-sticky;
-        position: sticky;
-      }
-    }
-    
-    .sidebar .nav-link {
-      font-weight: 500;
-      color: #333;
-    }
-    
-    .sidebar .nav-link .feather {
-      margin-right: 4px;
-      color: #999;
-    }
-    
-    .sidebar .nav-link.active {
-      color: #007bff;
-    }
-    
-    .sidebar .nav-link:hover .feather,
-    .sidebar .nav-link.active .feather {
-      color: inherit;
-    }
-    
-    .sidebar-heading {
-      font-size: .75rem;
-      text-transform: uppercase;
-    }
-    /*
-       * Content
-       */
-    
-    [role="main"] {
-      padding-top: 48px;
-      /* Space for fixed navbar */
-    }
-    /*
-       * Navbar
-       */
-    
-    .navbar-brand {
-      padding-top: .75rem;
-      padding-bottom: .75rem;
-      font-size: 1rem;
-      background-color: rgba(0, 0, 0, .25);
-      box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
-    }
-    
-    .navbar .form-control {
-      padding: .75rem 1rem;
-      border-width: 0;
-      border-radius: 0;
-    }
-    
-    .form-control-dark {
-      color: #fff;
-      background-color: rgba(255, 255, 255, .1);
-      border-color: rgba(255, 255, 255, .1);
-    }
-    
-    .form-control-dark:focus {
-      border-color: transparent;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
-    }
-    
-    .social-link:hover path {
-      fill: red;
-    }
-    
-    div.ngdialog-overlay-blocking {
-      position: fixed;
-      height: auto;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 1000001;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      -webkit-backface-visibility: hidden;
-      overflow-x: hidden;
-      padding-left: 19px;
-      outline: 0;
-      overflow-y: auto!important;
-    }
-  </style>
-
-
 
   <!-- Estilos CSS -->
 
@@ -168,15 +46,11 @@
     <div id="demoContiner" style="margin-left: -22px;margin-top: 3px" hidden="true">
 
       <select class="demo" multiple="multiple">
-     
             <option value="inactivos">Inactivos</option>
             <option value="bloqueados">Bloqueados</option>
           </optgroup>
-
-        
           <!--<optgroup label="Incluir clientes">
           </optgroup>-->
-
         </select>
     </div>
   </div>
@@ -247,6 +121,13 @@
             <span class="text-muted"> </span>
           </li>
 
+          <li class="list-group-item d-flex justify-content-between lh-condensed available" id="li_condiciones_generales" value="condiciones_generales">
+            <div>
+              <h6 class="my-0" style="">Condiciones Generales del Servicio</h6>
+            </div>
+            <span class="text-muted"> </span>
+          </li>
+
         </ul>
       </div>
     </nav>
@@ -294,6 +175,9 @@
           </div>
 
           <div class="page-break" id="servicios_de_cargas">
+          </div>
+
+          <div class="page-break" id="condiciones_generales">
           </div>
 
 
@@ -384,7 +268,8 @@
 <script src="js/reporteLocal.js"></script>
 <script src="js/reporteNacional.js"></script>
 <script src="js/reporteInsular.js"></script>
-<script src="js/tarifaCarga.js"></script>
+<script src="js/TarifaCarga.js"></script>
+<script src="js/condicionesGenerales.js"></script>
 <script src="https://smtpjs.com/v3/smtp.js" type="text/javascript"></script>
 <!-- <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script> -->
 <script src="js/email.js" type="text/javascript"></script>

@@ -1,6 +1,5 @@
 @media screen{
  #servicio_insular {
-     
       padding: 1rem;
       margin: 1rem -15px 0;
       border: solid  #f7f7f9;
@@ -17,6 +16,7 @@
     width: 15.8%;
         
 }
+
 #servicio_insular .div_1 .div_tarifa p{
     margin: auto;
     font-weight: bold;
@@ -46,12 +46,10 @@ table{
     color: black;
      margin-top: 35px;
     margin-bottom: 35px;
-    padding: 50 px;
+    padding: 50px;
     font-weight: normal; 
     text-align: center;
-    
 }
-
 
 .table_servicios_insulares .tr_1 .td_blue{
     text-align: center;
@@ -167,7 +165,6 @@ table{
 
 @media print{
  #servicio_insular {
-     
       padding: 1rem;
       margin: 1rem -15px 0;
       border: solid  #f7f7f9;
