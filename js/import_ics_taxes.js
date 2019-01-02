@@ -147,7 +147,9 @@ $(function () {
 			/*this._ajaxLoadRequest.removeAttr('hidden');
      		$('.ngdialog-overlay-blocking').removeAttr('hidden');*/
             if ($("#recipient-address").val() && $("#recipient-subject").val() && $("#recipient-message").val()) {
-
+                $("#loadingEmail")
+                    .addClass("fa-spin")
+                    .removeAttr("hidden");
                 kendo.pdf.defineFont({
                     "DejaVu Sans": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans.ttf",
                     "DejaVu Sans|Bold": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
@@ -165,7 +167,6 @@ $(function () {
                         $("#div_show_report [id ='" + $(item).val() + "']").hide();                       
                     }
                 });
-
 
                 kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin: "1.5cm", scale: 0.5 })
 
@@ -198,10 +199,16 @@ $(function () {
                                 $("#recipient-message").val("");
                                 $('#exampleModal').modal('hide');
                                 $('#errorEmailSender').attr('hidden', true);
+                                $("#loadingEmail")
+                                    .removeClass("fa-spin")
+                                    .attr("hidden", true);
                             },
                             error: (error) => {
                                 console.warn(error);
                                 $('#errorEmailSender').attr('hidden', true);
+                                $("#loadingEmail")
+                                    .removeClass("fa-spin")
+                                    .attr("hidden", true);
                             }
                         });
                     });                
