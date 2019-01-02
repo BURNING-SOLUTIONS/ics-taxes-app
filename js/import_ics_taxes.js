@@ -78,6 +78,8 @@ $(function () {
                 this.sendServerRequestRangeClients();
             });
 
+            
+
             $("button#sendEmail").on('click', this.sendClientEmail);
             /*evento para el model levante*/
 
