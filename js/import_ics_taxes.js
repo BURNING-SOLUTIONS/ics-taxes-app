@@ -146,8 +146,6 @@ $(function () {
         }
 
         sendClientEmail() {
-			/*this._ajaxLoadRequest.removeAttr('hidden');
-     		$('.ngdialog-overlay-blocking').removeAttr('hidden');*/
             if ($("#recipient-address").val() && $("#recipient-subject").val() && $("#recipient-message").val()) {
                 $("#loadingEmail")
                     .addClass("fa-spin")
@@ -169,10 +167,14 @@ $(function () {
                         $("#div_show_report [id ='" + $(item).val() + "']").hide();                       
                     }
 
+<<<<<<< HEAD
                    });
 
                 kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin:{ top: "1.5cm", left: "1cm", right: "1cm", bottom: "1.2cm" }, scale: 0.5 })
 
+=======
+                kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin: "1.5cm", scale: 0.5 })
+>>>>>>> 2d0cb598c2a17b3e580e372cfcd573df4114da0e
                     .then(function (group) {
                         return kendo.drawing.exportPDF(group);
                     })
@@ -339,14 +341,7 @@ $(function () {
                         $('span.fixed-color1').css('color', 'transparent');
                         $('span.fixed-color').css('color', 'black');
                         var reportData = JSON.parse(result);
-                        var results = reportData['results'];
-                        //console.info(results);
-                        var especialRateCharge = false;
-                        $('#containerEmail').val(results[0].email);
-                        var reporteLocal = {};
-                        var reportNac = {};
-                        var reporteInsular = {};
-                        var reporteCarga = {};
+                        var results = reportData['results'];                      
                         var elementos_nacionales = {
                             "522": { "id": "522", "arraySelf": [] },
                             "501": { "id": "501", "arraySelf": [] },
@@ -372,8 +367,7 @@ $(function () {
                             "320": { "id": "320", "arraySelf": [] },
                             "324": { "id": "324", "arraySelf": [] },
                             "312": { "id": "312", "arraySelf": [] },
-                            "316": { "id": "316", "arraySelf": [] },
-                        };
+                            "316": { "id": "316", "arraySelf": [] },};
                         var elementos_insulares = {
                             "318": { "id": "318", "arraySelf": [] },
                             "322": { "id": "322", "arraySelf": [] },
@@ -388,19 +382,25 @@ $(function () {
                             "312": { "id": "312", "arraySelf": [] },
                             "316": { "id": "316", "arraySelf": [] },
                             "1655": { "id": "1655", "arraySelf": [] },
-                            "1665": { "id": "1665", "arraySelf": [] },
-                        };
+                            "1665": { "id": "1665", "arraySelf": [] },};
                         var elementos_carga = {
                             "753": { "id": "753", "arraySelf": [] },
                             "752": { "id": "752", "arraySelf": [] },
                             "1674": { "id": "1674", "arraySelf": [] },
-                            "1844": { "id": "1844", "arraySelf": [] },
-                            
-                        };
+                            "1844": { "id": "1844", "arraySelf": [] },};
 
                         if (reportData['status'].ok === false) {
                             alert(reportData['status'].message)
                         } else {
+                            //console.info(results);
+                            var especialRateCharge = false;
+                            $('#containerEmail').val(results[0].email);
+                            var reporteLocal = {};
+                            var reportNac = {};
+                            var reporteInsular = {};
+                            var reporteCarga = {};
+                            var condicionesGenerales = {};
+                            
                             let msg = results[0]['baja'] === 1 ? "Inactivo " : "";
                             let msg1 = results[0]['BloqueoTrafico'] === 1 ? "Bloqueado en Tráfico," : "";
                             let msg2 = results[0]['BloqueoNacional'] === 1 ? "Bloqueado Nacional" : "";
@@ -414,6 +414,8 @@ $(function () {
                             Object.keys(results).forEach((key) => {
                                 let elemento_tarifario = results[key]['elemento'];
                                 reporteLocal = new IcsReporteLocal(results[key]);
+                                reporteLocal.drawRangeFills();
+                                reporteLocal = new IcsCondicionesGenerales(results[key]);
                                 reporteLocal.drawRangeFills();
                                 let is_national_tarife = (results[0]['tarifa'].indexOf("NR") >= 0 || results[0]['tarifa'].indexOf("N2") >= 0);
                                 if (!(results[0]['tarifa'] && is_national_tarife)) {
@@ -444,7 +446,7 @@ $(function () {
                                 cont++;
 
                             });
-                            
+                                
                             reporteCarga.drawAditionalFills(elementos_carga);
                             reportNac.drawAditionalFills(elementos_nacionales);
                             reporteInsular.drawAditionalFills(elementos_insulares);
@@ -453,7 +455,7 @@ $(function () {
                                 reporteCarga.cleanTable();
                            }
                             
-                        }
+                    }
                         this.showHideLoadSpinner(true);
                         $('.ngdialog-overlay-blocking').attr('hidden', true);
                         console.info('Complete request');

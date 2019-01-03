@@ -209,6 +209,7 @@ $(document).ready(function () {
     });
 
     $("#print").click(function () {
+        console.info("css/style_" + array_nombres_reportes[indice_activo] + ".css");
         $("#" + array_nombres_reportes[indice_activo]).print({
             globalStyles: true,
             mediaPrint: false,
@@ -358,7 +359,7 @@ function Load_Templates() {
 
 /*Funcion para anadir dinamicamente e reporte segun lo selecione*/
 function Show_Reporte(nombre_reporte) {
-
+    //console.info(nombre_reporte);
     switch (nombre_reporte) {
         case "plantilla":
             if (Div_Is_Empty($("#div_show_report [id ='" + nombre_reporte + "']"))) {
@@ -386,11 +387,13 @@ function Show_Reporte(nombre_reporte) {
         case "servicios_de_cargas":
             $("#div_show_report [id ='" + nombre_reporte + "']").show();
             break;
+        case "condiciones_generales":
+            $("#div_show_report [id ='" + nombre_reporte + "']").show();
+            break;
     }
 }
 
 function Hide_Reporte(nombre_reporte) {
-
     switch (nombre_reporte) {
         case "plantilla":
             $("#div_show_report [id ='" + nombre_reporte + "']").hide();
@@ -415,11 +418,14 @@ function Hide_Reporte(nombre_reporte) {
         case "servicios_de_cargas":
             $("#div_show_report [id ='" + nombre_reporte + "']").hide();
             break;
+        case "condiciones_generales":
+            $("#div_show_report [id ='" + nombre_reporte + "']").hide();
+            break;
     }
 }
 
 function Hide_All_Reporte() {
-    $("#div_left_side .openbtn, #div_action_report, #div_pagination, #plantilla,  #servicios_locales, #int_terrestre, #servicio_aéreo_2, #servicio_aéreo_1, #servicio_nacional, #servicio_reporte, #tarifa_carga, #servicio_insular, #servicios_de_cargas, #searchClientData_1, #searchClientData_2, #searchClientData_btn").hide();
+    $("#div_left_side .openbtn, #div_action_report, #div_pagination, #plantilla,  #servicios_locales, #int_terrestre, #servicio_aéreo_2, #servicio_aéreo_1, #servicio_nacional, #servicio_reporte, #tarifa_carga, #servicio_insular, #condiciones_generales, #servicios_de_cargas, #searchClientData_1, #searchClientData_2, #searchClientData_btn").hide();
     $("#div_pagination").show();
 }
 
