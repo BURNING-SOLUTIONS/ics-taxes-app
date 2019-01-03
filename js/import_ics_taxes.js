@@ -78,9 +78,9 @@ $(function () {
                 this.sendServerRequestRangeClients();
             });
 
-            
-
             $("button#sendEmail").on('click', this.sendClientEmail);
+            /*Se captura el evento dle click a exportar*/
+            $("#pdf").on('click', this.ExportPdf);
             /*evento para el model levante*/
 
             ($("#modal-report").find("input")).on('click', function () {
@@ -94,7 +94,7 @@ $(function () {
                 (value).each(function (index, item) {
                     $(item).prop('checked', false);
                 });
-
+                //console.info(array_nombres_reportes);
                 array_nombres_reportes.forEach(function (element) {
                     $('#chbox_' + element).prop('checked', true);                  
                 }, this);
@@ -112,6 +112,40 @@ $(function () {
                 $("#div_show_report [id ='" + array_nombres_reportes[indice_activo] + "']").show();
                 $('#errorEmailSender').attr('hidden', true);
             });
+
+        }
+
+        ExportPdf() {
+            kendo.pdf.defineFont({
+                "DejaVu Sans": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans.ttf",
+                "DejaVu Sans|Bold": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
+                "DejaVu Sans|Bold|Italic": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
+                "DejaVu Sans|Italic": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf"
+            });
+
+            var value = $("#modal-export").find("input");
+
+            (value).each(function (index, item) {
+                if ($(item).prop('checked')) {
+                    $("#div_show_report [id ='" + $(item).val() + "']").show();
+                }
+                else {
+                    $("#div_show_report [id ='" + $(item).val() + "']").hide();
+                }
+            });
+            //console.warn($("#div_show_report"));
+            kendo.drawing.drawDOM($("#div_show_report"),{ paperSize: "A4", margin: "1.5cm", scale: 0.5 })
+                .then(function (group) {
+                    return kendo.drawing.exportPDF(group);
+                })
+                .done(function (data) {
+                    kendo.saveAs({
+                        dataURI: data,
+                        fileName: "Reportes.pdf"
+                    });
+                    $('#exampleModal2').modal('hide');
+                    swal("Sus tarifas se han generado correctamente.!!");
+                });
 
         }
 
@@ -167,7 +201,6 @@ $(function () {
                         $("#div_show_report [id ='" + $(item).val() + "']").hide();                       
                     }
                 });
-
                 kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin: "1.5cm", scale: 0.5 })
                     .then(function (group) {
                         return kendo.drawing.exportPDF(group);

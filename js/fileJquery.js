@@ -14,18 +14,17 @@ $(document).ready(function () {
     Show_Reporte("plantilla");
 
     $("#reportListAvailable li").click(function () {
-
         var nombre_reporte = $(this).attr("value");
         /*comrueba en este array dinamico si ya s eseeciono algun reporte*/
         var index = array_nombres_reportes.indexOf(nombre_reporte);
         if (index >= 0) {
             Remove_Reporte_Paginado(index);
-            if (nombre_reporte == "int_terrestre") {
+            if (nombre_reporte === "int_terrestre") {
                 $(".div_panel").slideToggle("fast");
             }
         }
         else {
-            if (nombre_reporte == "int_terrestre") {
+            if (nombre_reporte === "int_terrestre") {
                 $(".div_panel").slideToggle("fast");
                 /*desabilito los demas reportes hsta que selecione o ciere*/
             }
@@ -160,51 +159,8 @@ $(document).ready(function () {
 
     /*Control de todos los eventos que arrojan los campos input de rango clientes*/
 
-
-
-    function ExportPdf() {
-       kendo.pdf.defineFont({
-            "DejaVu Sans": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans.ttf",
-            "DejaVu Sans|Bold": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
-            "DejaVu Sans|Bold|Italic": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
-            "DejaVu Sans|Italic": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf"
-        });
-
-
-        var value = $("#modal-export").find("input");
-
-                (value).each(function (index, item) {
-                    if ($(item).prop('checked')) {
-                        $("#div_show_report [id ='" + $(item).val() + "']").show();                        
-                    }
-                    else {
-                        $("#div_show_report [id ='" + $(item).val() + "']").hide();                       
-                    }
-                });
-              console.warn($("#div_show_report"));
-                kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin: "1.5cm", scale: 0.5 })
-
-                    .then(function (group) {
-                        return kendo.drawing.exportPDF(group);
-                    })
-            .done(function (data) {
-                kendo.saveAs({
-                    dataURI: data,
-                    fileName: "Reportes"
-                })
-            });
-    }
-
-    /*Se captura el evento dle click a exportar*/
-    $("#pdf").click(function () {
-        ExportPdf();
-       
-    });
-
     $('.demo').fSelect({
-
         placeholder: 'Incluir clientes',
-
         showSearch: false
     });
 

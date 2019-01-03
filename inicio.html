@@ -141,7 +141,7 @@
           <div class="btn-group mr-2">
             <button class="btn btn-sm btn-outline-secondary not_print" id="print">
                 <img src="imagen/printer.svg" height="15"/> Imprimir </button>
-            <button permission-route="button-send-email" class="btn btn-sm btn-outline-secondary not_print" data-toggle="modal" data-target="#exampleModa2"
+            <button permission-route="button-send-email" class="btn btn-sm btn-outline-secondary not_print" data-toggle="modal" data-target="#exampleModal2"
               data-whatever="@fat" hidden="true">
                 <img src="imagen/pdf.svg" height="15"/> Exportar</button>
             <button permission-route="button-send-email" class="btn btn-sm btn-outline-secondary not_print" data-toggle="modal" data-target="#exampleModal"
@@ -204,30 +204,35 @@
           Debe completar todo los campos del formulario para continuar.
         </div>
 
-        <div id="modal-report" style="  margin:10px auto 20px auto; text-align: center">
+        <div id="modal-report" style="  margin:10px auto 20px auto; text-align: left">
 
           <p style="font-size: 18px !important; font-weight: 600 !important; background-color: white !important;;color: black !important"
           class="h2 mb-2 font-weight-normal">Seleccione las tarifas que desea enviar</p>
 
-          <div class="form-check-inline" style="margin: 0 20px">
+          <div class="form-check-inline">
             <label class="form-check-label" style="font-size: 16px !important; font-weight: 600 !important; color: black">
-    <input type="checkbox" class="form-check-input" id="chbox_servicios_locales"  value="servicios_locales">Local
-  </label>
+              <input type="checkbox" class="form-check-input" id="chbox_servicios_locales"  value="servicios_locales">Local
+            </label>
           </div>
-          <div class="form-check-inline" style="margin:0 20px">
+          <div class="form-check-inline">
             <label class="form-check-label" style="font-size: 16px !important; font-weight: 600 !important; color: black; margin:auto">
-    <input type="checkbox" class="form-check-input" id="chbox_servicio_nacional" value="servicio_nacional">Nacional
-  </label>
+              <input type="checkbox" class="form-check-input" id="chbox_servicio_nacional" value="servicio_nacional">Nacional
+            </label>
           </div>
-          <div class="form-check-inline" style="margin:0 20px">
+          <div class="form-check-inline">
             <label class="form-check-label" style="font-size: 16px !important; font-weight: 600 !important; color: black">
-    <input type="checkbox" class="form-check-input" id="chbox_servicio_insular" value="servicio_insular" >Insular
-  </label>
+              <input type="checkbox" class="form-check-input" id="chbox_servicio_insular" value="servicio_insular" >Insular
+            </label>
           </div>
-           <div class="form-check-inline" style="margin:0 20px" >
+           <div class="form-check-inline">
             <label class="form-check-label" style="font-size: 16px !important; font-weight: 600 !important; color: black">
-    <input type="checkbox" class="form-check-input" id="chbox_servicios_de_cargas" value="servicios_de_cargas" >Carga
-  </label>
+                <input type="checkbox" class="form-check-input" id="chbox_servicios_de_cargas" value="servicios_de_cargas" >Carga
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label" style="font-size: 16px !important; font-weight: 600 !important; color: black">
+              <input type="checkbox" class="form-check-input" id="chbox_condiciones_generales" value="condiciones_generales" >C. Generales
+            </label>
           </div>
         </div>
 
@@ -256,7 +261,7 @@
 </div>
 
 
-<div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="padding: 7px">
@@ -267,31 +272,36 @@
           </button>
       </div>
       <div class="modal-body">
-        <div id="errorEmailSender" class="alert alert-danger" role="alert" style="font-size: 14px; margin-left: 5px;padding: 10px"
+        <!--<div id="errorEmailSender" class="alert alert-danger" role="alert" style="font-size: 14px; margin-left: 5px;padding: 10px"
           hidden="true">
-          </div>
-        <div id="modal-export" style="  margin:10px auto 20px auto; text-align: center">
+          </div>-->
+        <div id="modal-export" style="  margin:10px auto 20px auto; text-align: left">
  </label>
-            <div class="form-check-inline" style="margin: 0 20px">
+            <div class="form-check-inline">
             <label class="form-check-label" style="font-size: 16px !important; font-weight: 600 !important; color: black">
-    <input type="checkbox" class="form-check-input" id="box_servicios_locales"  value="servicios_locales" checked> Local 
+    <input type="checkbox" class="form-check-input" id="box_servicios_locales"  value="servicios_locales" checked> Local
   </label>
           </div>
-          <div class="form-check-inline" style="margin:0 20px">
+          <div class="form-check-inline">
             <label class="form-check-label" style="font-size: 16px !important; font-weight: 600 !important; color: black; margin:auto">
     <input type="checkbox" class="form-check-input" id="box_servicio_nacional" value="servicio_nacional" checked>Nacional
   </label>
           </div>
-          <div class="form-check-inline" style="margin:0 20px">
+          <div class="form-check-inline">
             <label class="form-check-label" style="font-size: 16px !important; font-weight: 600 !important; color: black">
     <input type="checkbox" class="form-check-input" id="box_servicio_insular" value="servicio_insular" checked>Insular
   </label>
           </div>
-           <div class="form-check-inline" style="margin:0 20px" >
+           <div class="form-check-inline">
             <label class="form-check-label" style="font-size: 16px !important; font-weight: 600 !important; color: black">
-    <input type="checkbox" class="form-check-input" id="box_servicios_de_cargas" value="servicios_de_cargas" checked>Carga
-  </label>
+              <input type="checkbox" class="form-check-input" id="box_servicios_de_cargas" value="servicios_de_cargas" checked>Carga
+            </label>
            </div>
+          <div class="form-check-inline">
+            <label class="form-check-label" style="font-size: 16px !important; font-weight: 600 !important; color: black">
+              <input type="checkbox" class="form-check-input" id="box_condiciones_generales" value="condiciones_generales" checked>C. Generales
+            </label>
+          </div>
         </div>      
       </div>
       <div class="modal-footer" style="padding: 10px">
