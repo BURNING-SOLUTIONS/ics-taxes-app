@@ -94,7 +94,7 @@ $(function () {
                 (value).each(function (index, item) {
                     $(item).prop('checked', false);
                 });
-                //console.info(array_nombres_reportes);
+
                 array_nombres_reportes.forEach(function (element) {
                     $('#chbox_' + element).prop('checked', true);                  
                 }, this);
@@ -200,8 +200,10 @@ $(function () {
                     else {
                         $("#div_show_report [id ='" + $(item).val() + "']").hide();                       
                     }
-                });
-                kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin: "1.5cm", scale: 0.5 })
+                   });
+
+                kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin:{ top: "1.5cm", left: "1cm", right: "1cm", bottom: "1.2cm" }, scale: 0.5 })
+
                     .then(function (group) {
                         return kendo.drawing.exportPDF(group);
                     })

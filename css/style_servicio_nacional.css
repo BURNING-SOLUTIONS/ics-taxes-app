@@ -4,6 +4,7 @@
       margin: 1rem -15px 0;
       border: solid  #f7f7f9;
       border-width: .2rem;
+      margin-top: 2px;
 }
 
 .table_servicios_nacionales{
@@ -106,6 +107,7 @@
 #servicio_nacional .div_message_1{    
     text-align: center;  
     font-weight: bold; 
+    margin-top: 20px;
 }
 
 
@@ -123,6 +125,7 @@ body { margin: 2cm; }
       margin: 1rem -15px 0;
       border: solid  #f7f7f9 !important;
       border-width: .2rem;
+      margin-top: 2px;
 }
 
 .table_servicios_nacionales{
@@ -216,6 +219,7 @@ body { margin: 2cm; }
 #servicio_nacional .div_message_1{    
     text-align: center;
     font-weight: bold;
+     margin-top: 20px;
 }
 
 }
