@@ -26,7 +26,8 @@ function processClientsRangeController($sqlConection){
             $filters = isset($_POST['filters']) ? $_POST['filters'] : array();
             $filterActives = in_array('inactivos', $filters) ? 1 : 0;
             $filterBloq = in_array('bloqueados', $filters) ? 1 : 0;
-
+            //actualmente la funcion de enviar correos de tarifas a un rango de clientes me lo envia a mi correo posteriormente debo
+            //descomentarear todo este codigo y sustituir por mie mail el email del cliente
             try{
                 if(($cliente['Baja_Cli'] == 0 && $cliente['BloqueoNac_Cli'] == 0 && $cliente['Bloqueo_Cli'] == 0)){
                     array_push($emailsClienSend, $cliente);
