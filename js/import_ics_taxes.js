@@ -321,7 +321,7 @@ $(function () {
                                     console.info('init request');
                                     var reportData = JSON.parse(result);
                                     //console.info(reportData);
-                                    this.showHideLoadSpinner(false);
+                                    this.showHideLoadSpinner(true);
                                     $('.ngdialog-overlay-blocking').attr('hidden', true);
                                     if (reportData['status'].ok === true) {
                                         swal(`${reportData['results']} y, ${(reportData['errors'] ? reportData['errors'] : '')}`, {
@@ -331,7 +331,7 @@ $(function () {
                                     console.info('Complete request');
                                 },
                                 error: (error) => {
-                                    this.showHideLoadSpinner(false);
+                                    this.showHideLoadSpinner(true);
                                     console.warn(error);
                                 }
                             });

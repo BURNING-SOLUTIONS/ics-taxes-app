@@ -54,12 +54,12 @@ function processClientsRangeController($sqlConection){
                 }
             }catch (Exception $e){
                 $emailsErrorClienSend++;
-                $logGenerator->createLog("No se ha enviado email al cliente: ". $cliente['Cod_Cli'].'-'.$cliente['Nom_Cli'].$e->getMessage().'(error del servidor inténtelo mas tarde)'. "\n");
+                $logGenerator->createLog(date('d-M-Y H:i:s')."-No se ha enviado email al cliente: ". $cliente['Cod_Cli'].'-'.$cliente['Nom_Cli'].$e->getMessage().'(error del servidor inténtelo mas tarde)'. "\n");
                 continue;
             }
         }else{
             $emailsErrorClienSend++;
-            $logGenerator->createLog("Imposible enviar email al cliente: ". $cliente['Cod_Cli'].'-'.$cliente['Nom_Cli'].'(no tiene correo elect. registrado)'. "\n");
+            $logGenerator->createLog(date('d-M-Y H:i:s')."-Imposible enviar email al cliente: ". $cliente['Cod_Cli'].'-'.$cliente['Nom_Cli'].'(no tiene correo elect. registrado)'. "\n");
         }
     }
     $jsondata['results'] = "Se han enviado correctamente ".count($emailsClienSend)." mensajes";
