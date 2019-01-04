@@ -20,7 +20,7 @@
 
     input.no-border {
         border: 0px solid transparent;
-        !important;
+    !important;
     }
 
     div#table_condiciones_generales p {
@@ -31,22 +31,21 @@
 
 @media print {
 
-     
-div.page2break{ 
-      display:block; 
-      margin-top: 70px !important;
-      page-break-before:always;
-     
-         }
-
-    div.table_condiciones_generales{
-        margin-top: -50px ;
-        margin-left: -15px;
-        margin-right: 60px ;
+    div.page2break {
+        display: block;
+        margin-top: 70px !important;
+        page-break-before: always;
 
     }
 
-    head#headDocumentacion{
+    div.table_condiciones_generales {
+        margin-top: -50px;
+        margin-left: -15px;
+        margin-right: 60px;
+
+    }
+
+    head#headDocumentacion {
         font-weight: bold;
     }
 
@@ -70,7 +69,7 @@ div.page2break{
         background: #546e7a !important;
     }
 
-    h4#headPLazoEntrega, h4#headRegimenResponsabilidad{
+    h4#headPLazoEntrega, h4#headRegimenResponsabilidad {
         width: 35% !important;
     }
 
@@ -84,13 +83,12 @@ div.page2break{
     !important;
     }
 
-    dd > input.no-border{
+    dd > input.no-border {
         width: 570px !important;
     }
 
-    dl dd{
+    dl dd {
         display: flex !important;
     }
-
 
 }
