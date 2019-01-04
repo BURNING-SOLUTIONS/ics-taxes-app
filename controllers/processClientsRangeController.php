@@ -1,4 +1,5 @@
 <?php
+#include('../utils/log_generator.php');
 /**
  * Created by INg. Juan Ramon.
  * User: user
@@ -7,6 +8,7 @@
  */
 
 function processClientsRangeController($sqlConection){
+    $logGenerator = new LogGenerator();
     $jsondata = array(
         "status" => array('ok' => true, 'message' => 'mensajes enviados Satisfactoriamente !!!'),
         "results" => array()
@@ -52,10 +54,12 @@ function processClientsRangeController($sqlConection){
                 }
             }catch (Exception $e){
                 $emailsErrorClienSend++;
+                $logGenerator->createLog("No se ha enviado email al cliente: ". $cliente['Cod_Cli'].'-'.$cliente['Nom_Cli'].$e->getMessage().'(error del servidor inténtelo mas tarde)'. "\n");
                 continue;
             }
-
-
+        }else{
+            $emailsErrorClienSend++;
+            $logGenerator->createLog("Imposible enviar email al cliente: ". $cliente['Cod_Cli'].'-'.$cliente['Nom_Cli'].'(no tiene correo elect. registrado)'. "\n");
         }
     }
     $jsondata['results'] = "Se han enviado correctamente ".count($emailsClienSend)." mensajes";

@@ -3,6 +3,7 @@ include('conexion.php');
 include('reportes/serviciosLocales.php');
 include('utils/cryptojs-aes.php');
 include('utils/email.php');
+include('utils/log_generator.php');
 include('controllers/clienGetRatesController.php');
 include('controllers/processClientsRangeController.php');
 include('controllers/sendEmailController.php');

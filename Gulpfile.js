@@ -77,7 +77,7 @@ gulp.task('project_minify_html', function() {
 });
 
 gulp.task('project_transpile_js', function () {
-    return gulp.src(['**/**/*.js', '!{dist,dist/**}', '!{node_modules,node_modules/**}', '!Gulpfile.js', '!js/**/*.min.js'])
+    return gulp.src(['js/**/*.js', '!{dist,dist/**}', '!{node_modules,node_modules/**}', '!Gulpfile.js', '!js/**/*.min.js'])
         .pipe(babel({
             "presets": ["env"],
             "plugins": [/*"transform-runtime","transform-async-to-generator","syntax-async-functions","transform-regenerator","async-to-promises"*/]
@@ -87,7 +87,7 @@ gulp.task('project_transpile_js', function () {
 
 gulp.task('project_minify_js', function() {
     console.log('minifying js ...');
-    return gulp.src(['dist/**/*.js'])
+    return gulp.src(['dist/js/**/*.js'])
         .pipe(uglify({
             compress: {
                 drop_console: true
