@@ -66,7 +66,7 @@ gulp.task('copyPhpFiles', function() {
 gulp.task('project_compress_img', function() {
     console.warn('comprimendo imagenes');
     return gulp.src('imagen/**/*')
-        .pipe(imagemin({optimizationLevel: 10}))
+        .pipe(imagemin({optimizationLevel: 7}))
         .pipe(gulp.dest('dist/imagen'));
 });
 
@@ -77,7 +77,7 @@ gulp.task('project_minify_html', function() {
 });
 
 gulp.task('project_transpile_js', function () {
-    return gulp.src(['js/**/*.js', '!{dist,dist/**}', '!{node_modules,node_modules/**}', '!Gulpfile.js', '!js/**/*.min.js'])
+    return gulp.src(['dist/**/*.css', '!dist/js/**/*.min.js'])
         .pipe(babel({
             "presets": ["env"],
             "plugins": [/*"transform-runtime","transform-async-to-generator","syntax-async-functions","transform-regenerator","async-to-promises"*/]
@@ -87,13 +87,13 @@ gulp.task('project_transpile_js', function () {
 
 gulp.task('project_minify_js', function() {
     console.log('minifying js ...');
-    return gulp.src(['dist/js/**/*.js'])
+    return gulp.src(['dist/js/*.js', '!js/*.min.js'])
         .pipe(uglify({
             compress: {
                 drop_console: true
             }
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('project_minify_css', function ()
