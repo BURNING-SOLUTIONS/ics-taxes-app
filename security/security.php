@@ -7,6 +7,7 @@ class IcsSecurity{
 			array("route"=>'index-reports-content', "users"=>array("authenticated")),
             array("route"=>'edited-inputs-report', "users"=>array("authenticated")),
 			array("route"=>'button-send-email', "users"=>array("authenticated")),
+            array("route"=>'review-system-logs', "users"=>array("gema")),
 			array("route"=>'clients-range-reports', "users"=>array("gema"))
 		);
 
