@@ -19,7 +19,8 @@
     }
 
     input.no-border {
-        border: 0px solid transparent;!important;
+        border: 0px solid transparent;
+        !important;
     }
 
     div#table_condiciones_generales p {
@@ -29,8 +30,20 @@
 }
 
 @media print {
-    div#table_condiciones_generales{
-        margin-top: 5px !important;
+
+     
+div.page2break{ 
+      display:block; 
+      margin-top: 70px !important;
+      page-break-before:always;
+     
+         }
+
+    div.table_condiciones_generales{
+        margin-top: -50px ;
+        margin-left: -15px;
+        margin-right: 60px ;
+
     }
 
     head#headDocumentacion{
@@ -41,7 +54,8 @@
         margin-left: 25%;
         background-color: #FF5252 !important;
         color: white !important;
-        width: 65%;
+        width: 85%;
+
         padding: 5px;
     }
 
