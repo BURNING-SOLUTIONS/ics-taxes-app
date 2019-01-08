@@ -105,7 +105,8 @@ gulp.task('project_minify_css', function ()
 });
 //execute this task for deployment to prod isn suite..
 gulp.task('ics_taxes_build',
-    gulpSequence('copyPhpFiles','project_compress_img','project_minify_html','project_transpile_js', 'project_minify_js', 'project_minify_css','project_transpile_js', 'project_minify_js', 'project_minify_css'));
+    gulpSequence('copyPhpFiles','project_compress_img','project_minify_html','project_transpile_js',
+     'project_minify_js', 'project_minify_css','project_transpile_js', 'project_minify_js', 'project_minify_css'));
 
 /**
  * Deploy task.
