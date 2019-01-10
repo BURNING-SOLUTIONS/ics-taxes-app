@@ -114,8 +114,11 @@ $(function () {
             });
 
         }
-
+               
         ExportPdf() {
+            $('i#pdfExportTaxes').removeAttr("hidden");
+            $(this).attr("disabled", true);
+            $(this).parent().append(`<i id="aaaText" style="display:block">Espere por favor...<i/>`);           
             kendo.pdf.defineFont({
                 "DejaVu Sans": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans.ttf",
                 "DejaVu Sans|Bold": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
@@ -135,15 +138,18 @@ $(function () {
             });
             //console.warn($("#div_show_report"));
             kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin:{ top: "1.5cm", left: "1cm", right: "1cm", bottom: "1.2cm" }, scale: 0.5 })
-                .then(function (group) {
+                .then( (group)=> {
                     return kendo.drawing.exportPDF(group);
                 })
-                .done(function (data) {
+                .done( (data)=> {
                     kendo.saveAs({
                         dataURI: data,
                         fileName: "Reportes.pdf"
                     });
                     $('#exampleModal2').modal('hide');
+                    $(this).attr("disabled", false);
+                    $('i#pdfExportTaxes').attr("hidden",true);
+                    $('i#aaaText').remove();
                     swal("Sus tarifas se han generado correctamente.!!");
                 });
 
@@ -179,8 +185,9 @@ $(function () {
             (!boolean) ? this._ajaxLoadRequest.removeAttr('hidden') : this._ajaxLoadRequest.attr('hidden', true);
         }
 
-        sendClientEmail() {
+        sendClientEmail() {            
             if ($("#recipient-address").val() && $("#recipient-subject").val() && $("#recipient-message").val()) {
+                $(this).attr("disabled", true);
                 $("#loadingEmail")
                     .addClass("fa-spin")
                     .removeAttr("hidden");
@@ -204,8 +211,8 @@ $(function () {
 
                 kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin:{ top: "1.5cm", left: "1cm", right: "1cm", bottom: "1.2cm" }, scale: 0.5 })
 
-                    .then(function (group) {
-                        return kendo.drawing.exportPDF(group);
+                    .then( (group) => {
+                        return kendo.drawing.exportPDF(group);                        
                     })
                     .done((data) => {
                         $.ajax({
@@ -233,12 +240,14 @@ $(function () {
                                 $("#recipient-message").val("");
                                 $('#exampleModal').modal('hide');
                                 $('#errorEmailSender').attr('hidden', true);
+                                $(this).attr("disabled", false);
                                 $("#loadingEmail")
                                     .removeClass("fa-spin")
                                     .attr("hidden", true);
                             },
                             error: (error) => {
                                 console.warn(error);
+                                $(this).attr("disabled", false);
                                 $('#errorEmailSender').attr('hidden', true);
                                 $("#loadingEmail")
                                     .removeClass("fa-spin")
@@ -339,8 +348,6 @@ $(function () {
                             swal("Operación cancelada.");
                         }
                     });
-
-
             }
         }
 
