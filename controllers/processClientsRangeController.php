@@ -63,7 +63,7 @@ function processClientsRangeController($sqlConection){
         }
     }
     $jsondata['results'] = "Se han enviado correctamente ".count($emailsClienSend)." mensajes";
-    $jsondata['errors'] = "Revise los arhivos de logs del sistema para verificar los clientes que han fallado";//"No ha sido posible enviar correctamente $emailsErrorClienSend mensajes";
+    $jsondata['errors'] = "Revise los archivos de logs del sistema para verificar los clientes a los cuales no ha sido posible enviar sus tarifas.";//"No ha sido posible enviar correctamente $emailsErrorClienSend mensajes";
     //echo(print_r($jsondata));exit();
     echo json_encode($jsondata, JSON_FORCE_OBJECT);
     exit();
