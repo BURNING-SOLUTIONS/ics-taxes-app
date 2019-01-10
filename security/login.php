@@ -6,8 +6,8 @@
 	$today = new DateTime(); # today date
 
 	$sqlConection = new sqlServerConecction(
-	    "$PROYECT_CONFIG[database_host]",
-	    "dl2018" /*. $today->format('Y')*/,
+	    "$PROYECT_CONFIG[database_host]".", "."$PROYECT_CONFIG[database_port]",
+	    "dl" . $today->format('Y') /* dl2018 */,
 	    "$PROYECT_CONFIG[database_user]",
 	    "$PROYECT_CONFIG[database_password]"
 	);

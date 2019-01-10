@@ -43,7 +43,7 @@ class sqlServerConecction
 
     // Declaración de un método
     public function conectToSqlServerDatabase()
-    {
+    {        
         $new_conn = sqlsrv_connect($this->serverName,
             array(
                 "Database" => $this->databaseName,
