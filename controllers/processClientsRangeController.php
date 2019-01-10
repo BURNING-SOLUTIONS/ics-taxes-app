@@ -53,10 +53,12 @@ function processClientsRangeController($sqlConection){
                     }
                 }
             }catch (Exception $e){
+                //Si fall un envio de correo se cuenta un correo mas sin enviar y se genera el error en el log...
                 $emailsErrorClienSend++;
                 $logGenerator->createLog(date('d-M-Y H:i:s')."-No se ha enviado email al cliente: ". $cliente['Cod_Cli'].'-'.$cliente['Nom_Cli'].$e->getMessage().'(error del servidor inténtelo mas tarde)'. "\n");
                 continue;
             }
+        //Si el cliente no tiene email se cuenta un correo mas sin enviar y se genera el log correspondiente...
         }else{
             $emailsErrorClienSend++;
             $logGenerator->createLog(date('d-M-Y H:i:s')."-Imposible enviar email al cliente: ". $cliente['Cod_Cli'].'-'.$cliente['Nom_Cli'].'(no tiene correo elect. registrado)'. "\n");
