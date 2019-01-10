@@ -367,6 +367,7 @@ $(function () {
                         //console.info(result);
                         $('tbody input').val('0.00 €');
                         $('#buttonActions').removeAttr('hidden');
+                        $('span.fixed-color2').html(``);
                         $('span.fixed-color1').css('color', 'transparent');
                         $('span.fixed-color').css('color', 'black');
                         var reportData = JSON.parse(result);
