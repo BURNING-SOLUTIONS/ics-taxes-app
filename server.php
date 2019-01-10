@@ -13,7 +13,7 @@ $today = new DateTime(); # today date
 $PROYECT_CONFIG = parse_ini_file('config/config.ini');
 $sqlConection = new sqlServerConecction(
     "$PROYECT_CONFIG[database_host]".", "."$PROYECT_CONFIG[database_port]",
-    "dl2018" /*. $today->format('Y')*/,
+    "dl" . $today->format('Y') /* dl2018 */,
     "$PROYECT_CONFIG[database_user]",
     "$PROYECT_CONFIG[database_password]"
 );
