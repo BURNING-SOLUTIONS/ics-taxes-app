@@ -71,7 +71,7 @@ gulp.task('project_compress_img', function() {
 });
 
 gulp.task('project_minify_html', function() {
-    return gulp.src(['templates/*.html'])
+    return gulp.src(['templates/**/*.html'])
         .pipe(htmlmin({collapseWhitespace: true, removeComments: true, removeEmptyAttributes: true}))
         .pipe(gulp.dest('dist/templates'));
 });
@@ -87,7 +87,7 @@ gulp.task('project_transpile_js', function () {
 
 gulp.task('project_minify_js', function() {
     console.log('minifying js ...');
-    return gulp.src(['dist/js/**/*.js', '!js/**/*.min.js'])
+    return gulp.src(['dist/js/**/*.js', '!dist/js/**/*.min.js'])
         .pipe(uglify({
             compress: {
                 drop_console: true
@@ -105,8 +105,9 @@ gulp.task('project_minify_css', function ()
 });
 //execute this task for deployment to prod isn suite..
 gulp.task('ics_taxes_build',
-    gulpSequence('copyPhpFiles','project_compress_img','project_minify_html','project_transpile_js',
-     'project_minify_js', 'project_minify_css','project_transpile_js', 'project_minify_js', 'project_minify_css'));
+    gulpSequence('copyPhpFiles','project_compress_img','project_minify_html',
+        'project_transpile_js','project_minify_js', 'project_minify_css',
+        'project_transpile_js', 'project_minify_js', 'project_minify_css'));
 
 /**
  * Deploy task.
