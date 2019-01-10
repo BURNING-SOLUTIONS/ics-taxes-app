@@ -35,6 +35,7 @@ function clientGetRatesController($sqlConection)
                     'baja' => $especial['Baja_Cli'],
                     'BloqueoTrafico' => $especial['Bloqueo_Cli'],
                     'BloqueoNacional' => $especial['BloqueoNac_Cli'],
+                    'carburante' => $especial['PorCarbu_Cli'],
                     'tarifa' => $especial['TarNac_Cli'],
                     'precio' => $especial['Precli_Tar'],
                     'desde' => $especial['Desde_Tar'],

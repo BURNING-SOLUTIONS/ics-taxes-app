@@ -446,11 +446,21 @@ $(function () {
                                 reporteLocal.drawRangeFills();
                                 reporteLocal = new IcsCondicionesGenerales(results[key]);
                                 reporteLocal.drawRangeFills();
+
                                 let is_national_tarife = (results[0]['tarifa'].indexOf("NR") >= 0 || results[0]['tarifa'].indexOf("N2") >= 0);
                                 if (!(results[0]['tarifa'] && is_national_tarife)) {
                                     $('span.fixed-color1').css('color', 'black');
                                     $('span.fixed-color').css('color', 'transparent');
                                 }
+
+                               let carburante=results[0]['carburante'];
+                               //console.warn(results[0]);
+                              if(carburante>1){
+                              $('span.fixed-color2').css('color', 'black');
+                              $('span.fixed-color2').html(`No Incluido el  ${carburante} % de carburante`);
+                               }
+
+
                                 if (elementos_nacionales[elemento_tarifario]) {
                                     elementos_nacionales[elemento_tarifario].arraySelf.push(results[key]);
                                     reportNac = new IcsReporteNacional(results[key]);

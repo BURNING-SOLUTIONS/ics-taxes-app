@@ -140,6 +140,12 @@ span.fixed-color1{
   font-weight: bold;
 
 }
+span.fixed-color2{
+  color: transparent;
+  
+  font-weight: bold;
+
+}
 
 #div_show_report .div_btn_function {
         margin-left: 75%;
