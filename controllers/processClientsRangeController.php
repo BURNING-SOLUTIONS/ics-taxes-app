@@ -54,17 +54,17 @@ function processClientsRangeController($sqlConection){
                     }
                 }
             }catch (Exception $e){
-                $emailsErrorClienSend++;
+                //Si fall un envio de correo se cuenta un correo mas sin enviar y se genera el error en el log...
                 $logGenerator->createLog(date('d-M-Y H:i:s')."-No se ha enviado email al cliente: ". $cliente['Cod_Cli'].'-'.$cliente['Nom_Cli'].$e->getMessage().'(error del servidor inténtelo mas tarde)'. "\n");
                 continue;
             }
+        //Si el cliente no tiene email se cuenta un correo mas sin enviar y se genera el log correspondiente...
         }else{
-            $emailsErrorClienSend++;
             $logGenerator->createLog(date('d-M-Y H:i:s')."-Imposible enviar email al cliente: ". $cliente['Cod_Cli'].'-'.$cliente['Nom_Cli'].'(no tiene correo elect. registrado)'. "\n");
         }
     }
     $jsondata['results'] = "Se han enviado correctamente ".count($emailsClienSend)." mensajes";
-    $jsondata['errors'] = "No ha sido posible enviar correctamente $emailsErrorClienSend mensajes";
+    $jsondata['errors'] = "Revise los archivos de logs del sistema para verificar los clientes a los cuales no ha sido posible enviar sus tarifas.";//"No ha sido posible enviar correctamente $emailsErrorClienSend mensajes";
     //echo(print_r($jsondata));exit();
     echo json_encode($jsondata, JSON_FORCE_OBJECT);
     exit();
