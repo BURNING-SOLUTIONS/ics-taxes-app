@@ -263,9 +263,10 @@ $(function () {
 
         setReportHeaderNameClient(element) {
             if (element) {
-                $('h3#codeClientLocal').empty().html(`Servicios locales: ${this._inputSearchClient.val()} - ${element['nombre']}`);
+                $('h3#codeClientLocal').empty().html(`Servicios Locales: ${this._inputSearchClient.val()} - ${element['nombre']}`);
                 $('h3#codeClientNacional').empty().html(`Servicios Nacionales: ${this._inputSearchClient.val()} - ${element['nombre']}`);
                 $('h3#codeClientInsular').empty().html(`Servicios Insular: ${this._inputSearchClient.val()} - ${element['nombre']}`);
+                $('h3#codeClientCarga').empty().html(`Servicios Cargas: ${this._inputSearchClient.val()} - ${element['nombre']}`);
                 $('h3#codeClientIntTerrestre').html(`${this._inputSearchClient.val()} - ${element['nombre']}`);
                 $('h3#codeClientIntTerrestre2').html(`${this._inputSearchClient.val()} - ${element['nombre']}`);
                 $('h3#codeClientIntTerrestre3').html(`${this._inputSearchClient.val()} - ${element['nombre']}`);
