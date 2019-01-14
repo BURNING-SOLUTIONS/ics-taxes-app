@@ -30,8 +30,6 @@ class email
         $cuerpo = str_replace('%url_link%', $body, $cuerpo);
         //reemplazar sección de plantilla html con el css cargado y mensaje creado
         $cuerpo  = str_replace('<style id="style_email_template"></style>',"<style>$scss</style>",$cuerpo);
-        echo $cuerpo;
-
         $mail->IsSMTP(); // enable SMTP
         $mail->SMTPDebug = false;
         $mail->do_debug = 0;
