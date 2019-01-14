@@ -20,9 +20,17 @@ class email
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         $mail->IsHTML(true);
         $mail->AddEmbeddedImage("utils/instapackLogo.png", "instapackLogo");
+        //cargar archivo css para cuerpo de mensaje
+        $rcss = "utils/style_email_template.css";//ruta de archivo css
+        $fcss = fopen ($rcss, "r");//abrir archivo css
+        $scss = fread ($fcss, filesize ($rcss));//leer contenido de css
+        fclose ($fcss);//cerrar archivo css
 
         $cuerpo = file_get_contents('email_template.html', FILE_USE_INCLUDE_PATH);
         $cuerpo = str_replace('%url_link%', $body, $cuerpo);
+        //reemplazar sección de plantilla html con el css cargado y mensaje creado
+        $cuerpo  = str_replace('<style id="style_email_template"></style>',"<style>$scss</style>",$cuerpo);
+        echo $cuerpo;
 
         $mail->IsSMTP(); // enable SMTP
         $mail->SMTPDebug = false;

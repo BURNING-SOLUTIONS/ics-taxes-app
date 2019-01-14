@@ -1,0 +1,17 @@
+#texto {
+    font-family:'Arial'; 
+    display: block;
+    position: absolute;
+    line-height:30px; 
+    margin-right:300px;
+}
+
+
+#imagen {
+  display: block;
+  position: relative;
+   margin-top:-180px;   
+   margin-right: -30px;
+
+}
+
