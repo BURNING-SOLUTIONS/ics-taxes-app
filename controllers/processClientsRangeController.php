@@ -33,14 +33,15 @@ function processClientsRangeController($sqlConection){
             try{
                 if(($cliente['Baja_Cli'] == 0 && $cliente['BloqueoNac_Cli'] == 0 && $cliente['Bloqueo_Cli'] == 0)){
                     array_push($emailsClienSend, $cliente);
+                 str_replace("%h3%", "linkcorreo", "$PROYECT_CONFIG[massive_email_body] $url");
                     # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
-                    $pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
+                    $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
                 }
                 if($filterActives){
                     if($cliente['Baja_Cli'] == 1){
                         array_push($emailsClienSend, $cliente);
                         # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
-                        $pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
+                        $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
                         continue;
                     }
                 }
@@ -48,7 +49,7 @@ function processClientsRangeController($sqlConection){
                     if($cliente['BloqueoNac_Cli'] == 1 || $cliente['Bloqueo_Cli']){
                         array_push($emailsClienSend, $cliente);
                         # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
-                        $pruebacorreo->sendMail("jrborges@humandatamanager.com", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
+                        $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
                         continue;
                     }
                 }

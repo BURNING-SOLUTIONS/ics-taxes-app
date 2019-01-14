@@ -18,6 +18,7 @@ function sendClientEamil($sqlConection)
     try {
         if (file_put_contents($name, $pdf_decoded)) {
             $pruebacorreo = new email();
+            
             $pruebacorreo->sendMail(
                 $_POST['address'],
                 #"jrborges@humandatamanager.com",

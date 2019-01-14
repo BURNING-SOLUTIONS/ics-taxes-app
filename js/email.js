@@ -12,8 +12,8 @@ class IcsEmail {
     }
 
     sendEmail(
-        from = "ramonlahabana1989@gmail.com",
-        to = "ramon.vidala89@gmail.com",
+        from = "test1@instapack.es",
+        to = "test1@instapack.es",
         subject = "INSTAPACK Developer Team",
         body = ""){
         Email.send({

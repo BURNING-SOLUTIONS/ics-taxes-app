@@ -15,7 +15,17 @@ class email
     public function sendMail($address, $subject, $body, $attachment = false)
     {
         $PROYECT_CONFIG = parse_ini_file('config/config.ini');
+        
+        
+                
         $mail = new PHPMailer\PHPMailer\PHPMailer();
+        $mail->IsHTML(true);
+
+        $mail->AddEmbeddedImage("imgt.png","imgt");
+        $cuerpo = file_get_contents('prueba.html',FILE_USE_INCLUDE_PATH);
+        $cambiar= htmlspecialchars($cuerpo);
+        $cuerpourl= str_replace("linkcorreo", "$body", "$cambiar");
+
         $mail->IsSMTP(); // enable SMTP
         $mail->SMTPDebug = false;
         $mail->do_debug = 0;
@@ -24,13 +34,14 @@ class email
         $mail->SMTPSecure = "ssl"; // secure transfer enabled REQUIRED for Gmail
         $mail->Host = "$PROYECT_CONFIG[email_host]";
         $mail->Port = "$PROYECT_CONFIG[email_port]"; // or 587
-        $mail->IsHTML(true);
+        
         $mail->Username = "$PROYECT_CONFIG[email_username]";
         $mail->Password = "$PROYECT_CONFIG[email_password]";
         $mail->SetFrom("$PROYECT_CONFIG[email_sender]");
         $mail->Subject = $subject;;
         //este es el asunto
-        $mail->Body = $body;
+        $mail->Body = strip_tags($cuerpourl);
+        $mail->IsHTML(true);
         $mail->AddAddress($address);
         if ($attachment) {
             $mail->addAttachment($attachment);
