@@ -14,6 +14,7 @@ var gulp = require('gulp'),
     useref = require('gulp-useref'),
     gulpif = require('gulp-if'),
     rename = require('gulp-rename'),
+    runSequence = require('run-sequence'),
     babel = require('gulp-babel'),
     versionate = require('gulp-version-filename'),
     browserSync = require('browser-sync').create(),
@@ -104,6 +105,12 @@ gulp.task('project_minify_css', function ()
         .pipe(gulp.dest('dist'))
 });
 //execute this task for deployment to prod isn suite..
+gulp.task('build', function(callback) {
+  runSequence('copyPhpFiles','project_compress_img','project_minify_html',
+        'project_transpile_js','project_minify_js', 'project_minify_css',
+        'project_transpile_js', 'project_minify_js', 'project_minify_css',callback);
+});
+
 gulp.task('ics_taxes_build',
     gulpSequence('copyPhpFiles','project_compress_img','project_minify_html',
         'project_transpile_js','project_minify_js', 'project_minify_css',
