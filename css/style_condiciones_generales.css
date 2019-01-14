@@ -30,6 +30,8 @@
 }
 
 @media print {
+    @page { margin: 0; }
+    body { margin: 2cm; }
 
     div.page2break {
         display: block;
