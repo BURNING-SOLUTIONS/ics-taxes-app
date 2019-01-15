@@ -35,13 +35,13 @@ function processClientsRangeController($sqlConection){
                     array_push($emailsClienSend, $cliente);
                  str_replace("%h3%", "linkcorreo", "$PROYECT_CONFIG[massive_email_body] $url");
                     # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
-                    $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
+                    $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]"." ".$cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url");
                 }
                 if($filterActives){
                     if($cliente['Baja_Cli'] == 1){
                         array_push($emailsClienSend, $cliente);
                         # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
-                        $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
+                        $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]"." ".$cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url");
                         continue;
                     }
                 }
@@ -49,7 +49,7 @@ function processClientsRangeController($sqlConection){
                     if($cliente['BloqueoNac_Cli'] == 1 || $cliente['Bloqueo_Cli']){
                         array_push($emailsClienSend, $cliente);
                         # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
-                        $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]", "$PROYECT_CONFIG[massive_email_body] $url");
+                        $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]"." ".$cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url");
                         continue;
                     }
                 }

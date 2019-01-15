@@ -15,6 +15,7 @@ $(function () {
             this._modalEmail = $('#exampleModal');
             this._inputSearchEmpresa = $("input#searchClientEmpresa");
             this._rangeRadio = $('#range');
+            this._logsLink = $('#systemLogs');
             this._buttonSendCientRange = $('#searchClientData_btn');
             this._array_lista_precios = arr || [];
             this._array_lista_tarifas_fijas = [];
@@ -61,12 +62,18 @@ $(function () {
             return this._array_lista_precios;
         }
 
+        get logLink(){
+            return this._logsLink;
+        }
+
         registerListeners() {
             this.checkRouteType();
-            this.markedAllReportsByDefault();            
+            this.markedAllReportsByDefault();
+
             this._liReportsDisponibles.click(function (event) {
                 $(this).toggleClass('selected');
             });
+
             this._inputSearchClient.keyup((event) => {
                 if (event.which === 13) {
                     event.preventDefault();
@@ -376,8 +383,12 @@ $(function () {
                         $('tbody input').val('0.00 €');
                         $('#buttonActions').removeAttr('hidden');
                         $('span.fixed-color2').html(``);
-                        $('span.fixed-color1').css('color', 'transparent');
-                        $('span.fixed-color').css('color', 'black');
+                        $('span.fixed-color1')
+                            .css('color', 'transparent')
+                            .hide();
+                        $('span.fixed-color')
+                            .css('color', 'black')
+                            .show();
                         var reportData = JSON.parse(result);
                         var results = reportData['results'];                      
                         var elementos_nacionales = {
@@ -458,8 +469,12 @@ $(function () {
 
                                 let is_national_tarife = (results[0]['tarifa'].indexOf("NR") >= 0 || results[0]['tarifa'].indexOf("N2") >= 0);
                                 if (!(results[0]['tarifa'] && is_national_tarife)) {
-                                    $('span.fixed-color1').css('color', 'black');
-                                    $('span.fixed-color').css('color', 'transparent');
+                                    $('span.fixed-color1')
+                                        .css('color', 'black')
+                                        .show();
+                                    $('span.fixed-color')
+                                        .css('color', 'transparent')
+                                        .hide();
                                 }
 
                                let carburante=results[0]['carburante'];

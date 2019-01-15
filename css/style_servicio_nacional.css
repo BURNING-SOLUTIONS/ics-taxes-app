@@ -66,6 +66,12 @@
     border-right:solid 0.7px black ;    
 }
 
+span.fixed-color1{
+    color: transparent;
+    font-size: 15px;
+    font-weight: bold;
+
+}
 
 #servicio_nacional .div_contact_1{   
     font-weight: bold;

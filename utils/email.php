@@ -54,7 +54,13 @@ class email
             $mail->addAttachment($attachment);
         }
         try {
-            $mail->Send();
+            $domain = explode("@",$address);
+            if(filter_var(gethostbyname($domain[1]), FILTER_VALIDATE_IP))
+            {
+                $mail->Send();
+            }else {
+                throw new Exception("El nombre del servidor de dominio email proporcionado es incorrecto.",1525);
+            }
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -90,9 +96,17 @@ class email
             $mail->addAttachment($attachment);
         }
         try {
-            $mail->Send();
+            $domain = explode("@",$address);
+
+            if(filter_var(gethostbyname($domain[1]), FILTER_VALIDATE_IP))
+            {
+                $mail->Send();
+            }else {
+                throw new Exception("El nombre del servidor de dominio email proporcionado es incorrecto.",1525);
+            }
+
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new Exception($e->getMessage(), 1525);
         }
 
     }
