@@ -7,7 +7,8 @@
  * Time: 10:44 a.m.
  */
 
-function processClientsRangeController($sqlConection){
+function processClientsRangeController($sqlConection)
+{
     $logGenerator = new LogGenerator();
     $jsondata = array(
         "status" => array('ok' => true, 'message' => 'mensajes enviados Satisfactoriamente !!!'),
@@ -17,6 +18,7 @@ function processClientsRangeController($sqlConection){
     $emailsErrorClienSend = 0;
     $pruebacorreo = new email();
     $PROYECT_CONFIG = parse_ini_file('config/config.ini');
+    $mode = $PROYECT_CONFIG['development_mode'];
     $bussines = $_POST['id_empresa'];
     $from = $_POST['range']['from'];
     $to = $_POST['range']['to'];
@@ -30,40 +32,49 @@ function processClientsRangeController($sqlConection){
             $filterBloq = in_array('bloqueados', $filters) ? 1 : 0;
             //actualmente la funcion de enviar correos de tarifas a un rango de clientes me lo envia a mi correo posteriormente debo
             //descomentarear todo este codigo y sustituir por mie mail el email del cliente
-            try{
-                if(($cliente['Baja_Cli'] == 0 && $cliente['BloqueoNac_Cli'] == 0 && $cliente['Bloqueo_Cli'] == 0)){
+            try {
+                if (($cliente['Baja_Cli'] == 0 && $cliente['BloqueoNac_Cli'] == 0 && $cliente['Bloqueo_Cli'] == 0)) {
                     array_push($emailsClienSend, $cliente);
-                 str_replace("%h3%", "linkcorreo", "$PROYECT_CONFIG[massive_email_body] $url");
-                    # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
-                    $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]"." ".$cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url");
+                    str_replace("%h3%", "linkcorreo", "$PROYECT_CONFIG[massive_email_body] $url");
+                    if ($mode == "dev") {
+                        $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
+                    } else {
+                        #$pruebacorreo->sendMail($cliente['EMail_Cli'], "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
+                    }
                 }
-                if($filterActives){
-                    if($cliente['Baja_Cli'] == 1){
+                if ($filterActives) {
+                    if ($cliente['Baja_Cli'] == 1) {
                         array_push($emailsClienSend, $cliente);
-                        # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
-                        $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]"." ".$cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url");
+                        if ($mode == "dev") {
+                            $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
+                        } else {
+                           # $pruebacorreo->sendMail($cliente['EMail_Cli'], "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
+                        }
                         continue;
                     }
                 }
-                if($filterBloq){
-                    if($cliente['BloqueoNac_Cli'] == 1 || $cliente['Bloqueo_Cli']){
+                if ($filterBloq) {
+                    if ($cliente['BloqueoNac_Cli'] == 1 || $cliente['Bloqueo_Cli']) {
                         array_push($emailsClienSend, $cliente);
-                        # $pruebacorreo->sendMail($cliente['EMail_Cli'], $url);
-                        $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]"." ".$cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url");
+                        if ($mode == "dev") {
+                            $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
+                        }else{
+                            #$pruebacorreo->sendMail($cliente['EMail_Cli'], "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
+                        }
                         continue;
                     }
                 }
-            }catch (Exception $e){
+            } catch (Exception $e) {
                 //Si fall un envio de correo se cuenta un correo mas sin enviar y se genera el error en el log...
-                $logGenerator->createLog(date('d-M-Y H:i:s')."-No se ha enviado email al cliente: ". $cliente['Cod_Cli'].'-'.$cliente['Nom_Cli'].$e->getMessage().'(error del servidor inténtelo mas tarde)'. "\n");
+                $logGenerator->createLog(date('d-M-Y H:i:s') . "-No se ha enviado email al cliente: " . $cliente['Cod_Cli'] . '-' . $cliente['Nom_Cli'] . $e->getMessage() . '(error del servidor inténtelo mas tarde)' . "\n");
                 continue;
             }
-        //Si el cliente no tiene email se cuenta un correo mas sin enviar y se genera el log correspondiente...
-        }else{
-            $logGenerator->createLog(date('d-M-Y H:i:s')."-Imposible enviar email al cliente: ". $cliente['Cod_Cli'].'-'.$cliente['Nom_Cli'].'(no tiene correo elect. registrado)'. "\n");
+            //Si el cliente no tiene email se cuenta un correo mas sin enviar y se genera el log correspondiente...
+        } else {
+            $logGenerator->createLog(date('d-M-Y H:i:s') . "-Imposible enviar email al cliente: " . $cliente['Cod_Cli'] . '-' . $cliente['Nom_Cli'] . '(no tiene correo elect. registrado)' . "\n");
         }
     }
-    $jsondata['results'] = "Se han enviado correctamente ".count($emailsClienSend)." mensajes";
+    $jsondata['results'] = "Se han enviado correctamente " . count($emailsClienSend) . " mensajes";
     $jsondata['errors'] = "Revise los archivos de logs del sistema para verificar los clientes a los cuales no ha sido posible enviar sus tarifas.";//"No ha sido posible enviar correctamente $emailsErrorClienSend mensajes";
     //echo(print_r($jsondata));exit();
     echo json_encode($jsondata, JSON_FORCE_OBJECT);

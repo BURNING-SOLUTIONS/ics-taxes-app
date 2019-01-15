@@ -1,5 +1,3 @@
-
-
 var array_nombres_reportes = new Array();
 var indice_activo = -1;
 var servicio_aereo = "";
@@ -13,7 +11,7 @@ $(document).ready(function () {
 
     Show_Reporte("plantilla");
 
-    $("#reportListAvailable li").click(function () {
+    $("#reportListAvailable li").on('click', function () {
         var nombre_reporte = $(this).attr("value");
         /*comrueba en este array dinamico si ya s eseeciono algun reporte*/
         var index = array_nombres_reportes.indexOf(nombre_reporte);
@@ -37,10 +35,10 @@ $(document).ready(function () {
 
 
     /*MAs adeante mejorar este coodigo*/
-    $("#reportListAvailable .div_panel input").click(function () {
+    $("#reportListAvailable .div_panel input").on('click', function () {
         var value = array_nombres_reportes.indexOf("int_terrestre");
         if (value >= 0) {
-            if ($(this).attr("value") == "servicio_aéreo_1") {
+            if ($(this).attr("value") === "servicio_aéreo_1") {
 
                 servicio_aereo = "servicio_aéreo_1";
 
@@ -113,9 +111,9 @@ $(document).ready(function () {
     $("#div_left_side .closebtn").click(function () {
         $("#div_pagination").hide();
         $("#reportListAvailable").hide();
-        $("#div_left_side").css({ "background-color": "#white", "width": "2%" });
+        $("#div_left_side").css({"background-color": "#white", "width": "2%"});
 
-        $("#div_show_report").css({ "margin-left": "6.5%" });
+        $("#div_show_report").css({"margin-left": "6.5%"});
         $("#div_show_report").attr("class", "col-md-11");
         $("#div_left_side .openbtn").show();
     });
@@ -123,16 +121,16 @@ $(document).ready(function () {
     $("#div_left_side .openbtn").click(function () {
         $("#div_pagination").show();
         $("#reportListAvailable").show();
-        $("#div_left_side").css({ "background-color": "#white", "width": "25%" });
+        $("#div_left_side").css({"background-color": "#white", "width": "25%"});
         $("#div_left_side").attr("class", "col-md-3");
         $("#div_show_report").attr("class", "col-md-9");
-        $("#div_show_report").css({ "margin-left": "27%" });
+        $("#div_show_report").css({"margin-left": "27%"});
         $("#div_left_side .openbtn").hide();
     });
 
     /* Cntrol d ecuand marca o desmarca el radio button*/
     let rangeCount = 0;
-    $("#range").click(function () {
+    $("#range").on('click', function () {
         rangeCount++;
         if (rangeCount !== 0 && rangeCount % 2 === 0) {
             this.checked = false;
@@ -164,7 +162,7 @@ $(document).ready(function () {
         showSearch: false
     });
 
-    $("#print").click(function () {
+    $("#print").on('click', function () {
         console.info("css/style_" + array_nombres_reportes[indice_activo] + ".css");
         $("#" + array_nombres_reportes[indice_activo]).print({
             globalStyles: true,
@@ -185,6 +183,7 @@ $(document).ready(function () {
 });
 
 /***************************Funciones para agregar reortes o eliminar por cliente********************************/
+
 /*Funcion para anadir al paginado un nuevo reporte al paginado*/
 function Add_Reporte_Paginado(nombre_reporte) {
 
@@ -194,14 +193,14 @@ function Add_Reporte_Paginado(nombre_reporte) {
     if (array_nombres_reportes.length === 0) {
 
         var a = $("<a></a>").text("<");
-        a.attr({ "class": "page-link", "href": "#" });
+        a.attr({"class": "page-link", "href": "#"});
         var li = $("<li></li>").append(a);
-        li.attr({ "class": "page-item", "id": "previous" });
+        li.attr({"class": "page-item", "id": "previous"});
 
         var a1 = $("<a></a>").text(">");
-        a1.attr({ "class": "page-link", "href": "#" });
+        a1.attr({"class": "page-link", "href": "#"});
         var li1 = $("<li></li>").append(a1);
-        li1.attr({ "class": "page-item", "id": "next" });
+        li1.attr({"class": "page-item", "id": "next"});
 
         $("#ul_pagination").append(li);
         $("#ul_pagination").append(li1);
@@ -213,10 +212,15 @@ function Add_Reporte_Paginado(nombre_reporte) {
     var pos = array_nombres_reportes.length - 1;
     //console.log(array_nombres_reportes[pos]);
     /*creo el indice para anadirlo al paginado*/
-    var a = $("<a></a>", { "data-toggle": "tooltip", "data-placement": "top", "title": nombre_reporte, "data-trigger": "hover" }).text(pos + 1);
-    a.attr({ "class": "page-link", "href": "#" });
+    var a = $("<a></a>", {
+        "data-toggle": "tooltip",
+        "data-placement": "top",
+        "title": nombre_reporte,
+        "data-trigger": "hover"
+    }).text(pos + 1);
+    a.attr({"class": "page-link", "href": "#"});
     var li = $("<li></li>").append(a);
-    li.attr({ "class": "page-item ", "id": pos });
+    li.attr({"class": "page-item ", "id": pos});
     ($("#ul_pagination li").last()).before(li);
 
     /*activa el nuevo elemento agregado y desactiva el que le precede*/

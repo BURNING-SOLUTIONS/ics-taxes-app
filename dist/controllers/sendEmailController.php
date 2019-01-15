@@ -28,12 +28,17 @@ function sendClientEamil($sqlConection)
             if (file_exists($name)) {
                 unlink($name);
             }
-        }
+        }/**/
     } catch (Exception $e) {
+
         $jsondata = array(
-            "status" => array('ok' => false, 'error' => 'Ha ocurrido un error durante la generación del reporte y su envío por correo electrónico.'),
+            "status" => array('ok' => false,
+                            'error' => $e->getCode() == 1525
+                                ? $e->getMessage()
+                                : 'Ha ocurrido un error durante la generación del reporte y su envío por correo electrónico.'),
             "results" => array()
         );
+
         echo json_encode($jsondata, JSON_FORCE_OBJECT);
         exit();
     }

@@ -364,19 +364,17 @@ div.ngdialog-overlay-blocking {
     right: 50%;   
     font-size: 36px;
     text-align: center;
-   
 }
-
 
 #plantilla{
    height: 550px;
 }
 
 ul#reportListAvailable li.selected{
-          background: #3949ab;
-          color: white;
-        }
+  background: #3949ab;
+  color: white;
+}
 
-        title{
-          display:none;
-        }
+title{
+  display:none;
+}

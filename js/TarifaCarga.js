@@ -94,7 +94,7 @@ class IcsReporteCarga {
 				let prev_last_pos = asc.length - 2;					
 				$(`table.tabla_tarifas_cargas  > tbody input#${key}[refid="kg"]`)
 					.val(`${this.getKgAdicional(asc)} €`)				
-			})
+			});
             
 			this.drawTomisslFills(elementos_carga);
 		}

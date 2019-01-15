@@ -12,10 +12,9 @@ class email
 
     }
 
-    public function sendMail($address, $subject, $body, $attachment = false)
+    public function sendMail($address, $subject, $body, $client_name, $attachment = false)
     {
         $PROYECT_CONFIG = parse_ini_file('config/config.ini');
-
 
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         $mail->IsHTML(true);
@@ -28,6 +27,7 @@ class email
 
         $cuerpo = file_get_contents('email_template.html', FILE_USE_INCLUDE_PATH);
         $cuerpo = str_replace('%url_link%', $body, $cuerpo);
+        $cuerpo = str_replace('%client_name%', $client_name, $cuerpo);
         //reemplazar sección de plantilla html con el css cargado y mensaje creado
         $cuerpo  = str_replace('<style id="style_email_template"></style>',"<style>$scss</style>",$cuerpo);
         $mail->IsSMTP(); // enable SMTP

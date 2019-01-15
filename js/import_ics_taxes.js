@@ -1,5 +1,5 @@
 $(function () {
-    class IcsTaxesTraslate {      
+    class IcsTaxesTraslate {
 
         constructor(arr) {
             var that = this;
@@ -62,7 +62,7 @@ $(function () {
             return this._array_lista_precios;
         }
 
-        get logLink(){
+        get logLink() {
             return this._logsLink;
         }
 
@@ -70,17 +70,25 @@ $(function () {
             this.checkRouteType();
             this.markedAllReportsByDefault();
 
-            this._liReportsDisponibles.click(function (event) {
-                $(this).toggleClass('selected');
+            this._liReportsDisponibles.on('click', function (event) {
+                console.info('das');
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    $(this).css('background', '#fff');
+                } else {
+                    $(this).addClass('selected');
+                    $(this).css('background', '#3949ab');
+                }
+                //$(this).toggleClass('selected');
             });
 
-            this._inputSearchClient.keyup((event) => {
+            this._inputSearchClient.on('keyup', (event) => {
                 if (event.which === 13) {
                     event.preventDefault();
                     this.sendServerRequest();
                 }
             });
-            this._buttonSendCientRange.click(() => {
+            this._buttonSendCientRange.on('click', () => {
                 event.preventDefault();
                 this.sendServerRequestRangeClients();
             });
@@ -103,16 +111,16 @@ $(function () {
                 });
 
                 array_nombres_reportes.forEach(function (element) {
-                    $('#chbox_' + element).prop('checked', true);                  
+                    $('#chbox_' + element).prop('checked', true);
                 }, this);
 
-                setTimeout(()=>{
+                setTimeout(() => {
                     $('#recipient-address').focus();
-                },800)
+                }, 800)
             });
 
             this._modalEmail.on('hide.bs.modal', (e) => {
-                var value = $("#modal-report").find("input"); 
+                var value = $("#modal-report").find("input");
                 (value).each(function (index, item) {
                     $("#div_show_report [id ='" + $(item).val() + "']").hide();
                 });
@@ -121,11 +129,11 @@ $(function () {
             });
 
         }
-               
+
         ExportPdf() {
             $('i#pdfExportTaxes').removeAttr("hidden");
             $(this).attr("disabled", true);
-            $(this).parent().append(`<i id="aaaText" style="display:block">Espere por favor...<i/>`);           
+            $(this).parent().append(`<i id="aaaText" style="display:block">Espere por favor...<i/>`);
             kendo.pdf.defineFont({
                 "DejaVu Sans": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans.ttf",
                 "DejaVu Sans|Bold": "http://cdn.kendostatic.com/2018.3.1017/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
@@ -144,18 +152,22 @@ $(function () {
                 }
             });
             //console.warn($("#div_show_report"));
-            kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin:{ top: "1.5cm", left: "1cm", right: "1cm", bottom: "1.2cm" }, scale: 0.5 })
-                .then( (group)=> {
+            kendo.drawing.drawDOM($("#div_show_report"), {
+                paperSize: "A4",
+                margin: {top: "1.5cm", left: "1cm", right: "1cm", bottom: "1.2cm"},
+                scale: 0.5
+            })
+                .then((group) => {
                     return kendo.drawing.exportPDF(group);
                 })
-                .done( (data)=> {
+                .done((data) => {
                     kendo.saveAs({
                         dataURI: data,
                         fileName: "Reportes.pdf"
                     });
                     $('#exampleModal2').modal('hide');
                     $(this).attr("disabled", false);
-                    $('i#pdfExportTaxes').attr("hidden",true);
+                    $('i#pdfExportTaxes').attr("hidden", true);
                     $('i#aaaText').remove();
                     swal("Sus tarifas se han generado correctamente.!!");
                 });
@@ -163,9 +175,9 @@ $(function () {
         }
 
         markedAllReportsByDefault() {
-            let liReportsDisponibles = $("ul#reportListAvailable li.available");
+            //let liReportsDisponibles = $("ul#reportListAvailable li.available");
             this._liReportsDisponibles.click();
-            this._liReportsDisponibles.addClass('selected');
+            //this._liReportsDisponibles.addClass('selected');
             $('ul.pagination > li.page-item#0').click();
         }
 
@@ -175,11 +187,12 @@ $(function () {
             //console.info(isExternalLink);
             if (isExternalLink) {
                 this.sendServerRequest(true, url.searchParams)
-            }/*else{
-                console.info(getPermisionsList());
-                //if(getPermisionsList().length === 0)
-                    //window.location.href = 'index.html';
-            }*/
+            }
+            /*else{
+                            console.info(getPermisionsList());
+                            //if(getPermisionsList().length === 0)
+                                //window.location.href = 'index.html';
+                        }*/
         }
 
         getTotalReportsSelected() {
@@ -192,7 +205,7 @@ $(function () {
             (!boolean) ? this._ajaxLoadRequest.removeAttr('hidden') : this._ajaxLoadRequest.attr('hidden', true);
         }
 
-        sendClientEmail() {            
+        sendClientEmail() {
             if ($("#recipient-address").val() && $("#recipient-subject").val() && $("#recipient-message").val()) {
                 $(this).attr("disabled", true);
                 $("#loadingEmail")
@@ -209,17 +222,21 @@ $(function () {
 
                 (value).each(function (index, item) {
                     if ($(item).prop('checked')) {
-                        $("#div_show_report [id ='" + $(item).val() + "']").show();                        
+                        $("#div_show_report [id ='" + $(item).val() + "']").show();
                     }
                     else {
-                        $("#div_show_report [id ='" + $(item).val() + "']").hide();                       
+                        $("#div_show_report [id ='" + $(item).val() + "']").hide();
                     }
-                   });
+                });
 
-                kendo.drawing.drawDOM($("#div_show_report"), { paperSize: "A4", margin:{ top: "1.5cm", left: "1cm", right: "1cm", bottom: "1.2cm" }, scale: 0.5 })
+                kendo.drawing.drawDOM($("#div_show_report"), {
+                    paperSize: "A4",
+                    margin: {top: "1.5cm", left: "1cm", right: "1cm", bottom: "1.2cm"},
+                    scale: 0.5
+                })
 
-                    .then( (group) => {
-                        return kendo.drawing.exportPDF(group);                        
+                    .then((group) => {
+                        return kendo.drawing.exportPDF(group);
                     })
                     .done((data) => {
                         $.ajax({
@@ -236,10 +253,10 @@ $(function () {
                             success: (result) => {
                                 let response = JSON.parse(result);
                                 //console.info(response);
-                                if(response['status'].ok === true){
+                                if (response['status'].ok === true) {
                                     swal("Operación Finalizada", response['status'].message, "success");
                                     //alert(response['status'].message)
-                                }else{
+                                } else {
                                     swal("Error!", response['status'].error, "error");
                                     //alert(response['status'].error)
                                 }
@@ -261,7 +278,7 @@ $(function () {
                                     .attr("hidden", true);
                             }
                         });
-                    });                
+                    });
 
             } else
                 $('#errorEmailSender').removeAttr('hidden');
@@ -284,7 +301,7 @@ $(function () {
             $('span.this_year').html(new Date().getFullYear())
         }
 
-        showAlertClientMessage(message){
+        showAlertClientMessage(message) {
             $('#msgAlertReportTodos').html(message);
         }
 
@@ -368,7 +385,7 @@ $(function () {
                     "id_empresa": this._inputSearchEmpresa.val()
                 };
             else
-                params = { "route": "get-client-rates", "base64": searchParams.get("external_source") };
+                params = {"route": "get-client-rates", "base64": searchParams.get("external_source")};
             if (external_link || this.runCommonValidations()) {
                 this.showHideLoadSpinner(false);
                 $('#msgAlertReportNacional').attr('hidden', true);
@@ -390,53 +407,56 @@ $(function () {
                             .css('color', 'black')
                             .show();
                         var reportData = JSON.parse(result);
-                        var results = reportData['results'];                      
+                        var results = reportData['results'];
                         var elementos_nacionales = {
-                            "522": { "id": "522", "arraySelf": [] },
-                            "501": { "id": "501", "arraySelf": [] },
-                            "840": { "id": "840", "arraySelf": [] },
-                            "329": { "id": "329", "arraySelf": [] },
-                            "523": { "id": "523", "arraySelf": [] },
-                            "503": { "id": "503", "arraySelf": [] },
-                            "841": { "id": "841", "arraySelf": [] },
-                            "330": { "id": "330", "arraySelf": [] },
-                            "549": { "id": "549", "arraySelf": [] },
-                            "504": { "id": "504", "arraySelf": [] },
-                            "842": { "id": "842", "arraySelf": [] },
-                            "331": { "id": "331", "arraySelf": [] },
-                            "525": { "id": "525", "arraySelf": [] },
-                            "505": { "id": "505", "arraySelf": [] },
-                            "318": { "id": "318", "arraySelf": [] },
-                            "322": { "id": "322", "arraySelf": [] },
-                            "310": { "id": "310", "arraySelf": [] },
-                            "314": { "id": "314", "arraySelf": [] },
-                            "319": { "id": "319", "arraySelf": [] },
-                            "323": { "id": "323", "arraySelf": [] },
-                            "315": { "id": "315", "arraySelf": [] },
-                            "320": { "id": "320", "arraySelf": [] },
-                            "324": { "id": "324", "arraySelf": [] },
-                            "312": { "id": "312", "arraySelf": [] },
-                            "316": { "id": "316", "arraySelf": [] },};
+                            "522": {"id": "522", "arraySelf": []},
+                            "501": {"id": "501", "arraySelf": []},
+                            "840": {"id": "840", "arraySelf": []},
+                            "329": {"id": "329", "arraySelf": []},
+                            "523": {"id": "523", "arraySelf": []},
+                            "503": {"id": "503", "arraySelf": []},
+                            "841": {"id": "841", "arraySelf": []},
+                            "330": {"id": "330", "arraySelf": []},
+                            "549": {"id": "549", "arraySelf": []},
+                            "504": {"id": "504", "arraySelf": []},
+                            "842": {"id": "842", "arraySelf": []},
+                            "331": {"id": "331", "arraySelf": []},
+                            "525": {"id": "525", "arraySelf": []},
+                            "505": {"id": "505", "arraySelf": []},
+                            "318": {"id": "318", "arraySelf": []},
+                            "322": {"id": "322", "arraySelf": []},
+                            "310": {"id": "310", "arraySelf": []},
+                            "314": {"id": "314", "arraySelf": []},
+                            "319": {"id": "319", "arraySelf": []},
+                            "323": {"id": "323", "arraySelf": []},
+                            "315": {"id": "315", "arraySelf": []},
+                            "320": {"id": "320", "arraySelf": []},
+                            "324": {"id": "324", "arraySelf": []},
+                            "312": {"id": "312", "arraySelf": []},
+                            "316": {"id": "316", "arraySelf": []},
+                        };
                         var elementos_insulares = {
-                            "318": { "id": "318", "arraySelf": [] },
-                            "322": { "id": "322", "arraySelf": [] },
-                            "310": { "id": "310", "arraySelf": [] },
-                            "314": { "id": "314", "arraySelf": [] },
-                            "319": { "id": "319", "arraySelf": [] },
-                            "323": { "id": "323", "arraySelf": [] },
-                            "311": { "id": "311", "arraySelf": [] },
-                            "315": { "id": "315", "arraySelf": [] },
-                            "320": { "id": "320", "arraySelf": [] },
-                            "324": { "id": "324", "arraySelf": [] },
-                            "312": { "id": "312", "arraySelf": [] },
-                            "316": { "id": "316", "arraySelf": [] },
-                            "1655": { "id": "1655", "arraySelf": [] },
-                            "1665": { "id": "1665", "arraySelf": [] },};
+                            "318": {"id": "318", "arraySelf": []},
+                            "322": {"id": "322", "arraySelf": []},
+                            "310": {"id": "310", "arraySelf": []},
+                            "314": {"id": "314", "arraySelf": []},
+                            "319": {"id": "319", "arraySelf": []},
+                            "323": {"id": "323", "arraySelf": []},
+                            "311": {"id": "311", "arraySelf": []},
+                            "315": {"id": "315", "arraySelf": []},
+                            "320": {"id": "320", "arraySelf": []},
+                            "324": {"id": "324", "arraySelf": []},
+                            "312": {"id": "312", "arraySelf": []},
+                            "316": {"id": "316", "arraySelf": []},
+                            "1655": {"id": "1655", "arraySelf": []},
+                            "1665": {"id": "1665", "arraySelf": []},
+                        };
                         var elementos_carga = {
-                            "753": { "id": "753", "arraySelf": [] },
-                            "752": { "id": "752", "arraySelf": [] },
-                            "1674": { "id": "1674", "arraySelf": [] },
-                            "1844": { "id": "1844", "arraySelf": [] },};
+                            "753": {"id": "753", "arraySelf": []},
+                            "752": {"id": "752", "arraySelf": []},
+                            "1674": {"id": "1674", "arraySelf": []},
+                            "1844": {"id": "1844", "arraySelf": []},
+                        };
 
                         if (reportData['status'].ok === false) {
                             alert(reportData['status'].message)
@@ -449,7 +469,7 @@ $(function () {
                             var reporteInsular = {};
                             var reporteCarga = {};
                             var condicionesGenerales = {};
-                            
+
                             let msg = results[0]['baja'] === 1 ? "Inactivo " : "";
                             let msg1 = results[0]['BloqueoTrafico'] === 1 ? "Bloqueado en Tráfico," : "";
                             let msg2 = results[0]['BloqueoNacional'] === 1 ? "Bloqueado Nacional" : "";
@@ -477,12 +497,12 @@ $(function () {
                                         .hide();
                                 }
 
-                               let carburante=results[0]['carburante'];
-                               //console.warn(results[0]);
-                              if(carburante>1){
-                              $('span.fixed-color2').css('color', 'black');
-                              $('span.fixed-color2').html(`No Incluido el  ${carburante} % de carburante`);
-                               }
+                                let carburante = results[0]['carburante'];
+                                //console.warn(results[0]);
+                                if (carburante > 1) {
+                                    $('span.fixed-color2').css('color', 'black');
+                                    $('span.fixed-color2').html(`No Incluido el  ${carburante} % de carburante`);
+                                }
 
 
                                 if (elementos_nacionales[elemento_tarifario]) {
@@ -495,7 +515,7 @@ $(function () {
                                     reporteInsular = new IcsReporteInsular(results[key]);
                                     reporteInsular.drawRangeFills();
                                 }
-                                 if (elementos_carga[elemento_tarifario]) {
+                                if (elementos_carga[elemento_tarifario]) {
                                     elementos_carga[elemento_tarifario].arraySelf.push(results[key]);
                                     reporteCarga = new IcsReporteCarga(results[key]);
                                     reporteCarga.drawRangeFills();
@@ -503,24 +523,27 @@ $(function () {
 
                                 }
 
-                                if(parseInt(results[key]['elemento'])>=5000 && parseInt(results[key]['elemento'])<=5999){
+                                if (parseInt(results[key]['elemento']) >= 5000 && parseInt(results[key]['elemento']) <= 5999) {
                                     especialRateCharge = true;
                                 }
                                 cont++;
 
                             });
-                                
+
                             reporteCarga.drawAditionalFills(elementos_carga);
                             reportNac.drawAditionalFills(elementos_nacionales);
                             reporteInsular.drawAditionalFills(elementos_insulares);
-                           if(especialRateCharge){
+                            if (especialRateCharge) {
                                 this.showAlertClientMessage(`Este cliente tiene una tarifa de carga especial.`);
                                 reporteCarga.cleanTable();
-                           }
-                            
-                    }
+                            }
+                        }
                         this.showHideLoadSpinner(true);
                         $('.ngdialog-overlay-blocking').attr('hidden', true);
+                        if(window.getPermisionsList().indexOf("edited-inputs-report") === -1){
+                            $('input').attr("disabled", true);
+                            $('input').css("background", "white");
+                        }
                         console.info('Complete request');
                     },
                     error: (error) => {
@@ -565,7 +588,7 @@ $(function () {
         }
 
         addProgessBar(porcent) {
-            this.progressBarElement.animate({ width: `${porcent}%` }, 150)
+            this.progressBarElement.animate({width: `${porcent}%`}, 150)
         }
 
         addConsoleText(text, appendLastElemtent) {
@@ -592,14 +615,14 @@ $(function () {
                 // Ready The Event For When A File Gets Selected
                 reader.onload = e => {
                     var data = e.target.result;
-                    var cfb = XLS.CFB.read(data, { type: 'binary' });
+                    var cfb = XLS.CFB.read(data, {type: 'binary'});
                     var wb = XLS.parse_xlscfb(cfb);
                     var listaPrecios = [];
                     // Loop Over Each Sheetarray_lista_preciosarray_lista_precios
                     wb.SheetNames.forEach((sheetName) => {
                         // Obtain The Current Row As CSV
                         var sCSV = XLS.utils.make_csv(wb.Sheets[sheetName]);
-                        var data = XLS.utils.sheet_to_json(wb.Sheets[sheetName], { header: 1 });
+                        var data = XLS.utils.sheet_to_json(wb.Sheets[sheetName], {header: 1});
                         $.each(data, (indexR, valueR) => {
                             //Insertando en el array de precios cada fila como objeto...
                             listaPrecios.push(new PrecioActual(data[indexR][0], data[indexR][1], data[indexR][3], data[indexR][4], 'tramo_local'))
