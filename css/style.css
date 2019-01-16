@@ -135,13 +135,19 @@ span.fixed-color{
   font-weight: bold;
 }
 span.fixed-color1{
-  color: transparent;
+  color: black;
   font-size: 2px;
   font-weight: bold;
 
 }
 span.fixed-color2{
   color: transparent;
+  
+  font-weight: bold;
+
+}
+span.fixed-color3{
+  color: black;
   
   font-weight: bold;
 
