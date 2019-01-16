@@ -88,7 +88,7 @@ $(function () {
                     this.sendServerRequest();
                 }
             });
-            this._buttonSendCientRange.on('click', () => {
+            this._buttonSendCientRange.on('click', (event) => {
                 event.preventDefault();
                 this.sendServerRequestRangeClients();
             });
