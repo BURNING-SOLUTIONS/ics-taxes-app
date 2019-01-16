@@ -490,11 +490,11 @@ $(function () {
                                 let is_national_tarife = (results[0]['tarifa'].indexOf("NR") >= 0 || results[0]['tarifa'].indexOf("N2") >= 0);
                                 if (!(results[0]['tarifa'] && is_national_tarife)) {
                                     $('span.fixed-color1')
-                                        .css('color', 'black')
-                                        .show();
-                                    $('span.fixed-color')
                                         .css('color', 'transparent')
                                         .hide();
+                                    $('span.fixed-color')
+                                        .css('color', 'black')
+                                        .show();
                                 }
 
                                 let carburante = results[0]['carburante'];
