@@ -401,11 +401,11 @@ $(function () {
                         $('#buttonActions').removeAttr('hidden');
                         $('span.fixed-color2').html(``);
                         $('span.fixed-color1')
-                            .css('color', 'transparent')
-                            .hide();
-                        $('span.fixed-color')
                             .css('color', 'black')
                             .show();
+                        $('span.fixed-color')
+                            .css('color', 'transparent')
+                            .hide();
                         var reportData = JSON.parse(result);
                         var results = reportData['results'];
                         var elementos_nacionales = {
@@ -488,7 +488,9 @@ $(function () {
                                 reporteLocal.drawRangeFills();
 
                                 let is_national_tarife = (results[0]['tarifa'].indexOf("NR") >= 0 || results[0]['tarifa'].indexOf("N2") >= 0);
-                                if (!(results[0]['tarifa'] && is_national_tarife)) {
+                                //console.warn(is_national_tarife);
+                                if (/*!(results[0]['tarifa'] &&*/ is_national_tarife){
+                                    //console.warn("pase por aqui ");
                                     $('span.fixed-color1')
                                         .css('color', 'transparent')
                                         .hide();
