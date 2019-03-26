@@ -55,12 +55,14 @@ class email
         }
         try {
             $domain = explode("@",$address);
-            if(filter_var(gethostbyname($domain[1]), FILTER_VALIDATE_IP))
+            
+            if( checkdnsrr($domain[1])/*filter_var(gethostbyname($domain[1]), FILTER_VALIDATE_IP)*/)
             {
                 $mail->Send();
             }else {
                 throw new Exception("El nombre del servidor de dominio email proporcionado es incorrecto.",1525);
             }
+
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -97,8 +99,8 @@ class email
         }
         try {
             $domain = explode("@",$address);
-
-            if(filter_var(gethostbyname($domain[1]), FILTER_VALIDATE_IP))
+            
+            if( checkdnsrr($domain[1])/*filter_var(gethostbyname($domain[1]), FILTER_VALIDATE_IP)*/)
             {
                 $mail->Send();
             }else {
