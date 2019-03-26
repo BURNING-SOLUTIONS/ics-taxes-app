@@ -39,7 +39,7 @@ function processClientsRangeController($sqlConection)
                     if ($mode == "dev") {
                         $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
                     } else {
-                        #$pruebacorreo->sendMail($cliente['EMail_Cli'], "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
+                        $pruebacorreo->sendMail($cliente['EMail_Cli'], "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
                     }
                 }
                 if ($filterActives) {
@@ -48,7 +48,7 @@ function processClientsRangeController($sqlConection)
                         if ($mode == "dev") {
                             $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
                         } else {
-                           # $pruebacorreo->sendMail($cliente['EMail_Cli'], "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
+                            $pruebacorreo->sendMail($cliente['EMail_Cli'], "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
                         }
                         continue;
                     }
@@ -59,7 +59,7 @@ function processClientsRangeController($sqlConection)
                         if ($mode == "dev") {
                             $pruebacorreo->sendMail("test1@instapack.es", "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
                         }else{
-                            #$pruebacorreo->sendMail($cliente['EMail_Cli'], "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
+                            $pruebacorreo->sendMail($cliente['EMail_Cli'], "$PROYECT_CONFIG[massive_email_subject]" . " " . $cliente['Nom_Cli'], "$PROYECT_CONFIG[massive_email_body] $url", $cliente['Nom_Cli']);
                         }
                         continue;
                     }
