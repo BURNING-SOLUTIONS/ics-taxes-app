@@ -49,8 +49,8 @@ class sqlServerConecction
                 "Database" => $this->databaseName,
                 "UID" => $this->username,
                 "PWD" => $this->password));
-        if (!$new_conn) {
-            throw new Exception("Ha ocurrido un error conectandose a la base de datos");
+        if ($new_conn === false) {
+            throw new Exception("Ha ocurrido un error conectandose a la base de datosssss");
         }
         $this->setConnection($new_conn);
     }

@@ -1,2 +1,6 @@
 node_modules
 logs
+.idea
+dist
+50x.html
+config/config.ini
